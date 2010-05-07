@@ -1,0 +1,31 @@
+!!! XML
+%feed{:xmlns => 'http://www.w3.org/2005/Atom'}
+
+  - published_url = config['published_url']
+  %id= published_url
+  %link{:href => published_url}
+  %link{:rel => 'self', :href => File.join(published_url, 'index.atom')}
+  %title= config['title']
+  %subtitle{:type => 'html'}= render_haml_file("#{@config_file}:description", config['description'], :config => config)
+
+  %updated= config[:updated_at].iso8601
+
+  - config[:authors].each do |author|
+    %author
+      %name= author
+
+  - entries[0, config['feed_length'].to_i].each do |entry|
+    - entry_url = entry[:published_url]
+    %entry
+      %id= entry_url
+      %link{:href => entry_url}
+      %title= entry['title']
+      %updated= entry[:updated_at].iso8601
+      %published= entry[:created_at].iso8601
+
+      - entry[:authors].each do |author|
+        %author
+          %name= author
+
+      - entry[:categories].each do |category|
+        %category{:term => category}

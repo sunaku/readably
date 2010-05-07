@@ -1,0 +1,191 @@
+##
+# This is an example blog entry that demonstrates the file format for
+# all blog entries.  Blog entries are YAML documents (plain text
+# files) that are composed of key-value pairs, known as "parameters".
+#
+# The available parameters are described
+# below, and their descriptions are marked
+# with one or more of the following emblems:
+#
+# (Required)    This parameter is required.  If it is
+#               not present, then an error will occur.
+#
+# (Optional)    This parameter is completely optional.
+#
+# (HAML)        This parameter must use HAML syntax.
+#
+# You can also define and use your own custom parameters
+# in this blog entry.  An example of this is shown below.
+##
+
+##
+# (Required)
+#
+# Title of this blog entry.
+#
+title: Today was a great day!
+
+##
+# (Optional)
+#
+# The date when this blog entry written.
+#
+# Here are some examples:
+#
+#   date: Thu, 01 Jan 1970 08:00:00 GMT
+#   date: 1970-01-01 8:00am
+#   date: 1/1/1970 8:00am
+#   date: jan 1st 1970 16:00 -08:00
+#   date: 1 january 1970
+#   date: Wed Dec 13 21:31:04 PST 2006
+#
+# You can also specify dates in other languages.  For
+# example, the following date
+#
+#   date: Thursday, 01 January 1970 03:15:00 PM
+#
+# can be written in German as:
+#
+#   date: Donnerstag, 01 Januar 1970 15:15:00
+#
+# For more information about the format of this parameter, see the
+# documentation for the Time.parse method by running this command:
+#
+#   ri Time.parse
+#
+# or by visiting this URL:
+#
+#   http://www.ruby-doc.org/core/classes/Time.html#M000297
+#
+# If no value is given for this parameter, then the last
+# modification time of this file will be used instead.
+#
+date: 7 May 2010
+
+
+##
+# (Optional)
+#
+# Author(s) of this blog entry.
+#
+# Examples:
+#
+#   author: Foo Bar
+#
+#   author:
+#   - Foo Bar
+#   - Qux Moz
+#   - Another A. U. Thor
+#
+# If no value is given, then the value of the "author"
+# parameter from the `config.yaml` file will be used.
+#
+author: Foo Bar
+
+##
+# (Optional)
+#
+# The categories under which blog entry belongs.
+#
+# Examples:
+#
+#   category: example
+#
+#   category:
+#   - reference
+#   - welcome
+#
+category:
+- example
+- reference
+- welcome
+
+##
+# (Optional)
+#
+# This is an example of how you can specify your own custom
+# parameters and use them in the content of this blog entry.
+#
+your_own_parameter1: hello world
+your_own_parameter2: ruby rocks!
+
+##
+# (Required) (HAML)
+#
+# The content of this blog entry.
+# HAML syntax must be used here.
+#
+content: |
+  %p
+    This blog entry serves as a reference for the file format of a blog entry.
+
+  %p
+    Look at the source of this blog entry by reading the
+    %tt= entry[:source_file]
+    file, whose contents are also
+    %a{href: '#source'} shown below.
+
+  %h1 Adding your own parameters
+
+  %p
+    You can add arbitrary parameters to a blog entry source file (which is
+    really just a YAML file) and use them in the blog entry's content.
+
+  %p
+    For example, in the source of this blog entry, you will find two custom
+    parameters whose names begin with "your_own_parameter". To insert the
+    values of these parameters into the blog entry's content, we use the
+    following HAML directive:
+
+    %pre %pre= entry['your_own_parameter1']
+    %pre %pre= entry['your_own_parameter2']
+
+    Which produce the following results:
+
+    %pre= entry['your_own_parameter1']
+    %pre= entry['your_own_parameter2']
+
+  %h1#source Source of this blog entry
+
+  %pre= File.read entry[:source_file]
+
+##
+# (Optional)
+#
+# Updates to this blog entry that came after it was already published.
+#
+# Syntax:
+#
+#   update:
+#     DATE: CONTENT
+#
+# DATE represents the time when the update was made, and CONTENT represents
+# the message of the update.  These values must obey the same rules and
+# conditions as the "date" and "content" parameters (see above) respectively.
+#
+# Examples:
+#
+#   update:
+#     2 January 2012: |
+#       :textile
+#         I just won the lottery! --- That's just *unbelievable*!
+#
+#     4 February 2012: |
+#       :markdown
+#         Yaaargh!  70% of *my* lottery winnings are gone to **taxes**! `>:-O`
+#
+#     24 November 2011: I wish I could win the lottery.  Sigh!
+#
+update:
+  2 January 2012: |
+    I just won the lottery! &mdash; That's just
+    %strong unbelievable!
+
+  4 February 2012: |
+    Yaaargh!  70% of
+    %em my
+    lottery winnings are gone to
+    %strong taxes!
+    %code >:-O
+
+  24 November 2011: I wish I could win the lottery.  Sigh!

@@ -1,0 +1,233 @@
+!column_width = 33em
+!column_space = 3em
+!column_count = 3
+
+=mono_font
+  font-family: consolas, menlo, 'dejavu sans mono', 'bitstream vera sans mono', 'droid sans mono', monaco, 'lucida console', fixedsys, monospace
+
+=serif_font
+  font-family: constantia, palatino, 'dejavu serif', 'bistream vera serif', 'droid serif', serif
+
+=sans_font
+  font-family: calibri, 'dejavu sans', 'bitstream vera sans', 'droid sans', helvetica, sans-serif
+
+=heading
+  +serif_font
+  font-weight: normal
+  line-height: 1.25em
+
+=content
+  +sans_font
+  line-height: 1.5em
+
+=center_text
+  display: block
+  text-align: center
+
+=center_elem
+  margin: auto
+
+=bubble
+  border-radius: 1em
+  -moz-border-radius: 1em
+  -webkit-border-radius: 1em
+  padding: 0.75em 1em 0.75em 1em
+
+body
+  +content
+  margin: 2em
+  font-size: 1em
+
+h1, h2, h3, h4, h5, h6
+  +heading
+
+// gradual change
+h1
+  font-size: 200%
+
+h2
+  font-size: 180%
+
+h3
+  font-size: 160%
+
+h4
+  font-size: 140%
+
+h5
+  font-size: 120%
+
+h6
+  font-size: 100%
+
+pre, code, samp, kbd, tt
+  +mono_font
+
+img
+  +center_elem
+  display: block
+
+#body
+  display: block
+
+  > header
+    +center_text
+    clear: both
+    margin-bottom: 2em
+
+    > a.index
+      +heading
+      font-size: 200%
+
+    > .author
+      margin-bottom: 0.25em
+
+  > .description
+    +center_text
+    margin-bottom: 2em
+
+  > nav.entries > table
+    +center_elem
+    border-collapse: collapse
+
+    tr:hover
+      // CursorLine (zenburn.vim)
+      background-color: #434443
+
+    tr:target
+      // CursorColumn (zenburn.vim)
+      background-color: #4f4f4f
+
+    td.title > a
+      display: block
+      padding-top: 0.5em
+      padding-bottom: 0.5em
+      padding-right: 1em
+
+    td.date
+      white-space: nowrap
+
+  > aside
+    +bubble
+    float: right
+    clear: right
+    width: 40%
+    margin-left: 1.5em
+    // Pmenu (zenburn.vim)
+    color: #9f9f9f
+    background-color: #2c2e2e
+
+    & + aside
+      margin-top: 1em
+
+    &.update > .title
+      +center_text
+      font-weight: bold
+      // PmenuSel (zenburn.vim)
+      color: #d0d0a0
+
+  > .content
+    text-align: justify
+
+    h1, h2, h3, h4, h5, h6
+      margin-top: 1em
+
+    h1
+      font-size: 190%
+
+  > footer
+    +center_text
+    margin-top: 2em
+
+    > p
+      font-size: 80%
+
+      &.copyright
+        margin-bottom: 0
+
+      &.credits
+        margin-top: 0
+
+@media screen
+  body
+    // Normal (zenburn.vim)
+    color: #dcdccc
+    background-color: #3f3f3f
+
+    // NonText (zenburn.vim)
+    !column_color = #5b605e
+    !column_ruler = "thin" "solid" !column_color
+
+    -moz-column:
+      count= !column_count
+      width= !column_width
+      gap=   !column_space
+      rule=  !column_ruler
+
+    -webkit-column:
+      count= !column_count
+      width= !column_width
+      gap=   !column_space
+      rule=  !column_ruler
+
+  #body
+    +center_elem
+    max-width= !column_width
+
+  h1, h2, h3, h4, h5, h6
+    // Define (zenburn.vim)
+    color: #ccdc90
+
+  a
+    text-decoration: none
+    font-weight: bold
+    // Number (zenburn.vim)
+    color: #8cd0d3
+
+    &:hover
+      text-decoration: underline
+
+  em, i, var
+    font-weight: bolder
+    // Type (zenburn.vim)
+    color: #dfdfbf
+
+  strong, b
+    // Function (zenburn.vim)
+    color: #efef8f
+
+  // XXX: fix for strong colors being applied to
+  //      IntenseDebate comment form submit link
+  #idc-container .idc-r strong
+    color: black
+
+  blockquote
+    // Define (zenburn.vim)
+    color: #ffcfaf
+
+  code, samp, kbd, tt
+    // Boolean (zenburn.vim)
+    color: #dca3a3
+
+  pre
+    +bubble
+    overflow: auto
+    line-height: normal
+
+    // Markdown renders 4-space indented blocks as <pre><code>
+    // however, I want to treat them as pure <pre> blocks only!
+    &, & > code:only-child
+      // Pmenu (zenburn.vim)
+      color: #9fafaf
+      background-color: #262626
+
+@media print
+  blockquote
+    +heading
+    font-style: italic
+
+  #body
+    > header > a.index,
+    > .comments,
+    > footer
+      display: none

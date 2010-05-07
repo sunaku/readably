@@ -1,0 +1,25 @@
+!!! 5
+%html
+  != render_haml_file('template/header.html.haml', nil, :config => config, :target => config)
+
+  %body
+    %article#body
+
+      %header
+        %h1.title= config['title']
+        .author= config['author']
+
+      .description!= render_haml_file("#{@config_file}:description", config['description'], :config => config)
+
+      - unless entries.empty?
+        %nav.entries
+          %table
+            - entries.each do |entry|
+              %tr{:id => entry[:id]}
+                %td.title
+                  %a{:href => entry[:url], :name => entry[:id]}>= entry['title']
+                %td.date
+                  - date = entry[:updated_at]
+                  %time{:datetime => date.iso8601}>= date.strftime('%F')
+
+      != render_haml_file('template/footer.html.haml', nil, :config => config, :target => config)

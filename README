@@ -1,0 +1,102 @@
+Readably is a minimal static blog engine that emits clean, readable Web pages.
+You can view them locally, on your own computer, without needing a Web server,
+and later publish them to any Web server---they will function just as they did
+locally, on your own computer.  That is the meaning of a *static* blog engine!
+
+Following KISS philosophy, Readably is a grand simplification of Rassmalog[1].
+It has simple navigation that works well in both text-mode Web browsers (such
+as Lynx, elinks, and w3m) and modern HTML5-compliant Web browsers alike.  And
+its blog entries are beautifully printable in the latter kind of Web browsers.
+
+It has an internal categorization system that will (coming soon) train a
+Bayesian classifier to help your visitors directly find related blog entries
+instead of manually wading through pages and pages of categories themselves.
+
+See my personal blog[2] for an example of what is possible with Readably.
+
+  [1]: http://snk.tuxfamily.org/lib/rassmalog/
+  [2]: http://snk.tuxfamily.org/log/
+
+Prerequisites:
+
+  * Ruby 1.9 or newer     -  http://www.ruby-lang.org
+  * Haml 2.2 or newer     -  http://www.haml-lang.org
+
+Recommendations:
+
+  * RedCloth (Textile)    -  gem install RedCloth
+  * RDiscount (Markdown)  -  gem install rdiscount
+
+Installing:
+
+  # install
+  git clone git://github.com/sunaku/readably.git
+
+  # branch
+  cd readably
+  git checkout -b personal
+  cp -vb EXAMPLE.config.yaml config.yaml
+
+Configuring:
+
+  * Edit the config.yaml and template/* files to your liking.
+
+  * Edit the rakefile to configure the blog processing logic.
+    (This isn't really necessary, but you are free to do so.)
+
+Blogging:
+
+  # create content/ directory if necessary
+  mkdir -p content/
+
+  # create a new blog entry (*.readably file)
+  cp EXAMPLE.entry.readably content/your-entry-file-name.readably
+  $EDITOR content/your-entry-file-name.readably
+
+  # create a new blog entry (*.readably file) in a nested directory
+  #
+  cp EXAMPLE.entry.readably content/your/path/your-entry-file-name.readably
+  $EDITOR content/your/path/your-entry-file-name.readably
+
+Running:
+
+  # render the blog (default task)
+  rake
+  rake default      # same as above
+  rake render       # same as above
+
+  # remove rendered files
+  rake clean
+
+  # see available tasks
+  rake --tasks
+
+Previewing:
+
+  $BROWSER content/index.html
+
+Publishing:
+
+  # upload the content/ directory (omit *.readably files)
+  # to your chosen $DESTINATION; trailing slash is needed!
+  #
+  rsync -auv content/ --exclude '*.readably' $DESTINATION/
+
+Upgrading:
+
+  # assuming that "origin" points to github.com/sunaku/readably
+  git fetch origin
+  git checkout master
+  git rebase origin/master
+  git checkout personal
+  git rebase master
+
+Contributing:
+
+  Fork this project on GitHub and send pull requests.
+
+Bugs, Features, Issues, Questions:
+
+  File a report on the issue tracker:
+  http://github.com/sunaku/readably/issues/
+

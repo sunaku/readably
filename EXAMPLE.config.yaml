@@ -1,0 +1,112 @@
+##
+# Title of your blog.
+#
+# Examples:
+#
+#   title: My cool blog!
+#
+title:
+
+##
+# Author(s) of this blog.
+#
+# Examples:
+#
+#   author: Foo Bar
+#
+#   author:
+#   - Foo Bar
+#   - Qux Moz
+#   - Another A. U. Thor
+#
+author:
+
+##
+# (HAML)
+#
+# Description of your blog.
+# HAML syntax must be used.
+#
+# Examples:
+#
+#   description: This is my cool blog.
+#
+#   description: |
+#     Hey, you know what?
+#
+#     :markdown
+#       This is my *cool* blog.
+#
+#     :textile
+#       I _certainly_ think so!
+#
+description:
+
+##
+# URL where your blog is published.
+#
+# Examples:
+#
+#   published_url: http://you.your_host.com/path/to/your/blog/
+#
+#   published_url: http://your_host.com/~you/path/to/your/blog/
+#
+published_url:
+
+##
+# The character set used in your blog entries.
+#
+# Examples:
+#
+#   charset: utf-8       # Unicode (for all languages)
+#
+#   charset: x-sjis      # Shift JIS (for Japanese only)
+#
+charset: utf-8
+
+##
+# Format of dates in the blog.
+# See http://man.cx/strftime(3)
+#
+# To use your system locale's preferred date format:
+#
+#   date_format: %c
+#
+date_format: %d %B %Y
+
+##
+# Locale for formatting dates.
+# See http://en.wikipedia.org/wiki/Locale
+#
+# To use the default USA English locale, leave this parameter blank:
+#
+#   date_locale:
+#
+# To see what locales your system supports, run the following command:
+#
+#   locale -a
+#
+date_locale:
+
+##
+# Number of most-recent entries to put in the syndication feed.
+#
+# Examples:
+#
+#   feed_length: 10
+#
+feed_length: 1
+
+##
+# Service that hosts your blog entry comments.
+#
+# Examples:
+#
+#  comments_service: IntenseDebate
+#  comments_account: XXX
+#
+#  comments_service: Disqus
+#  comments_account: XXX     # where XXX is from http://disqus.com/forums/XXX/
+#
+comments_service:
+comments_account:
