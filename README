@@ -1,14 +1,14 @@
 Readably is a minimal static blog engine that emits clean, readable Web pages.
-You can view them locally, on your own computer, without needing a Web server,
+You can view them locally on your own computer without needing a Web server,
 and later publish them to any Web server---they will function just as they did
-locally, on your own computer.  That is the meaning of a *static* blog engine!
+locally on your own computer.  This is the benefit of a *static* blog engine!
 
 Following KISS philosophy, Readably is a grand simplification of Rassmalog[1].
-It has simple navigation that works well in both text-mode Web browsers (such
-as Lynx, elinks, and w3m) and modern HTML5-compliant Web browsers alike.  And
+It has simple navigation that works well in text-mode Web browsers (such as
+Lynx, elinks, and w3m) and in modern HTML5-compliant Web browsers also.  And
 its blog entries are beautifully printable in the latter kind of Web browsers.
 
-It has an internal categorization system that will (coming soon) train a
+(coming soon) It has an internal categorization system that will train a
 Bayesian classifier to help your visitors directly find related blog entries
 instead of manually wading through pages and pages of categories themselves.
 
@@ -22,11 +22,6 @@ Prerequisites:
   * Ruby 1.8.7 or newer   -  http://www.ruby-lang.org
   * Haml 2.2 or newer     -  http://www.haml-lang.com
 
-Recommendations:
-
-  * RedCloth (Textile)    -  gem install RedCloth
-  * RDiscount (Markdown)  -  gem install rdiscount
-
 Installing:
 
   # install
@@ -35,6 +30,10 @@ Installing:
   # branch
   cd readably
   git checkout -b personal
+
+  # seed
+  mkdir content/
+  cp -vb EXAMPLE.entry.readably content/
   cp -vb EXAMPLE.config.yaml config.yaml
 
 Configuring:
@@ -46,17 +45,15 @@ Configuring:
 
 Blogging:
 
-  # create content/ directory if necessary
-  mkdir -p content/
+  Create a new blog entry (*.readably file) from the template:
 
-  # create a new blog entry (*.readably file)
-  cp EXAMPLE.entry.readably content/your-entry-file-name.readably
-  $EDITOR content/your-entry-file-name.readably
+    cp EXAMPLE.entry.readably content/your-entry-file-name.readably
+    $EDITOR content/your-entry-file-name.readably
 
-  # create a new blog entry (*.readably file) in a nested directory
-  #
-  cp EXAMPLE.entry.readably content/your/path/your-entry-file-name.readably
-  $EDITOR content/your/path/your-entry-file-name.readably
+  Create a new blog entry (*.readably file) in a nested directory:
+
+    cp EXAMPLE.entry.readably content/your/path/your-entry-file-name.readably
+    $EDITOR content/your/path/your-entry-file-name.readably
 
 Running:
 
