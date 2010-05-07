@@ -6,7 +6,7 @@
     %article#body
 
       %header
-        %a.index{:href => compact_file_join(entry[:index_path], 'index.html#' + entry[:id])}= config['title']
+        %a.index{:href => path_join(entry[:index_path], 'index.html#' + entry[:id])}= config['title']
 
         %h1.title= entry['title']
 

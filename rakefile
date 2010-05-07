@@ -43,7 +43,7 @@ def comma_join array
   array.join(', ')
 end
 
-def compact_file_join *array
+def path_join *array
   File.join(*array.compact)
 end
 
@@ -168,13 +168,13 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
     end
 
     entry[:url] = sanitized_file.sub(/^.*?\//, '').ext('html')
-    entry[:published_url] = File.join(@config['published_url'], entry[:url])
+    entry[:published_url] = path_join(@config['published_url'], entry[:url])
     entry[:id] = entry[:url].pathmap('%X')
 
     entry[:index_path] = entry[:url].scan('/').map { '..' }.join('/')
     entry[:index_path] = nil if entry[:index_path].empty?
 
-    entry[:output_file] = output_file = File.join(@output_dir, entry[:url])
+    entry[:output_file] = output_file = path_join(@output_dir, entry[:url])
     entry_sources_by_output[output_file] << source_file
 
     entry[:created_at] =
