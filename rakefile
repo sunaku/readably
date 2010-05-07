@@ -248,6 +248,9 @@ end
 # render blog output
 #-----------------------------------------------------------------------------
 
+directory @output_dir
+task :render => @output_dir
+
 desc 'Render indices and entries.'
 task :render => @entry_output_files
 
