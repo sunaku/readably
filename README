@@ -19,7 +19,7 @@ See my personal blog[2] for an example of what is possible with Readably.
 
 Prerequisites:
 
-  * Ruby 1.9 or newer     -  http://www.ruby-lang.org
+  * Ruby 1.8.7 or newer   -  http://www.ruby-lang.org
   * Haml 2.2 or newer     -  http://www.haml-lang.com
 
 Recommendations:
@@ -59,6 +59,8 @@ Blogging:
   $EDITOR content/your/path/your-entry-file-name.readably
 
 Running:
+
+  If you are using Ruby 1.8.7, add "-rubygems" to the following commands.
 
   # render the blog (default task)
   rake

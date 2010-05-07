@@ -117,13 +117,12 @@ your_own_parameter2: ruby rocks!
 #
 content: |
   %p
-    This blog entry serves as a reference for the file format of a blog entry.
+    This is an example blog entry located here:
+    %tt= entry[:source_file]
 
   %p
-    Look at the source of this blog entry by reading the
-    %tt= entry[:source_file]
-    file, whose contents are also
-    %a{href: '#source'} shown below.
+    The contents of the above file are
+    %a{:href => '#source'} shown below.
 
   %h1 Adding your own parameters
 
