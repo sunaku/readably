@@ -20,7 +20,7 @@
           %time.title{:datetime => date.iso8601}= format_date(date, config['date_format'])
           .content!= render_haml_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
 
-      .content!= render_haml_file("#{entry[:source_file]}:content", entry['content'], :entry => entry, :config => config)
+      .content!= render_haml_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
 
       - if service = config['comments_service'] and account = config['comments_account']
         - comments_container_id = "comments#{entry.object_id}"

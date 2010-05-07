@@ -9,7 +9,7 @@
         %h1.title= config['title']
         .author= config['author']
 
-      .description!= render_haml_file("#{@config_file}:description", config['description'], :config => config)
+      .description!= render_haml_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
 
       - unless entries.empty?
         %nav.entries

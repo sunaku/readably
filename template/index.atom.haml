@@ -6,7 +6,7 @@
   %link{:href => published_url}
   %link{:rel => 'self', :href => File.join(published_url, 'index.atom')}
   %title= config['title']
-  %subtitle{:type => 'html'}= render_haml_file("#{@config_file}:description", config['description'], :config => config)
+  %subtitle{:type => 'html'}= render_haml_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
 
   %updated= config[:updated_at].iso8601
 
