@@ -4,22 +4,19 @@ $column_count: 3
 
 @import url('http://fonts.googleapis.com/css?family=Lobster')
 
-=mono_font
-  font-family: consolas, menlo, 'dejavu sans mono', 'bitstream vera sans mono', 'droid sans mono', monaco, 'lucida console', fixedsys, monospace
+$monospace: consolas, menlo, 'dejavu sans mono', 'bitstream vera sans mono', 'droid sans mono', monaco, 'lucida console', fixedsys, monospace
 
-=serif_font
-  font-family: lobster, constantia, palatino, 'dejavu serif', 'bistream vera serif', 'droid serif', serif
+$serif: constantia, palatino, 'dejavu serif', 'bistream vera serif', 'droid serif', serif
 
-=sans_font
-  font-family: calibri, 'dejavu sans', 'bitstream vera sans', 'droid sans', helvetica, sans-serif
+$sans_serif: calibri, 'dejavu sans', 'bitstream vera sans', 'droid sans', helvetica, sans-serif
 
 =heading
-  +serif_font
+  font-family: lobster, $serif
   font-weight: normal
   line-height: 1.25em
 
 =content
-  +sans_font
+  font-family: $sans_serif
   line-height: 1.5em
 
 =center_text
@@ -63,7 +60,7 @@ h6
   font-size: 100%
 
 pre, code, samp, kbd, tt
-  +mono_font
+  font-family: $monospace
 
 img
   +center_elem
@@ -216,6 +213,7 @@ img
     color: black
 
   blockquote
+    font-family: $serif
     // Define (zenburn.vim)
     color: #ffcfaf
 
