@@ -1,6 +1,6 @@
-!column_width = 33em
-!column_space = 3em
-!column_count = 3
+$column_width: 33em
+$column_space: 3em
+$column_count: 3
 
 @import url('http://fonts.googleapis.com/css?family=Lobster')
 
@@ -169,24 +169,24 @@ img
     background-color: #3f3f3f
 
     // NonText (zenburn.vim)
-    !column_color = #5b605e
-    !column_ruler = "thin" "solid" !column_color
+    $column_color: #5b605e
+    $column_ruler: "thin" "solid" $column_color
 
     -moz-column:
-      count= !column_count
-      width= !column_width
-      gap=   !column_space
-      rule=  !column_ruler
+      count: $column_count
+      width: $column_width
+      gap:   $column_space
+      rule:  $column_ruler
 
     -webkit-column:
-      count= !column_count
-      width= !column_width
-      gap=   !column_space
-      rule=  !column_ruler
+      count: $column_count
+      width: $column_width
+      gap:   $column_space
+      rule:  $column_ruler
 
   #body
     +center_elem
-    max-width= !column_width
+    max-width: $column_width
 
   h1, h2, h3, h4, h5, h6
     // Define (zenburn.vim)
