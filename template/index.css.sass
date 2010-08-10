@@ -42,25 +42,6 @@ body
 h1, h2, h3, h4, h5, h6
   +heading
 
-// gradual change
-h1
-  font-size: 300%
-
-h2
-  font-size: 260%
-
-h3
-  font-size: 220%
-
-h4
-  font-size: 180%
-
-h5
-  font-size: 140%
-
-h6
-  font-size: 100%
-
 pre, code, samp, kbd, tt
   font-family: $monospace
 
@@ -79,6 +60,9 @@ img
     > :first-child
       +heading
       font-size: 220%
+
+    > .title
+      font-size: 260%
 
     > .author, > .date
       font-size: 120%
@@ -145,9 +129,6 @@ img
 
     h1, h2, h3, h4, h5, h6
       margin-top: 1em
-
-    h1
-      font-size: 190%
 
   > footer
     +center_text
