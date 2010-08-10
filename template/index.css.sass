@@ -12,111 +12,118 @@ $serif_font: Lobster, Constantia, Palatino, 'DejaVu Serif', 'Bistream Vera Serif
 @import url('http://fonts.googleapis.com/css?family=Molengo')
 $sans_font: Molengo, Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans', Helvetica, sans-serif
 
-=heading
+=heading_style
   font-family: $serif_font
   font-weight: normal
   line-height: 1.25em
 
-=content
+=content_style
   font-family: $sans_font
   line-height: 1.5em
+
+=literal_style
+  font-family: $mono_font
+  line-height: normal
 
 =center_text
   display: block
   text-align: center
 
 =center_elem
+  display: block
   margin: auto
 
-=bubble
+=bubble_border
+  display: block
   border-radius: 1em
   -moz-border-radius: 1em
   -webkit-border-radius: 1em
   padding: 0.75em 1em 0.75em 1em
 
-body
-  +content
-  margin: 2em
-  font-size: 1.125em
+@media all
+  body
+    +content_style
+    margin: 2em
+    font-size: 1.125em
 
-h1, h2, h3, h4, h5, h6
-  +heading
+  h1, h2, h3, h4, h5, h6
+    +heading_style
 
-pre, code, samp, kbd, tt
-  font-family: $mono_font
+  pre, code, samp, kbd, tt
+    +literal_style
 
-img
-  +center_elem
-  display: block
-
-#body
-  display: block
-
-  > header
-    +center_text
-    clear: both
-    margin-bottom: 2.5em
-
-    > .title
-      font-size: 220%
-
-    > :first-child
-      +heading
-      font-size: 180%
-
-    > .author, > .date
-      font-size: 110%
-      margin-bottom: 0.5em
-
-  > .description
-    +center_text
-    margin-bottom: 2em
-
-  > nav.entries > table
+  img
     +center_elem
-    border-collapse: collapse
 
-    td.title > a
-      display: block
-      padding-top: 0.5em
-      padding-bottom: 0.5em
-      padding-right: 1em
+  #body
+    display: block
 
-    td.date
-      white-space: nowrap
+    > header
+      +center_text
+      clear: both
+      margin-bottom: 2.5em
 
-  > .content
-    text-align: justify
+      > .title
+        font-size: 220%
 
-    table
+      > :first-child
+        +heading_style
+        font-size: 180%
+
+      > .author, > .date
+        font-size: 110%
+        margin-bottom: 0.5em
+
+    > .description
+      +center_text
+      margin-bottom: 2em
+
+    > nav.entries > table
+      +center_elem
+      display: inherit
       border-collapse: collapse
 
-      &, th, td
-        // NonText (zenburn.vim)
-        border: thin solid #5b605e
+      td.title > a
+        display: block
+        padding-top: 0.5em
+        padding-bottom: 0.5em
+        padding-right: 1em
 
-      th
-        padding: 0.25em
-        text-align: center
+      td.date
+        white-space: nowrap
 
-      td
-        padding: 0.5em
+    > .content
+      text-align: justify
 
-    h1, h2, h3, h4, h5, h6
-      margin-top: 1em
+      table
+        border-collapse: collapse
 
-  > footer
-    +center_text
-    margin-top: 2em
+        &, th, td
+          // NonText (zenburn.vim)
+          border: thin solid #5b605e
 
-    > p
-      font-size: 80%
+        th
+          padding: 0.25em
+          text-align: center
 
-      &.copyright
-        margin-bottom: 0
+        td
+          padding: 0.5em
 
-      &.credits
-        margin-top: 0
+      h1, h2, h3, h4, h5, h6
+        margin-top: 1em
+
+    > footer
+      +center_text
+      margin-top: 2em
+
+      > p
+        font-size: 80%
+
+        &.copyright
+          margin-bottom: 0
+
+        &.credits
+          margin-top: 0
 
 @media screen
   body
@@ -155,7 +162,7 @@ img
         background-color: #4f4f4f
 
     > aside.update > dl
-      +bubble
+      +bubble_border
       // Pmenu (zenburn.vim)
       color: #9f9f9f
       background-color: #2c2e2e
@@ -204,9 +211,9 @@ img
     color: #dca3a3
 
   pre
-    +bubble
+    +bubble_border
+    +literal_style
     overflow: auto
-    line-height: normal
 
     // Markdown renders 4-space indented blocks as <pre><code>
     // however, I want to treat them as pure <pre> blocks only!
@@ -217,7 +224,7 @@ img
 
 @media print
   blockquote
-    +heading
+    +heading_style
     font-style: italic
 
   #body
