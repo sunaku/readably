@@ -4,21 +4,21 @@ $column_width: 33em
 $column_space: 3em
 $column_count: 4
 
+$mono_font: Terminus, Consolas, Menlo, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Droid Sans Mono', Monaco, 'Lucida Console', Fixedsys, monospace
+
 @import url('http://fonts.googleapis.com/css?family=Lobster')
+$serif_font: Lobster, Constantia, Palatino, 'DejaVu Serif', 'Bistream Vera Serif', 'Droid Serif', serif
 
-$monospace: consolas, menlo, 'dejavu sans mono', 'bitstream vera sans mono', 'droid sans mono', monaco, 'lucida console', fixedsys, monospace
-
-$serif: constantia, palatino, 'dejavu serif', 'bistream vera serif', 'droid serif', serif
-
-$sans_serif: calibri, 'dejavu sans', 'bitstream vera sans', 'droid sans', helvetica, sans-serif
+@import url('http://fonts.googleapis.com/css?family=Molengo')
+$sans_font: Molengo, Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans', Helvetica, sans-serif
 
 =heading
-  font-family: lobster, $serif
+  font-family: $serif_font
   font-weight: normal
   line-height: 1.25em
 
 =content
-  font-family: $sans_serif
+  font-family: $sans_font
   line-height: 1.5em
 
 =center_text
@@ -43,7 +43,7 @@ h1, h2, h3, h4, h5, h6
   +heading
 
 pre, code, samp, kbd, tt
-  font-family: $monospace
+  font-family: $mono_font
 
 img
   +center_elem
@@ -197,7 +197,6 @@ img
     color: black
 
   blockquote
-    font-family: $serif
     // Define (zenburn.vim)
     color: #ffcfaf
 
