@@ -93,23 +93,6 @@ img
     td.date
       white-space: nowrap
 
-  > aside
-    +bubble
-    float: right
-    clear: right
-    width: 40%
-    margin-left: 1.5em
-    margin-bottom: 1em
-    // Pmenu (zenburn.vim)
-    color: #9f9f9f
-    background-color: #2c2e2e
-
-    &.update > .title
-      +center_text
-      font-weight: bold
-      // PmenuSel (zenburn.vim)
-      color: #d0d0a0
-
   > .content
     text-align: justify
 
@@ -168,6 +151,20 @@ img
   #body
     +center_elem
     max-width: $column_width
+
+    > aside.update > dl
+      +bubble
+      // Pmenu (zenburn.vim)
+      color: #9f9f9f
+      background-color: #2c2e2e
+
+      > dt.title
+        font-weight: bold
+        // PmenuSel (zenburn.vim)
+        color: #d0d0a0
+
+      > dd.content
+        margin-right: 1em
 
   h1, h2, h3, h4, h5, h6
     // Define (zenburn.vim)
