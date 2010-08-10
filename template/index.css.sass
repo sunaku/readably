@@ -232,3 +232,8 @@ $sans_font: Molengo, Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans'
     > .comments,
     > footer
       display: none
+
+  // show destination URL for external hyperlinks
+  a[href]:not([href^='#']):after
+    content: ' ' attr(href)
+    +literal_style
