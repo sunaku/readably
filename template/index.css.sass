@@ -76,14 +76,6 @@ img
     +center_elem
     border-collapse: collapse
 
-    tr:hover
-      // CursorLine (zenburn.vim)
-      background-color: #434443
-
-    tr:target
-      // CursorColumn (zenburn.vim)
-      background-color: #4f4f4f
-
     td.title > a
       display: block
       padding-top: 0.5em
@@ -151,6 +143,16 @@ img
   #body
     +center_elem
     max-width: $column_width
+
+    > nav.entries > table tr
+
+      &:hover
+        // CursorLine (zenburn.vim)
+        background-color: #434443
+
+      &:target
+        // CursorColumn (zenburn.vim)
+        background-color: #4f4f4f
 
     > aside.update > dl
       +bubble
