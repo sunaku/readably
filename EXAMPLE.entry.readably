@@ -115,6 +115,17 @@ your_own_parameter2: ruby rocks!
 # The content of this blog entry.
 # HAML syntax must be used here.
 #
+# Examples:
+#
+#   content: |
+#     I wish I could win the lottery.  Sigh!
+#
+#    :textile
+#      I just won the lottery! --- That's just *unbelievable*!
+#
+#    :markdown
+#      Yaaargh!  70% of *my* lottery winnings are gone to **taxes**! `>:-O`
+#
 content: |
   %p
     This is an example blog entry located here:
