@@ -1,26 +1,43 @@
+
+                       _____
+                      (, /   )          /)     /)  /)
+                        /__ /  _  _   _(/ _   (/_ //
+                     ) /   \__(/_(_(_(_(_(_(_/_) (/_ (_/_
+                    (_/                             .-/
+                                                   (_/
+
+
 Readably is a minimal static blog engine that emits clean, readable Web pages.
-You can view them locally on your own computer without needing a Web server,
-and later publish them to any Web server---they will function just as they did
-locally on your own computer.  This is the benefit of a *static* blog engine!
+You can view them locally on your own computer without needing a Web server.
+And when you publish them to *any* Web server, they will function just as they
+did locally on your computer.  This is the benefit of a *static* blog engine!
 
-Following KISS philosophy, Readably is a grand simplification of Rassmalog[1].
-It has simple navigation that works well in text-mode Web browsers (such as
-Lynx, elinks, and w3m) and in modern HTML5-compliant Web browsers also.  And
-its blog entries are beautifully printable in the latter kind of Web browsers.
+See my blog http://snk.tuxfamily.org/log/ for an example of Readably output.
 
-(coming soon) It has an internal categorization system that will train a
-Bayesian classifier to help your visitors directly find related blog entries
-instead of manually wading through pages and pages of categories themselves.
 
-See my personal blog[2] for an example of what is possible with Readably.
+Features:
 
-  [1]: http://snk.tuxfamily.org/lib/rassmalog/
-  [2]: http://snk.tuxfamily.org/log/
+  * Its output is easy to read and beautiful to print in modern Web browsers.
+
+  * Its output is self-explanatory and multi-lingual: no translation needed.
+    (There is only 1 English phrase in the entire output, for attribution.)
+
+  * It has simple navigation that works well in both text-mode Web browsers
+    (such as Lynx, elinks, and w3m) and modern Web browsers (like Firefox).
+
+  * It supports Javascript-based comment services: Disqus and IntenseDebate.
+
+  * (COMING SOON) It has an internal categorization system that will train a
+    Bayesian classifier to help your visitors directly find related blog
+    entries instead of manually wading through pages of categories themselves.
+
 
 Prerequisites:
 
   * Ruby 1.8.7 or newer   -  http://www.ruby-lang.org
+  * Rake 0.8.7 or newer   -  gem install rake
   * Haml 3.0 or newer     -  http://www.haml-lang.com
+
 
 Installing:
 
@@ -31,10 +48,11 @@ Installing:
   cd readably
   git checkout -b personal
 
-  # seed
+  # initialize
   mkdir content/
   cp -vb EXAMPLE.entry.readably content/
   cp -vb EXAMPLE.config.yaml config.yaml
+
 
 Configuring:
 
@@ -42,6 +60,7 @@ Configuring:
 
   * Edit the rakefile to configure the blog processing logic.
     (This isn't really necessary, but you are free to do so.)
+
 
 Blogging:
 
@@ -54,6 +73,7 @@ Blogging:
 
     cp EXAMPLE.entry.readably content/your/path/your-entry-file-name.readably
     $EDITOR content/your/path/your-entry-file-name.readably
+
 
 Running:
 
@@ -70,9 +90,11 @@ Running:
   # see available tasks
   rake --tasks
 
+
 Previewing:
 
   $BROWSER content/index.html
+
 
 Publishing:
 
@@ -80,6 +102,7 @@ Publishing:
   # to your chosen $DESTINATION; trailing slash is needed!
   #
   rsync -auv content/ --exclude '*.readably' $DESTINATION/
+
 
 Upgrading:
 
@@ -90,9 +113,11 @@ Upgrading:
   git checkout personal
   git rebase master
 
+
 Contributing:
 
   Fork this project on GitHub and send pull requests.
+
 
 Bugs, Features, Issues, Questions:
 
