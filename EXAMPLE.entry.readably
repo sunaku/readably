@@ -103,6 +103,17 @@ category:
 ##
 # (Optional)
 #
+# Exclude this entry from the index page and RSS feed?
+#
+# Examples:
+#
+#   hidden: true
+#
+hidden: false
+
+##
+# (Optional)
+#
 # This is an example of how you can specify your own custom
 # parameters and use them in the content of this blog entry.
 #

@@ -171,6 +171,7 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
     entry[:published_url] = path_join(@config['published_url'], entry[:url])
     entry[:id] = entry[:url].pathmap('%X')
 
+    entry[:index?] = !entry['hidden']
     entry[:index_path] = entry[:url].scan('/').map { '..' }.join('/')
     entry[:index_path] = nil if entry[:index_path].empty?
 

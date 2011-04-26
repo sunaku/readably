@@ -14,7 +14,7 @@
     %author
       %name= author
 
-  - entries[0, config['feed_length'].to_i].each do |entry|
+  - entries.select {|e| e[:index?] }.first(config['feed_length'].to_i).each do |entry|
     - entry_url = entry[:published_url]
     %entry
       %id= entry_url
