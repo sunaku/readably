@@ -2,21 +2,28 @@ $column_width: 33em
 $column_space: 2em
 $column_count: auto
 
-$mono_font: Terminus, Consolas, Menlo, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Droid Sans Mono', Monaco, 'Lucida Console', Fixedsys, monospace
+$serif_font: Constantia, Palatino, 'DejaVu Serif', 'Bistream Vera Serif', 'Droid Serif', serif
+
+$sans_font: Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans', Helvetica, sans-serif
+
+$mono_font: Tamsyn, Terminus, Consolas, Menlo, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Droid Sans Mono', Monaco, 'Lucida Console', Fixedsys, monospace
 
 @import url('http://fonts.googleapis.com/css?family=Slackey')
-$serif_font: Slackey, Constantia, Palatino, 'DejaVu Serif', 'Bistream Vera Serif', 'Droid Serif', serif
+$heading_font: Slackey, $serif_font
 
 @import url('http://fonts.googleapis.com/css?family=Ubuntu')
-$sans_font: Ubuntu, Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans', Helvetica, sans-serif
+$content_font: Ubuntu, $sans_font
+
+@import url('http://fonts.googleapis.com/css?family=Merriweather')
+$quoting_font: Merriweather, $serif_font
 
 =heading_style
-  font-family: $serif_font
+  font-family: $heading_font
   font-weight: normal
   line-height: 1.25em
 
 =content_style
-  font-family: $sans_font
+  font-family: $content_font
   line-height: 1.5em
 
 =literal_style
@@ -52,6 +59,9 @@ $sans_font: Ubuntu, Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans',
 
   img
     +center_elem
+
+  blockquote
+    font-family: $quoting_font
 
   #body
     display: block
@@ -223,7 +233,6 @@ $sans_font: Ubuntu, Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans',
 
 @media print
   blockquote
-    +heading_style
     font-style: italic
 
   #body
