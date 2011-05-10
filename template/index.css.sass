@@ -60,8 +60,9 @@ $quoting_font: 'Coming Soon', $serif_font
   img
     +center_elem
 
-  blockquote
+  blockquote, q
     font-family: $quoting_font
+    font-size: larger
 
   #body
     display: block
@@ -213,7 +214,7 @@ $quoting_font: 'Coming Soon', $serif_font
   #idc-container .idc-r strong
     color: inherit
 
-  blockquote
+  blockquote, q
     // Define (zenburn.vim)
     color: #ffcfaf
 
@@ -234,7 +235,7 @@ $quoting_font: 'Coming Soon', $serif_font
       background-color: #262626
 
 @media print
-  blockquote
+  blockquote, q
     font-style: italic
 
   #body
