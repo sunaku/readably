@@ -1,5 +1,5 @@
 %head
-  %title= target['title']
+  %title= [target['title'], config['title']].uniq.join(' - ')
   %meta{:name => 'date', :content => target[:updated_at].iso8601}
   %meta{:name => 'author', :content => target[:author]}
   %meta{:name => 'keywords', :content => target[:category]}
