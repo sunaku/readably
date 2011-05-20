@@ -13,7 +13,7 @@
 
       - unless entries.empty?
         %nav.entries
-          %table
+          %table{:border => 1}
             - entries.select {|e| e[:index?] }.each do |entry|
               %tr{:id => entry[:id]}
                 %td.title
