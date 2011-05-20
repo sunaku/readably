@@ -20,7 +20,8 @@
                   %a{:href => entry[:url], :name => entry[:id]}= entry['title']
                   .category= entry[:category]
                 %td.date
-                  - date = entry[:updated_at]
-                  %time{:datetime => date.iso8601}>= date.strftime('%F')
+                  - [entry[:updated_at], entry[:created_at]].uniq.each do |date|
+                    %time{:datetime => date.iso8601}>= date.strftime('%F')
+                    %br
 
       != render_haml_file('template/footer.html.haml', nil, :config => config, :target => config)
