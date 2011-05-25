@@ -93,7 +93,9 @@ date_locale:
 #
 # Examples:
 #
-#   feed_length: 10
+#   feed_length: 10 # include 10 most-recent entries in the feed
+#   feed_length: -1 # include all available entries in the feed
+#   feed_length: -2 # include all except the oldest entry in the feed
 #
 feed_length: 1
 
