@@ -1,9 +1,9 @@
 %head
+  %meta{:charset => config['charset']}
   %title= [target['title'], config['title']].uniq.join(' - ')
   %meta{:name => 'date', :content => target[:updated_at].iso8601}
   %meta{:name => 'author', :content => target[:author]}
   %meta{:name => 'keywords', :content => target[:category]}
-  %meta{:charset => config['charset']}
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
