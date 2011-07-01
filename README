@@ -58,7 +58,7 @@ Configuring:
 
   * Edit the config.yaml and template/* files to your liking.
 
-  * Edit the rakefile to configure the blog processing logic.
+  * Edit the Rakefile to configure the blog processing logic.
     (This isn't really necessary, but you are free to do so.)
 
 
