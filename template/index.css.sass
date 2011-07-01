@@ -224,6 +224,23 @@ $content_font: Ubuntu, $sans_font
     +literal_style
     overflow: auto
 
+    &::-webkit-scrollbar
+      width: 1ex
+      height: 1ex
+
+    &::-webkit-scrollbar-track
+      margin: 1ex
+
+    &::-webkit-scrollbar-thumb
+      -webkit-border-radius: 1ex
+      background: rgba(0, 0, 0, .25)
+
+      &:hover
+        background: rgba(0, 0, 0, .55)
+
+    &::-webkit-scrollbar-corner
+      display: none
+
     // Markdown renders 4-space indented blocks as <pre><code>
     // however, I want to treat them as pure <pre> blocks only!
     &, & > code:only-child
