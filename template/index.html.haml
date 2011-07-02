@@ -2,7 +2,7 @@
 %html
   != render_haml_file('template/header.html.haml', nil, :config => config, :target => config)
 
-  %body
+  %body{:onload => 'q=document.forms[0].q; q.blur(); q.focus()'}
     %article#body
 
       %header
@@ -14,6 +14,11 @@
         .author= config['author']
 
       .description!= render_haml_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
+
+      - site = config['published_url'].sub(%r{^.*?://}, '').sub(%r{/.*}, '')
+      %form.search{:action => 'https://encrypted.google.com/search', :onsubmit => 'this.q.value += this.q.defaultValue'}
+        %input{:type => 'text', :name => 'q', :value => " site:#{site}", :onfocus => 'this.value = this.value.replace(this.defaultValue, "")', :required => true}
+        %input{:type => 'submit', :value => 'Google'}
 
       - unless entries.empty?
         %nav.entries
