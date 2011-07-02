@@ -6,7 +6,11 @@
     %article#body
 
       %header
-        %h1.title= config['title']
+        %h1.title<
+          = config['title']
+          %a.feed{:href => 'index.atom'}<
+            %img{:src => 'feed-icon-28x28.png', :alt => 'RSS', :title => 'RSS'}
+
         .author= config['author']
 
       .description!= render_haml_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
