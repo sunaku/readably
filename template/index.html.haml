@@ -2,7 +2,7 @@
 %html
   != render_haml_file('template/header.html.haml', nil, :config => config, :target => config)
 
-  %body{:onload => 'q=document.forms[0].q; q.blur(); q.focus()'}
+  %body{:onload => 'document.forms[0].q.onfocus()'}
     %article#body
 
       %header
