@@ -12,7 +12,7 @@
 #
 # (Optional)    This parameter is completely optional.
 #
-# (HAML)        This parameter must use HAML syntax.
+# (Slim)        This parameter must use Slim syntax.
 #
 # You can also define and use your own custom parameters
 # in this blog entry.  An example of this is shown below.
@@ -23,7 +23,7 @@
 #
 # Title of this blog entry.
 #
-title: Today was a great day!
+title: Example blog entry
 
 ##
 # (Optional)
@@ -66,7 +66,7 @@ date: 7 May 2010
 ##
 # (Optional)
 #
-# Author(s) of this blog entry.
+# The author(s) of this blog entry.
 #
 # Examples:
 #
@@ -121,10 +121,10 @@ your_own_parameter1: hello world
 your_own_parameter2: ruby rocks!
 
 ##
-# (Required) (HAML)
+# (Required) (Slim)
 #
 # The content of this blog entry.
-# HAML syntax must be used here.
+# Slim syntax must be used here.
 #
 # Examples:
 #
@@ -138,40 +138,44 @@ your_own_parameter2: ruby rocks!
 #      Yaaargh!  70% of *my* lottery winnings are gone to **taxes**! `>:-O`
 #
 content: |
-  %p
-    This is an example blog entry located here:
-    %tt= entry[:source_file]
+  p
+    ' This is an example blog entry located at
+    tt =' entry[:source_file]
+    | inside your blog source directory.
 
-  %p
-    The contents of the above file are
-    %a{:href => '#source'} shown below.
+  p
+    ' The contents of the above file are
+    a href='#source'
+      | shown below.
 
-  %h1 Adding your own parameters
+  h1 Adding your own parameters
 
-  %p
-    You can add arbitrary parameters to a blog entry source file (which is
-    really just a YAML file) and use them in the blog entry's content.
+  p
+    | You can add arbitrary parameters to a blog entry source file (which is
+    | really just a YAML file) and use them in the blog entry's content.
 
-  %p
-    For example, in the source of this blog entry, you will find two custom
-    parameters whose names begin with "your_own_parameter". To insert the
-    values of these parameters into the blog entry's content, we use the
-    following HAML directive:
+  p
+    | For example, in the source of this blog entry, you will find two custom
+    | parameters whose names begin with "your_own_parameter". To insert the
+    | values of these parameters into the blog entry's content, we use the
+    | following Slim directive:
 
-    %pre %pre= entry['your_own_parameter1']
-    %pre %pre= entry['your_own_parameter2']
+    pre
+      | pre = entry['your_own_parameter1']
+      br
+      | pre = entry['your_own_parameter2']
 
-    Which produce the following results:
+    | Which produce the following results:
 
-    %pre= entry['your_own_parameter1']
-    %pre= entry['your_own_parameter2']
+    pre = entry['your_own_parameter1']
+    pre = entry['your_own_parameter2']
 
-  %h1#source Source of this blog entry
+  h1#source Source of this blog entry
 
-  %pre= File.read entry[:source_file]
+  pre = File.read(entry[:source_file])
 
 ##
-# (Optional)
+# (Optional) (Slim)
 #
 # Updates to this blog entry that came after it was already published.
 #
@@ -188,25 +192,29 @@ content: |
 #
 #   update:
 #     2 January 2012: |
-#       :textile
-#         I just won the lottery! --- That's just *unbelievable*!
+#       textile:
+#         I just won the lottery! -- That's just _unbelievable_!
 #
 #     4 February 2012: |
-#       :markdown
+#       markdown:
 #         Yaaargh!  70% of *my* lottery winnings are gone to **taxes**! `>:-O`
 #
-#     24 November 2011: I wish I could win the lottery.  Sigh!
+#     24 November 2011: |
+#       | I wish I could win the lottery.  Sigh!
 #
 update:
   2 January 2012: |
-    I just won the lottery! &mdash; That's just
-    %strong unbelievable!
+    ' I just won the lottery! &mdash; That's just
+    em unbelievable!
 
   4 February 2012: |
-    Yaaargh!  70% of
-    %em my
-    lottery winnings are gone to
-    %strong taxes!
-    %code >:-O
+    ' Yaaargh!  70% of
+    em
+      ' my
+    ' lottery winnings are gone to
+    strong
+      ' taxes!
+    code >:-O
 
-  24 November 2011: I wish I could win the lottery.  Sigh!
+  24 November 2011: |
+    | I wish I could win the lottery.  Sigh!

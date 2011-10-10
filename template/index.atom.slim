@@ -1,0 +1,64 @@
+doctype XML
+feed xmlns='http://www.w3.org/2005/Atom'
+
+  - published_url = config['published_url']
+  id
+    = published_url
+
+  link href=published_url
+
+  link rel='self' href=path_join(published_url, 'index.atom')
+
+  title
+    = config['title']
+
+  subtitle type='html'
+    | <![CDATA[
+    == render_slim_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
+    | ]]>
+
+  updated
+    = config[:updated_at].iso8601
+
+  - config[:authors].each do |author|
+    author
+      name
+        = author
+
+  - entries.select {|e| e[:index?] }.slice(0..config['feed_length'].to_i).each do |entry|
+    - entry_url = entry[:published_url]
+    entry
+      id
+        = entry_url
+
+      link href=entry_url
+
+      title
+        = entry['title']
+
+      updated
+        = entry[:updated_at].iso8601
+
+      published
+        = entry[:created_at].iso8601
+
+      - entry[:authors].each do |author|
+        author
+          name
+            = author
+
+      - entry[:categories].each do |category|
+        category term=category
+
+      - unless entry[:updates].empty?
+        summary type='html'
+          | <![CDATA[
+          - entry[:updates].each do |date, content|
+            dl
+              dt.title
+                time datetime=(date.iso8601)
+                  = format_date(date, config['date_format']) + ': '
+
+              dd.content
+                == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
+          | ]]>

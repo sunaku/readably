@@ -51,18 +51,15 @@ end
 # Renders the given file and/or template inside a fresh
 # object populated with the given local variables.
 #
-def render_haml_file filename, template = nil, locals = {}
+def render_slim_file filename, template = nil, locals = {}
   template ||= File.read(filename)
 
   begin
-    require 'haml'
-    Haml::Engine.new(template,
-      :filename => filename,
-      :escape_html => true
-    ).render(Object.new, locals)
+    require 'slim'
+    Slim::Template.new(filename){ template }.render(Object.new, locals)
   rescue => error
     error.message.insert 0,
-      "Could not render HAML template #{filename.inspect}\n"
+      "Could not render Slim template #{filename.inspect}\n"
     raise
   end
 end
@@ -72,7 +69,7 @@ end
 # source file into the given destination file.
 #
 # If a block is given, it is passed the result of
-# rendering Haml for further processing and its
+# rendering Slim for further processing and its
 # result is then written to the destination file.
 #
 def render_template_task src, *deps
@@ -94,9 +91,9 @@ def render_template_task src, *deps
   task :render => dst
 end
 
-def render_haml_template_task *args
+def render_slim_template_task *args
   render_template_task(*args) do |src|
-    render_haml_file(
+    render_slim_file(
       src, nil,
       :config => @config,
       :entries => @entries
@@ -208,13 +205,13 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
 
     file output_file => [
       source_file, @config[:source_file], output_dir,
-      'template/header.html.haml',
-      'template/footer.html.haml',
-      'template/entry.html.haml', # XXX: this must be LAST in the list
+      'template/header.html.slim',
+      'template/footer.html.slim',
+      'template/entry.html.slim', # XXX: this must be LAST in the list
     ] do |t|
       notify :render, source_file
 
-      File.write t.name, render_haml_file(
+      File.write t.name, render_slim_file(
         t.prerequisites.last, nil,
         :config => @config,
         :entry => entry
@@ -255,11 +252,11 @@ task :render => @output_dir
 desc 'Render indices and entries.'
 task :render => @entry_output_files
 
-render_haml_template_task 'template/index.atom.haml'
+render_slim_template_task 'template/index.atom.slim'
 
-render_haml_template_task 'template/index.html.haml',
-                     'template/header.html.haml',
-                     'template/footer.html.haml'
+render_slim_template_task 'template/index.html.slim',
+                     'template/header.html.slim',
+                     'template/footer.html.slim'
 
 render_template_task 'template/index.css.sass' do |src|
   require 'sass'

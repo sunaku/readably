@@ -22,22 +22,22 @@ title:
 author:
 
 ##
-# (HAML)
+# (Slim)
 #
 # Description of your blog.
-# HAML syntax must be used.
+# Slim syntax must be used.
 #
 # Examples:
 #
 #   description: This is my cool blog.
 #
 #   description: |
-#     Hey, you know what?
+#     | Hey, you know what?
 #
-#     :markdown
+#     markdown:
 #       This is my *cool* blog.
 #
-#     :textile
+#     textile:
 #       I _certainly_ think so!
 #
 description:

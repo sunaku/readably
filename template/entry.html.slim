@@ -1,0 +1,64 @@
+doctype 5
+html
+  == render_slim_file('template/header.html.slim', nil, :config => config, :target => entry)
+
+  body
+    article#body
+
+      header
+        a.index href=path_join(entry[:index_path], 'index.html#' + entry[:id])
+          = config['title']
+
+        h1.title
+          = entry['title']
+
+        .author
+          = entry[:author]
+
+        - date = entry[:created_at]
+        time.date datetime=(date.iso8601)
+          = format_date(date, config['date_format'], config['locale'])
+
+        - unless entry[:categories].empty?
+          .category
+            | (#{entry[:category]})
+
+      - entry[:updates].each do |date, content|
+        aside.update
+          dl
+            dt.title
+              time datetime=(date.iso8601)
+                = format_date(date, config['date_format']) + ': '
+            dd.content
+              == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
+
+      .content
+        == render_slim_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
+
+      - if service = config['comments_service'] and account = config['comments_account']
+        - comments_container_id = "comments#{entry.object_id}"
+        .comments id=(comments_container_id)
+          - case service
+            - when 'IntenseDebate'
+              javascript:
+                var idcomments_acct = #{{account.inspect}};
+                var idcomments_div = #{{comments_container_id.inspect}};
+                var idcomments_post_title = #{{entry['title'].inspect}};
+                var idcomments_post_url = #{{entry[:published_url].inspect}};
+                var idcomments_post_id = #{{entry[:id].inspect}};
+
+              script src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'
+
+            - when 'Disqus'
+              / see http://disqus.com/docs/embed/
+              javascript:
+                var disqus_container_id = #{{comments_container_id.inspect}};
+                var disqus_title = #{{entry['title'].inspect}};
+                var disqus_url = #{{entry[:published_url].inspect}};
+                window.disqus_no_style = true; // prevent document.write()
+
+              script src="http://disqus.com/forums/#{account}/embed.js"
+
+            - else raise NotImplementedError, "unknown comments service: #{service}"
+
+      == render_slim_file('template/footer.html.slim', nil, :config => config, :target => entry)
