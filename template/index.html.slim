@@ -28,7 +28,7 @@ html
             - entries.select {|e| e[:index?] }.each do |entry|
               tr id=entry[:id]
                 td.title
-                  a href=entry[:url] name=entry[:id]
+                  a href=entry[:url]
                     = entry['title']
                   .category
                     = entry[:category]
