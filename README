@@ -27,9 +27,7 @@ Features:
 
   * It supports Javascript-based comment services: Disqus and IntenseDebate.
 
-  * (COMING SOON) It has an internal categorization system that will train a
-    Bayesian classifier to help your visitors directly find related blog
-    entries instead of manually wading through pages of categories themselves.
+  * It is implemented in less than 200 lines of pure Ruby code! :-)
 
 
 Prerequisites:
