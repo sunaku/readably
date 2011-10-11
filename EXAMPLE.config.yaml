@@ -5,7 +5,7 @@
 #
 #   title: My cool blog!
 #
-title:
+title: My cool blog!
 
 ##
 # Author(s) of this blog.
@@ -19,7 +19,7 @@ title:
 #   - Qux Moz
 #   - Another A. U. Thor
 #
-author:
+author: Foo Bar
 
 ##
 # (Slim)
@@ -40,7 +40,7 @@ author:
 #     textile:
 #       I _certainly_ think so!
 #
-description:
+description: This is my cool blog.
 
 ##
 # URL where your blog is published.
@@ -51,7 +51,7 @@ description:
 #
 #   published_url: http://your_host.com/~you/path/to/your/blog/
 #
-published_url:
+published_url: http://you.your_host.com/path/to/your/blog/
 
 ##
 # The character set used in your blog entries.
