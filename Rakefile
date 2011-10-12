@@ -262,3 +262,24 @@ render_template_task 'template/index.css.sass' do |src|
   require 'sass'
   css = Sass::Engine.new(File.read(src), :filename => src).render
 end
+
+#-----------------------------------------------------------------------------
+# upgrade blog software
+#-----------------------------------------------------------------------------
+
+desc 'Upgrade blog software.'
+task :upgrade do
+  # ensure that there are no uncommitted changes in the working tree
+  sh 'git rebase HEAD'
+
+  unless system 'git remote show upstream'
+    sh 'git remote add upstream git://github.com/sunaku/readably.git'
+  end
+  sh 'git fetch upstream'
+
+  sh 'git checkout master'
+  sh 'git rebase upstream/master'
+
+  sh 'git checkout personal'
+  sh 'git rebase master'
+end

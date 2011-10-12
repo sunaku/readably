@@ -134,12 +134,9 @@ From then onwards, you can publish your blog at any time, simply by running:
 Upgrading
 ------------------------------------------------------------------------------
 
-    # assuming that "origin" points to github.com/sunaku/readably
-    git fetch origin
-    git checkout master
-    git rebase origin/master
-    git checkout personal
-    git rebase master
+To upgrade your copy of Readably, run the following command:
+
+    rake upgrade
 
 ------------------------------------------------------------------------------
 Contributing
