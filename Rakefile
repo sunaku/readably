@@ -249,7 +249,7 @@ end
 directory @output_dir
 task :render => @output_dir
 
-desc 'Render indices and entries.'
+desc 'Render your blog.'
 task :render => @entry_output_files
 
 render_slim_template_task 'template/index.atom.slim'
