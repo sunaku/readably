@@ -2,17 +2,14 @@ $column_width: 33em
 $column_space: 2em
 $column_count: auto
 
-$serif_font: Constantia, Palatino, 'DejaVu Serif', 'Bistream Vera Serif', 'Droid Serif', serif
-
-$sans_font: Calibri, 'DejaVu Sans', 'Bitstream Vera Sans', 'Droid Sans', Helvetica, sans-serif
-
-$mono_font: Tamsyn, Terminus, Consolas, Menlo, 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Droid Sans Mono', Monaco, 'Lucida Console', Fixedsys, monospace
-
 @import url('http://fonts.googleapis.com/css?family=Slackey')
-$heading_font: Slackey, $serif_font
+$heading_font: Slackey, Constantia, Palatino, serif
 
 @import url('http://fonts.googleapis.com/css?family=Ubuntu')
-$content_font: Ubuntu, $sans_font
+$content_font: Ubuntu, Calibri, Helvetica, sans-serif
+
+@import url('http://fonts.googleapis.com/css?family=Ubuntu+Mono')
+$literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
 
 =heading_style
   font-family: $heading_font
@@ -25,7 +22,7 @@ $content_font: Ubuntu, $sans_font
   font-size: 1.2em
 
 =literal_style
-  font-family: $mono_font
+  font-family: $literal_font
   line-height: normal
 
 =center_text
