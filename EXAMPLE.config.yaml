@@ -70,9 +70,9 @@ charset: utf-8
 #
 # To use your system locale's preferred date format:
 #
-#   date_format: %c
+#   date_format: "%c"
 #
-date_format: %d %B %Y
+date_format: "%d %B %Y"
 
 ##
 # Locale for formatting dates.
