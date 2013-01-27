@@ -2,7 +2,7 @@ footer
   p.copyright
     - years = [target[:created_at], target[:updated_at]]. \
       map {|date| date.year }.uniq.sort.join('&ndash;')
-    | &copy; #{years} #{target[:author]}
+    | &copy; #{{years}} #{target[:author]}
 
   p.credits
     ' This is
