@@ -88,7 +88,7 @@ def render_template_task src, *deps
   end
   CLEAN.include dst
 
-  task :render => dst
+  multitask :render => dst
 end
 
 def render_slim_template_task *args
@@ -247,10 +247,9 @@ end
 #-----------------------------------------------------------------------------
 
 directory @output_dir
-task :render => @output_dir
 
 desc 'Render your blog.'
-task :render => @entry_output_files
+multitask :render => @entry_output_files
 
 render_slim_template_task 'template/index.atom.slim'
 
