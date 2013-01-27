@@ -146,15 +146,18 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
         &.credits
           margin-top: 0
 
-@media screen
+// only apply columns on high resolution displays
+@media only screen and (min-device-width: 1024px)
   body
-    // Normal (zenburn.vim)
-    color: #dcdccc
-    background-color: #3f3f3f
-
     // NonText (zenburn.vim)
     $column_color: #5b605e
     $column_ruler: "thin" "solid" $column_color
+
+    column:
+      count: $column_count
+      width: $column_width
+      gap:   $column_space
+      rule:  $column_ruler
 
     -moz-column:
       count: $column_count
@@ -167,6 +170,12 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
       width: $column_width
       gap:   $column_space
       rule:  $column_ruler
+
+@media screen
+  body
+    // Normal (zenburn.vim)
+    color: #dcdccc
+    background-color: #3f3f3f
 
   #body
     +center_elem
