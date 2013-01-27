@@ -66,15 +66,12 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
       clear: both
       margin-bottom: 2em
 
-      > a.index
+      > a.index:first-child
+        +heading_style
         font-size: xx-large
 
       > .title > a.feed > img
         display: inline
-
-      > :first-child
-        +heading_style
-        font-size: x-large
 
       > .category
         margin-top: 1em
