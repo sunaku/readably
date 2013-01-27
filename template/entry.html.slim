@@ -36,13 +36,12 @@ html
         == render_slim_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
 
       - if service = config['comments_service'] and account = config['comments_account']
-        - comments_container_id = "comments#{entry.object_id}"
-        .comments id=(comments_container_id)
+        .comments#comments
           - case service
             - when 'IntenseDebate'
               javascript:
                 var idcomments_acct = #{{account.inspect}};
-                var idcomments_div = #{{comments_container_id.inspect}};
+                var idcomments_div = 'comments';
                 var idcomments_post_title = #{{entry['title'].inspect}};
                 var idcomments_post_url = #{{entry[:published_url].inspect}};
                 var idcomments_post_id = #{{entry[:id].inspect}};
@@ -52,7 +51,7 @@ html
             - when 'Disqus'
               / see http://disqus.com/docs/embed/
               javascript:
-                var disqus_container_id = #{{comments_container_id.inspect}};
+                var disqus_container_id = 'comments';
                 var disqus_title = #{{entry['title'].inspect}};
                 var disqus_url = #{{entry[:published_url].inspect}};
                 window.disqus_no_style = true; // prevent document.write()
