@@ -1,2 +1,3 @@
-content/*.html
-content/index.*
+/content/*.html
+/content/index.*
+/.sass-cache
