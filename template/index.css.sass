@@ -2,11 +2,11 @@ $column_width: 33em
 $column_space: 2em
 $column_count: auto
 
-@import url('http://fonts.googleapis.com/css?family=Slackey')
-$heading_font: Slackey, Constantia, Palatino, serif
+@import url('http://fonts.googleapis.com/css?family=Audiowide')
+$heading_font: Audiowide, Constantia, Palatino, serif
 
-@import url('http://fonts.googleapis.com/css?family=Ubuntu')
-$content_font: Ubuntu, Calibri, Helvetica, sans-serif
+@import url('http://fonts.googleapis.com/css?family=Molengo')
+$content_font: Molengo, Calibri, Helvetica, sans-serif
 
 @import url('http://fonts.googleapis.com/css?family=Ubuntu+Mono')
 $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
@@ -14,12 +14,12 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
 =heading_style
   font-family: $heading_font
   font-weight: normal
-  line-height: 1.25em
+  line-height: 140%
 
 =content_style
   font-family: $content_font
-  line-height: 1.6em
-  font-size: 1.2em
+  line-height: 155%
+  font-size: 125%
 
 =literal_style
   font-family: $literal_font
@@ -66,21 +66,18 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
       clear: both
       margin-bottom: 2em
 
-      > .title
+      > a.index
         font-size: xx-large
 
-        > a.feed > img
-          display: inline
+      > .title > a.feed > img
+        display: inline
 
       > :first-child
         +heading_style
         font-size: x-large
 
-      > .author, > .date, > .category
-        margin-bottom: 0.5em
-
       > .category
-        margin-top: 0.5em
+        margin-top: 1em
         // Comment (zenburn.vim)
         color: #7f9f7f
 
