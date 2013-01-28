@@ -73,17 +73,17 @@ Running
 
 NOTE: If you are using Ruby 1.8.7, add `-rubygems` to the following commands.
 
-Render the blog:
+Run `rake --tasks` to see available commands:
 
-    rake
+    rake build    # Build entire blog.
+    rake entry    # Build entry pages.
+    rake index    # Build index pages.
+    rake style    # Build stylesheet.
 
-Remove rendered files:
+    rake clean    # Remove any temporary products.
+    rake clobber  # Remove any generated file.
 
-    rake clean
-
-See other available tasks:
-
-    rake -T
+    rake upgrade  # Upgrade blog software.
 
 ------------------------------------------------------------------------------
 Blogging
@@ -122,7 +122,7 @@ Here is an example that uses [rsync](http://rsync.samba.org) to upload to a
 You can take this further and make it a Rake task by adding it to `Rakefile`:
 
     desc 'Publish your blog.'
-    task :publish => :render do
+    task :publish => :build do
       sh "rsync -auv content/ --exclude '*.readably' DESTINATION/"
     end
 

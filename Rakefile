@@ -3,7 +3,19 @@ require 'yaml'
 require 'time'
 require 'uri'
 
-task :default => :render
+task :default => :build
+
+desc 'Build entire blog.'
+multitask :build => [:entry, :index, :style]
+
+desc 'Build entry pages.'
+task :entry
+
+desc 'Build index pages.'
+task :index
+
+desc 'Build stylesheet.'
+task :style
 
 #-----------------------------------------------------------------------------
 # helper logic
@@ -72,7 +84,7 @@ end
 # rendering Slim for further processing and its
 # result is then written to the destination file.
 #
-def render_template_task src, *deps
+def render_template_task task_name, src, *deps
   raise ArgumentError unless block_given?
 
   dst = src.sub('template', @output_dir).
@@ -83,12 +95,12 @@ def render_template_task src, *deps
     @config[:source_file], @output_dir, src, __FILE__
 
   file dst => deps do
-    notify :render, src
+    notify task_name, src
     File.write dst, yield(src)
   end
   CLEAN.include dst
 
-  multitask :render => dst
+  multitask task_name => dst
 end
 
 def render_slim_template_task *args
@@ -209,7 +221,7 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
       'template/footer.html.slim',
       'template/entry.html.slim', # XXX: this must be LAST in the list
     ] do |t|
-      notify :render, source_file
+      notify :entry, source_file
 
       File.write t.name, render_slim_file(
         t.prerequisites.last, nil,
@@ -248,16 +260,14 @@ end
 
 directory @output_dir
 
-desc 'Render your blog.'
-multitask :render => @entry_output_files
+multitask :entry => @entry_output_files
 
-render_slim_template_task 'template/index.atom.slim'
+render_slim_template_task :index, 'template/index.atom.slim'
 
-render_slim_template_task 'template/index.html.slim',
-                     'template/header.html.slim',
-                     'template/footer.html.slim'
+render_slim_template_task :index, 'template/index.html.slim',
+  'template/header.html.slim', 'template/footer.html.slim'
 
-render_template_task 'template/index.css.sass' do |src|
+render_template_task :style, 'template/index.css.sass' do |src|
   require 'sass'
   css = Sass::Engine.new(File.read(src), :filename => src).render
 end
