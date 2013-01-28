@@ -6,7 +6,8 @@ html
     article#body
 
       header
-        a.index href=path_join(entry[:index_path], 'index.html#' + entry[:id])
+        - index_page_url = path_join(entry[:index_path], 'index.html')
+        a.index href="#{index_page_url}##{entry[:id]}"
           = config['title']
 
         h1.title
@@ -20,8 +21,10 @@ html
           = format_date(date, config['date_format'], config['locale'])
 
         - unless entry[:categories].empty?
+          - category_links = entry[:categories].map do |category|
+            - "<a href='#{index_page_url}##{category}'>#{category}</a>"
           .category
-            | (#{entry[:category]})
+            | (#{{comma_join category_links}})
 
       - entry[:updates].each do |date, content|
         aside.update
