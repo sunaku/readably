@@ -40,6 +40,7 @@ Prerequisites
   * Ruby 1.8.7 or newer:  <http://www.ruby-lang.org>
   * Rake 0.8.7 or newer:  `gem install rake`
   * Slim 1.0.3 or newer:  `gem install slim`
+  * Sass 3.1.5 or newer:  `gem install sass`
 
 
 ------------------------------------------------------------------------------
