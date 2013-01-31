@@ -44,6 +44,11 @@ begin
     options[:renderer] = Class.new(Redcarpet::Render::HTML) do
       require 'rouge/plugins/redcarpet'
       include Rouge::Plugins::Redcarpet
+
+      # don't highlight plain text (when no language specified or detected)
+      def block_code code, language
+        super.sub(/\sclass="highlight text"/, '')
+      end
     end
   rescue LoadError => error
     warn error
