@@ -309,7 +309,7 @@ render_slim_template_task :index, 'template/index.html.slim',
 
 render_template_task :style, 'template/index.css.sass' do |src|
   Sass::Engine.new(File.read(src), :filename => src).render <<
-  Rouge::Themes::Base16::Monokai.render(:scope => '.highlight')
+  Rouge::Themes::ThankfulEyes.render(:scope => '.highlight')
 end
 
 #-----------------------------------------------------------------------------
