@@ -1,8 +1,3 @@
-require 'rake/clean'
-require 'yaml'
-require 'time'
-require 'uri'
-
 task :default => :build
 
 desc 'Build entire blog.'
@@ -16,6 +11,50 @@ task :index
 
 desc 'Build stylesheet.'
 task :style
+
+#-----------------------------------------------------------------------------
+# helper libraries
+#-----------------------------------------------------------------------------
+
+require 'yaml'
+require 'time'
+require 'uri'
+
+require 'rake/clean'
+require 'slim'
+require 'sass'
+
+# try use Redcarpet to process markdown subtemplates within Slim templates
+begin
+  require 'redcarpet'
+  options = {
+    :autolink => true,
+    :fenced_code_blocks => true,
+    :gh_blockcode => true,
+    :no_intra_emphasis => true,
+    :space_after_headers => true,
+    :strikethrough => true,
+    :superscript => true,
+    :tables => true,
+  }
+
+  # try use Rouge for syntax highlighting of code blocks within markdown
+  begin
+    require 'rouge'
+    options[:renderer] = Class.new(Redcarpet::Render::HTML) do
+      require 'rouge/plugins/redcarpet'
+      include Rouge::Plugins::Redcarpet
+    end
+  rescue LoadError => error
+    warn error
+  end
+
+  # https://github.com/slim-template/slim/issues/192#issuecomment-12925712
+  Slim::EmbeddedEngine.set_default_options :markdown => options
+  Tilt.prefer Tilt::RedcarpetTemplate::Redcarpet2, 'markdown'
+rescue LoadError => error
+  warn error
+end
 
 #-----------------------------------------------------------------------------
 # helper logic
@@ -65,15 +104,11 @@ end
 #
 def render_slim_file filename, template = nil, locals = {}
   template ||= File.read(filename)
-
-  begin
-    require 'slim'
-    Slim::Template.new(filename){ template }.render(Object.new, locals)
-  rescue => error
-    error.message.insert 0,
-      "Could not render Slim template #{filename.inspect}\n"
-    raise
-  end
+  Slim::Template.new(filename){ template }.render(Object.new, locals)
+rescue => error
+  error.message.insert 0,
+    "Could not render Slim template #{filename.inspect}\n"
+  raise
 end
 
 ##
@@ -268,8 +303,8 @@ render_slim_template_task :index, 'template/index.html.slim',
   'template/header.html.slim', 'template/footer.html.slim'
 
 render_template_task :style, 'template/index.css.sass' do |src|
-  require 'sass'
-  css = Sass::Engine.new(File.read(src), :filename => src).render
+  Sass::Engine.new(File.read(src), :filename => src).render <<
+  Rouge::Themes::Base16::Monokai.render(:scope => '.highlight')
 end
 
 #-----------------------------------------------------------------------------

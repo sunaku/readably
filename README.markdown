@@ -42,6 +42,10 @@ Prerequisites
   * Slim 1.0.3 or newer:  `gem install slim`
   * Sass 3.1.5 or newer:  `gem install sass`
 
+(Optional) for syntax highlighting of code blocks in Markdown:
+
+  * Redcarpet 2.2 or newer:  `gem install redcarpet`
+  * Rouge 0.2.10 or newer:   `gem install rouge`
 
 ------------------------------------------------------------------------------
 Installing
