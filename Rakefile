@@ -36,12 +36,15 @@ begin
     :strikethrough => true,
     :superscript => true,
     :tables => true,
+    :renderer => Class.new(Redcarpet::Render::HTML) do
+      include Redcarpet::Render::SmartyPants
+    end
   }
 
   # try use Rouge for syntax highlighting of code blocks within markdown
   begin
     require 'rouge'
-    options[:renderer] = Class.new(Redcarpet::Render::HTML) do
+    options[:renderer].class_eval do
       require 'rouge/plugins/redcarpet'
       include Rouge::Plugins::Redcarpet
 
