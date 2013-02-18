@@ -280,7 +280,7 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
       "Could not load blog entry file #{source_file.inspect}\n"
     raise error
   end
-end.sort_by {|e| -e[:updated_at].to_i }
+end.sort_by {|e| [-e[:updated_at].to_i, -e[:created_at].to_i] }
 
 if @entries.empty?
   @config[:created_at] = @config[:updated_at] = Time.now
