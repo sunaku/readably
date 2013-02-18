@@ -4,7 +4,8 @@ head
   title
     = [target['title'], config['title']].uniq.join(' - ')
 
-  meta name='date' content=target[:updated_at].iso8601
+  meta name='DCTERMS.created' content=target[:created_at].iso8601
+  meta name='DCTERMS.modified' content=target[:updated_at].iso8601
   meta name='author' content=target[:author]
   meta name='keywords' content=target[:category]
   meta name='generator' content='Readably https://github.com/sunaku/readably'
