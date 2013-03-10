@@ -233,11 +233,6 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
     color: #333333
     background-color: #f18c96
 
-  // XXX: fix for strong colors being applied to
-  //      IntenseDebate comment form submit link
-  #idc-container .idc-r strong
-    color: inherit
-
   blockquote, q
     // Define (zenburn.vim)
     color: #ffcfaf
@@ -274,6 +269,23 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
       // SignColumn (zenburn.vim)
       color: #9fafaf
       background-color: #343434 !important
+
+  // styling for IntenseDebate comments
+  // http://support.intensedebate.com/css-documentation/
+  #idc-container-parent #idc-container
+    // increase font size
+    &, & div
+      font-size: large
+
+    // make dates visible
+    .idc-thread_active, .idc-time > a
+      // StatusLine (zenburn.vim)
+      color: #ccdc90
+
+    // fix for strong colors being applied to
+    // IntenseDebate comment form submit link
+    .idc-r strong
+      color: inherit
 
 @media print
   blockquote, q
