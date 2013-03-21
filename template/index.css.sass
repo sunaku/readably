@@ -40,6 +40,15 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
   -webkit-border-radius: 1em
   padding: 0.75em 1em 0.75em 1em
 
+=scroll_arrow
+  position: fixed
+  top: 50%
+  z-index: -1
+  font-size: 12em
+  font-weight: bolder
+  // ColorColumn (zenburn.vim)
+  color: #484848
+
 @media all
   body
     +content_style
@@ -145,10 +154,25 @@ $literal_font: 'Ubuntu Mono', Consolas, Menlo, Monaco, Fixedsys, monospace
 
 // only apply columns on high resolution displays
 @media only screen and (min-device-width: 1024px)
+  html, body
+    height: 96%
+    margin: 1%
+    padding: 0
+
   body
     // NonText (zenburn.vim)
     $column_color: #5b605e
     $column_ruler: "thin" "solid" $column_color
+
+    &:before
+      +scroll_arrow
+      content: '<'
+      left: 0
+
+    &:after
+      +scroll_arrow
+      content: '>'
+      right: 0
 
     column:
       count: $column_count
