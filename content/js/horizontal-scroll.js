@@ -6,19 +6,17 @@
 // Readably https://github.com/sunaku/readably
 //
 $(document).ready(function() {
-  var screen = $('html, body');
-
   var scroll = function(ascend, amount) {
     if (typeof(ascend) === 'boolean') {
       amount = (ascend ? '-=' : '+=') + amount;
     }
-    screen.stop().animate({ scrollLeft: amount });
+    $('body, html').animate({ scrollLeft: amount });
   };
 
   // computes the effective width of a screen page
   var boundary = function() {
     var panorama = $(document).width();
-    var viewport = screen.width();
+    var viewport = $('html').width();
     var interval = Math.round(panorama / Math.round(panorama / viewport));
     return Math.max(viewport, interval);
   }
@@ -38,7 +36,7 @@ $(document).ready(function() {
   };
 
   // travel between screen pages using the keyboard
-  screen.bind('keydown', function(event) {
+  $(document).bind('keydown', function(event) {
     switch (event.keyCode) {
       case 33: // page up
       case 37: // left arrow
@@ -63,7 +61,7 @@ $(document).ready(function() {
   });
 
   // travel between screen pages using the mouse wheel
-  screen.bind('mousewheel', function(event, delta, deltaX, deltaY) {
+  $(document).bind('mousewheel', function(event, delta, deltaX, deltaY) {
     if (delta !== 0 && deltaX === 0) {
       scroll(deltaY === 1, boundary());
     }
