@@ -68,7 +68,6 @@ $(document).ready(function() {
   });
 
   // align the screen to a page boundary automatically
-  var settle = function() { setTimeout(align, 500); };
-  $(window).bind('resize', settle);
-  settle();
+  $(window).bind('resize', align);
+  setTimeout(align, 500);
 });
