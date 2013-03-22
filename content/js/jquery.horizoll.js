@@ -33,9 +33,22 @@ $(function() {
   }
 
   // aligns the screen to the nearest page boundary
-  function align() {
+  // while ensuring that any hash target is visible
+  function settle() {
     var limit = stride();
-    var depth = $(document).scrollLeft() % limit;
+
+    // align to page containing any hash target
+    var target = $(':target');
+    if (target.length) {
+      var start = target.offset().left;
+      var depth = start % limit;
+      scroll(null, start - depth);
+      return;
+    }
+
+    // align to nearest page boundary
+    var start = $(document).scrollLeft();
+    var depth = start % limit;
     if (depth > 0) {
       if (depth < Math.round(limit / 2)) {
         scroll(true, depth);
@@ -79,7 +92,7 @@ $(function() {
   });
 
   // automatically realign to nearest page boundary
-  $(window).bind('resize', align);
-  setTimeout(align, 500);
+  $(window).bind('resize', settle);
+  setTimeout(settle, 500);
 
 });
