@@ -61,33 +61,37 @@ $(function() {
 
   // traverse page boundaries using the keyboard
   $(document).bind('keydown', function(event) {
-    switch (event.keyCode) {
-      case 33: // page up
-      case 37: // left arrow
-      case 38: // up arrow
-        scroll(true, stride());
-        break;
+    if (!event.target.hasOwnProperty('form')) { // don't intercept form input
+      switch (event.keyCode) {
+        case 33: // page up
+        case 37: // left arrow
+        case 38: // up arrow
+          scroll(true, stride());
+          break;
 
-      case 34: // page down
-      case 39: // right arrow
-      case 40: // down arrow
-        scroll(false, stride());
-        break;
+        case 34: // page down
+        case 39: // right arrow
+        case 40: // down arrow
+          scroll(false, stride());
+          break;
 
-      case 36: // home
-        scroll(null, 0);
-        break;
+        case 36: // home
+          scroll(null, 0);
+          break;
 
-      case 35: // end
-        scroll(null, $(document).width());
-        break;
+        case 35: // end
+          scroll(null, $(document).width());
+          break;
+      }
     }
   });
 
   // traverse page boundaries using the mouse wheel
   $(document).bind('mousewheel', function(event, delta, deltaX, deltaY) {
-    if (delta !== 0 && deltaX === 0) {
-      scroll(deltaY === 1, stride());
+    if (!event.target.hasOwnProperty('form')) { // don't intercept form input
+      if (delta !== 0 && deltaX === 0) {
+        scroll(deltaY === 1, stride());
+      }
     }
   });
 
