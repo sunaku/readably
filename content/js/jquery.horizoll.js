@@ -66,7 +66,13 @@ $(function() {
         case 33: // page up
         case 37: // left arrow
         case 38: // up arrow
-          scroll(true, stride());
+          // the bottom of the document might not have enough content to fit
+          // an entire screen page, so we have to compensate when scrolling
+          // leftward to ensure that we remain aligned to page boundaries
+          var limit = stride();
+          var start = $(document).scrollLeft();
+          var depth = start % limit;
+          scroll(true, depth ? depth : limit);
           break;
 
         case 34: // page down
