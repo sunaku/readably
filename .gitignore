@@ -1,3 +1,4 @@
 /content/*.html
-/content/index.*
+/content/index.atom
+/content/style.css
 /.sass-cache
