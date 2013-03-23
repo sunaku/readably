@@ -55,9 +55,26 @@ $(function() {
     }
   }
 
+  // Tests whether the given event qualifies as a cause for scrolling.
+  function qualify(event) {
+    return !(
+      // event originated from a form input field, so don't interfere:
+      // the user is probably trying to enter text or scroll the field
+      event.target.hasOwnProperty('form') ||
+
+      // browser could not fit document vertically into window so don't
+      // interfere with user's ability to scroll the document normally
+      $(document).height() > $(window).height() ||
+
+      // browser was able to fit document horizontally into window, so
+      // scrolling is unnecessary: there's nothing here to be scrolled!
+      $(document).width() < $(window).width()
+    );
+  }
+
   // traverse page boundaries using the keyboard
   $(document).bind('keydown', function(event) {
-    if (!event.target.hasOwnProperty('form')) { // don't intercept form input
+    if (qualify(event)) {
       switch (event.keyCode) {
         case 8: // backspace
         case 33: // page up
@@ -86,10 +103,8 @@ $(function() {
 
   // traverse page boundaries using the mouse wheel
   $(document).bind('mousewheel', function(event, delta, deltaX, deltaY) {
-    if (!event.target.hasOwnProperty('form')) { // don't intercept form input
-      if (delta !== 0 && deltaX === 0) {
-        horizoll(deltaY > 0 ? 'left' : 'right');
-      }
+    if (qualify(event) && delta !== 0 && deltaX === 0) {
+      horizoll(deltaY > 0 ? 'left' : 'right');
     }
   });
 
