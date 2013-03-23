@@ -16,46 +16,50 @@
 */
 $(function() {
 
-  // scrolls the screen horizontally by given amount
-  function scroll(leftward, amount) {
-    if (typeof(leftward) === 'boolean') {
-      amount = (leftward ? '-=' : '+=') + amount;
-    }
-    $('body, html').animate({ scrollLeft: amount });
-  }
-
-  // computes page boundary based on screen width
-  function stride() {
+  // Computes the width of a page (amount of content that fits on a screen).
+  function boundary() {
     var panorama = $(document).width();
     var viewport = $('html').width();
-    var boundary = Math.round(panorama / Math.round(panorama / viewport));
-    return Math.max(viewport, boundary);
+    var interval = Math.round(panorama / Math.round(panorama / viewport));
+    return Math.max(viewport, interval);
   }
 
-  // aligns the screen to the nearest page boundary
-  // while ensuring that any hash target is visible
-  function settle() {
-    var limit = stride();
+  // Scrolls the screen horizontally to the given location, which can be
+  // an absolute pixel offset (number) or one of the following (string):
+  //
+  // 'left':  if not aligned, scroll to start of current page;
+  //          otherwise, scroll to start of previous page
+  //
+  // 'right': scroll to start of next page
+  //
+  // 'align': if beyond half of current page, scroll to start of next page;
+  //          otherwise, scroll to start of current page
+  //
+  // In either case, the screen will be left-aligned to a page boundary.
+  //
+  function horizoll(where) {
+    var start = typeof where === 'number' ? where : $(document).scrollLeft();
+    var limit = boundary();
+    var depth = start % limit;
+    var space = limit - depth;
+    switch (where) {
+      case 'left' : where = start - (depth > 0 ? depth : limit); break;
+      case 'right': where = start + (depth > 0 ? space : limit); break;
+      case 'align': if (depth >= space) { where = start + space; break; }
+      default     : where = start - depth; // ELSE for above IF falls through
+    }
+    $('body, html').animate({ scrollLeft: where });
+  }
 
-    // align to page containing any hash target
+  // Aligns the screen to the nearest page boundary
+  // while ensuring that any hash target is visible.
+  function realign() {
     var target = $(':target');
     if (target.length) {
-      var start = target.offset().left;
-      var depth = start % limit;
-      scroll(null, start - depth);
-      return;
+      horizoll(target.offset().left);
     }
-
-    // align to nearest page boundary
-    var start = $(document).scrollLeft();
-    var depth = start % limit;
-    if (depth > 0) {
-      if (depth < Math.round(limit / 2)) {
-        scroll(true, depth);
-      }
-      else {
-        scroll(false, limit - depth);
-      }
+    else {
+      horizoll('align');
     }
   }
 
@@ -66,27 +70,21 @@ $(function() {
         case 33: // page up
         case 37: // left arrow
         case 38: // up arrow
-          // the bottom of the document might not have enough content to fit
-          // an entire screen page, so we have to compensate when scrolling
-          // leftward to ensure that we remain aligned to page boundaries
-          var limit = stride();
-          var start = $(document).scrollLeft();
-          var depth = start % limit;
-          scroll(true, depth ? depth : limit);
+          horizoll('left');
           break;
 
         case 34: // page down
         case 39: // right arrow
         case 40: // down arrow
-          scroll(false, stride());
+          horizoll('right');
           break;
 
-        case 36: // home
-          scroll(null, 0);
+        case 36: // home key
+          horizoll(0);
           break;
 
-        case 35: // end
-          scroll(null, $(document).width());
+        case 35: // end key
+          horizoll($(document).width());
           break;
       }
     }
@@ -96,13 +94,13 @@ $(function() {
   $(document).bind('mousewheel', function(event, delta, deltaX, deltaY) {
     if (!event.target.hasOwnProperty('form')) { // don't intercept form input
       if (delta !== 0 && deltaX === 0) {
-        scroll(deltaY === 1, stride());
+        horizoll(deltaY > 0 ? 'left' : 'right');
       }
     }
   });
 
   // automatically realign to nearest page boundary
-  $(window).bind('resize', settle);
-  setTimeout(settle, 500);
+  $(window).bind('resize', realign);
+  setTimeout(realign, 500);
 
 });
