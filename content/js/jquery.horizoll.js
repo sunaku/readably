@@ -16,14 +16,6 @@
 */
 $(function() {
 
-  // Computes the width of a page (amount of content that fits on a screen).
-  function boundary() {
-    var panorama = $(document).width();
-    var viewport = $('html').width();
-    var interval = Math.round(panorama / Math.round(panorama / viewport));
-    return Math.max(viewport, interval);
-  }
-
   // Scrolls the screen horizontally to the given location, which can be
   // an absolute pixel offset (number) or one of the following (string):
   //
@@ -39,7 +31,7 @@ $(function() {
   //
   function horizoll(where) {
     var start = typeof where === 'number' ? where : $(document).scrollLeft();
-    var limit = boundary();
+    var limit = $('html').width();
     var depth = start % limit;
     var space = limit - depth;
     switch (where) {
