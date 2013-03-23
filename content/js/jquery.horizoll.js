@@ -67,12 +67,14 @@ $(function() {
   $(document).bind('keydown', function(event) {
     if (!event.target.hasOwnProperty('form')) { // don't intercept form input
       switch (event.keyCode) {
+        case 8: // backspace
         case 33: // page up
         case 37: // left arrow
         case 38: // up arrow
           horizoll('left');
           break;
 
+        case 32: // space bar
         case 34: // page down
         case 39: // right arrow
         case 40: // down arrow
