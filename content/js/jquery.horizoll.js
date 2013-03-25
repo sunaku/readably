@@ -68,6 +68,12 @@ $(function() {
       // the user is probably trying to enter text or scroll the field
       event.target.hasOwnProperty('form') ||
 
+      // modifier was pressed along with keystroke, so don't interfere
+      event.altKey || event.ctrlKey || event.metaKey || (
+        // shift modifier was pressed along with a non-space-bar key
+        event.shiftKey && (event.keyCode !== 32) // space bar
+      ) ||
+
       // browser could not fit document vertically into window so don't
       // interfere with user's ability to scroll the document normally
       $document.height() > $window.height() ||
@@ -82,18 +88,20 @@ $(function() {
   $document.bind('keydown', function(event) {
     if (qualify(event)) {
       switch (event.keyCode) {
-        case 8: // backspace
         case 33: // page up
         case 37: // left arrow
         case 38: // up arrow
           horizoll('left');
           break;
 
-        case 32: // space bar
         case 34: // page down
         case 39: // right arrow
         case 40: // down arrow
           horizoll('right');
+          break;
+
+        case 32: // space bar
+          horizoll(event.shiftKey ? 'left' : 'right');
           break;
 
         case 36: // home key
