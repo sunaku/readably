@@ -17,7 +17,8 @@
 $(function() {
   var $window   = $(window),
       $document = $(document),
-      $screen   = $('html,body');
+      $screen   = $('html,body'),
+      wheeling  = false;
 
   // Scrolls the screen horizontally to the given location, which can be
   // an absolute pixel offset (number) or one of the following (string):
@@ -32,7 +33,7 @@ $(function() {
   //
   // In either case, the screen will be left-aligned to a page boundary.
   //
-  function horizoll(where) {
+  function horizoll(where, options) {
     var start = typeof where === 'number' ? where : $document.scrollLeft(),
         limit = $screen.width(),
         depth = start % limit,
@@ -46,7 +47,7 @@ $(function() {
       default     : where = start - depth;
     }
 
-    $screen.animate({ scrollLeft: where });
+    $screen.animate({ scrollLeft: where }, options);
   }
 
   // Aligns the screen to the nearest page boundary
@@ -117,8 +118,13 @@ $(function() {
 
   // traverse page boundaries using the mouse wheel
   $document.bind('mousewheel', function(event, delta, deltaX, deltaY) {
-    if (qualify(event) && delta !== 0 && deltaX === 0) {
-      horizoll(deltaY > 0 ? 'left' : 'right');
+    if (!wheeling && delta !== 0 && deltaX === 0 && qualify(event)) {
+      wheeling = true;
+      horizoll(deltaY > 0 ? 'left' : 'right', {
+        complete: function() {
+          wheeling = false;
+        }
+      });
     }
   });
 
