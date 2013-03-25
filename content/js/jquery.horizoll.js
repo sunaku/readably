@@ -15,6 +15,9 @@
 
 */
 $(function() {
+  var $window   = $(window),
+      $document = $(document),
+      $screen   = $('html,body');
 
   // Scrolls the screen horizontally to the given location, which can be
   // an absolute pixel offset (number) or one of the following (string):
@@ -30,8 +33,8 @@ $(function() {
   // In either case, the screen will be left-aligned to a page boundary.
   //
   function horizoll(where) {
-    var start = typeof where === 'number' ? where : $(document).scrollLeft(),
-        limit = $('html').width(),
+    var start = typeof where === 'number' ? where : $document.scrollLeft(),
+        limit = $screen.width(),
         depth = start % limit,
         space = limit - depth;
 
@@ -43,7 +46,7 @@ $(function() {
       default     : where = start - depth;
     }
 
-    $('body, html').animate({ scrollLeft: where });
+    $screen.animate({ scrollLeft: where });
   }
 
   // Aligns the screen to the nearest page boundary
@@ -67,16 +70,16 @@ $(function() {
 
       // browser could not fit document vertically into window so don't
       // interfere with user's ability to scroll the document normally
-      $(document).height() > $(window).height() ||
+      $document.height() > $window.height() ||
 
       // browser was able to fit document horizontally into window, so
       // scrolling is unnecessary: there's nothing here to be scrolled!
-      $(document).width() < $(window).width()
+      $document.width() < $window.width()
     );
   }
 
   // traverse page boundaries using the keyboard
-  $(document).bind('keydown', function(event) {
+  $document.bind('keydown', function(event) {
     if (qualify(event)) {
       switch (event.keyCode) {
         case 8: // backspace
@@ -98,21 +101,21 @@ $(function() {
           break;
 
         case 35: // end key
-          horizoll($(document).width());
+          horizoll($document.width());
           break;
       }
     }
   });
 
   // traverse page boundaries using the mouse wheel
-  $(document).bind('mousewheel', function(event, delta, deltaX, deltaY) {
+  $document.bind('mousewheel', function(event, delta, deltaX, deltaY) {
     if (qualify(event) && delta !== 0 && deltaX === 0) {
       horizoll(deltaY > 0 ? 'left' : 'right');
     }
   });
 
   // automatically realign to nearest page boundary
-  $(window).bind('resize', realign);
+  $window.bind('resize', realign);
   setTimeout(realign, 500);
 
 });
