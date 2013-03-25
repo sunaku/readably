@@ -30,16 +30,19 @@ $(function() {
   // In either case, the screen will be left-aligned to a page boundary.
   //
   function horizoll(where) {
-    var start = typeof where === 'number' ? where : $(document).scrollLeft();
-    var limit = $('html').width();
-    var depth = start % limit;
-    var space = limit - depth;
+    var start = typeof where === 'number' ? where : $(document).scrollLeft(),
+        limit = $('html').width(),
+        depth = start % limit,
+        space = limit - depth;
+
     switch (where) {
       case 'left' : where = start - (depth > 0 ? depth : limit); break;
       case 'right': where = start + (depth > 0 ? space : limit); break;
       case 'align': if (depth >= space) { where = start + space; break; }
-      default     : where = start - depth; // ELSE for above IF falls through
+                    // else fall through
+      default     : where = start - depth;
     }
+
     $('body, html').animate({ scrollLeft: where });
   }
 
