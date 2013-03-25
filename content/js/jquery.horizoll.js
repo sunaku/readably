@@ -85,7 +85,7 @@ $(function() {
   }
 
   // traverse page boundaries using the keyboard
-  $document.bind('keydown', function(event) {
+  $document.bind('keyup', function(event) {
     if (qualify(event)) {
       switch (event.keyCode) {
         case 33: // page up
