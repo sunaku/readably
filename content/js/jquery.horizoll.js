@@ -24,8 +24,11 @@ $(function() {
   function boundary() {
     var panorama = $document.width(),
         viewport = $window.width(),
-        interval = Math.round(panorama / Math.round(panorama / viewport));
-    return Math.max(viewport, interval);
+        interval = Math.round(panorama / Math.round(panorama / viewport)),
+        picture  = $screen.width(),
+        reveal   = Math.round((viewport + picture) / 2),
+        ratio    = interval / viewport;
+    return ratio > 1.03 ? reveal : (ratio >= 0.98 ? interval : picture);
   }
 
   // Scrolls the screen horizontally to the given location, which can be
