@@ -2,10 +2,11 @@ $column_width: 27em
 $column_space: 2em
 $column_count: auto
 
-@import url('http://fonts.googleapis.com/css?family=Audiowide|Molengo|PT+Mono')
+@import url('http://fonts.googleapis.com/css?family=Audiowide|Molengo|PT+Mono|Handlee')
 $heading_font: Audiowide, Constantia, Palatino, serif
 $content_font: Molengo, Calibri, Helvetica, sans-serif
 $literal_font: 'PT Mono', Monaco, Consolas, Fixedsys, monospace
+$quoting_font: Handlee, Constantia, Palatino, serif
 
 =heading_style
   font-family: $heading_font
@@ -20,6 +21,9 @@ $literal_font: 'PT Mono', Monaco, Consolas, Fixedsys, monospace
 =literal_style
   font-family: $literal_font
   line-height: normal
+
+=quoting_style
+  font-family: $quoting_font
 
 =center_text
   display: block
@@ -59,6 +63,9 @@ $literal_font: 'PT Mono', Monaco, Consolas, Fixedsys, monospace
 
   img, video, audio, embed, iframe
     +center_elem
+
+  blockquote, q
+    +quoting_style
 
   a > img
     border: none
