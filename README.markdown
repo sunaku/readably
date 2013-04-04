@@ -28,8 +28,10 @@ Features
   * It has simple navigation that works well in both text-mode Web browsers
     (such as Lynx, elinks, and w3m) and modern Web browsers (like Firefox).
 
-  * It supports the two most popular Javascript-based blog comment services:
+  * It supports the two most popular JavaScript-based blog comment services:
     [Disqus](http://disqus.com) and [IntenseDebate](http://intensedebate.com).
+
+  * It supports automatic syntax highlighting of code blocks in Markdown.
 
   * It is implemented in less than 200 lines of pure Ruby code! :-)
 
@@ -38,14 +40,7 @@ Prerequisites
 ------------------------------------------------------------------------------
 
   * Ruby 1.8.7 or newer:  <http://www.ruby-lang.org>
-  * Rake 0.8.7 or newer:  `gem install rake`
-  * Slim 1.0.3 or newer:  `gem install slim`
-  * Sass 3.1.5 or newer:  `gem install sass`
-
-(Optional) for syntax highlighting of code blocks in Markdown:
-
-  * Redcarpet 2.2 or newer:  `gem install redcarpet`
-  * Rouge 0.2.10 or newer:   `gem install rouge`
+  * Bundler 1.3 or newer: <http://gembundler.com>
 
 ------------------------------------------------------------------------------
 Installing
@@ -53,15 +48,14 @@ Installing
 
     # install
     git clone git://github.com/sunaku/readably.git
-
-    # branch
     cd readably
-    git checkout -b personal
+    bundle install # OR: bundle install --without markdown
 
-    # initialize
-    mkdir content/
+    # bootstrap
     cp -vb EXAMPLE.entry.readably content/
     cp -vb EXAMPLE.config.yaml config.yaml
+    bundle exec rake
+    firefox content/index.html
 
 ------------------------------------------------------------------------------
 Configuring
@@ -78,17 +72,17 @@ Running
 
 NOTE: If you are using Ruby 1.8.7, add `-rubygems` to the following commands.
 
-Run `rake --tasks` to see available commands:
+Run `bundle exec rake --tasks` to see available commands:
 
-    rake build    # Build entire blog.
-    rake entry    # Build entry pages.
-    rake index    # Build index pages.
-    rake style    # Build stylesheet.
+    bundle exec rake build    # Build entire blog.
+    bundle exec rake entry    # Build entry pages.
+    bundle exec rake index    # Build index pages.
+    bundle exec rake style    # Build stylesheet.
 
-    rake clean    # Remove any temporary products.
-    rake clobber  # Remove any generated file.
+    bundle exec rake clean    # Remove any temporary products.
+    bundle exec rake clobber  # Remove any generated file.
 
-    rake upgrade  # Upgrade blog software.
+    bundle exec rake upgrade  # Upgrade blog software.
 
 ------------------------------------------------------------------------------
 Blogging
@@ -109,8 +103,8 @@ Previewing
 ------------------------------------------------------------------------------
 
 Simply open the `content/index.html` file in your favorite web browser.  After
-making changes to a blog entry, run `rake`, and then reload the corresponding
-web page in your web browser.
+making changes to a blog entry, run `bundle exec rake`, and then reload the
+corresponding web page in your web browser.
 
 ------------------------------------------------------------------------------
 Publishing
@@ -133,7 +127,7 @@ You can take this further and make it a Rake task by adding it to `Rakefile`:
 
 From then onwards, you can publish your blog at any time, simply by running:
 
-    rake publish
+    bundle exec rake publish
 
 ------------------------------------------------------------------------------
 Upgrading
@@ -141,7 +135,7 @@ Upgrading
 
 To upgrade your copy of Readably, run the following command:
 
-    rake upgrade
+    bundle exec rake upgrade
 
 ------------------------------------------------------------------------------
 Contributing
