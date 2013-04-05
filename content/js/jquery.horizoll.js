@@ -22,13 +22,19 @@ $(function() {
 
   // Computes the width of a page (amount of content that fits on a screen).
   function boundary() {
-    var panorama = $document.width(),
-        viewport = $window.width(),
-        interval = Math.round(panorama / Math.round(panorama / viewport)),
-        picture  = $screen.width(),
-        reveal   = Math.round((viewport + picture) / 2),
-        ratio    = interval / viewport;
-    return ratio > 1.03 ? reveal : (ratio >= 0.98 ? interval : picture);
+    var display = $window.width(),
+        content = $screen.width();
+    //
+    // midpoint of content width and midpoint of content and display widths:
+    //
+    // __________________
+    // |xxxxxx          | <= content width
+    // |xxxxxxxxxxxxxxxx| <= display width
+    // |          A     | <= midpoint of content and display widths
+    // |       B        | <= midpoint of content and above midpoint
+    // |________________|
+    //
+    return Math.round((((display + content) / 2) + content) / 2);
   }
 
   // Scrolls the screen horizontally to the given location, which can be
