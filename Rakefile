@@ -58,7 +58,7 @@ begin
   end
 
   # https://github.com/slim-template/slim/issues/192#issuecomment-12925712
-  Slim::EmbeddedEngine.set_default_options :markdown => options
+  Slim::Embedded.set_default_options :markdown => options
   Tilt.prefer Tilt::RedcarpetTemplate::Redcarpet2, 'markdown'
 rescue LoadError => error
   warn error
