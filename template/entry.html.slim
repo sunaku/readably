@@ -49,14 +49,12 @@ html
               script src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'
 
             - when 'Disqus'
-              / see http://disqus.com/docs/embed/
               javascript:
                 var disqus_container_id = 'comments';
                 var disqus_title = #{{entry['title'].inspect}};
                 var disqus_url = #{{entry[:published_url].inspect}};
-                window.disqus_no_style = true; // prevent document.write()
 
-              script src="http://disqus.com/forums/#{account}/embed.js"
+              script src="http://#{account}.disqus.com/embed.js" async=true
 
             - else raise NotImplementedError, "unknown comments service: #{service}"
 
