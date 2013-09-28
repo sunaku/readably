@@ -51,19 +51,13 @@ $(function() {
   // In either case, the screen will be left-aligned to a page boundary.
   //
   function horizoll(where, options) {
-    if (
+    // browser could not fit document vertically into window so don't
+    // interfere with user's ability to scroll the document normally
+    if ($document.height() > $window.height()) return;
 
-      // browser could not fit document vertically into window so don't
-      // interfere with user's ability to scroll the document normally
-      $document.height() > $window.height() ||
-
-      // browser was able to fit document horizontally into window, so
-      // scrolling is unnecessary: there's nothing here to be scrolled!
-      $document.width() < $window.width()
-
-    ) {
-      return; // skip processing for the corner cases described above
-    }
+    // browser was able to fit document horizontally into window, so
+    // scrolling is unnecessary: there's nothing here to be scrolled!
+    if ($document.width() < $window.width()) return;
 
     var start = typeof where === 'number' ? where : $document.scrollLeft(),
         limit = boundary(),
