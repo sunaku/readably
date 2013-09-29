@@ -23,18 +23,21 @@ html
           .category
             | (#{entry[:category]})
 
-      - entry[:updates].each do |date, content|
-        aside.update
-          dl
-            dt.title
-              time datetime=(date.iso8601)
-                = format_date(date, config['date_format']) + ': '
-            dd.content
-              == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
-
       .content
         == render_slim_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
 
+      - unless entry[:updates].empty?
+        hr
+        - entry[:updates].reverse_each do |date, content|
+          aside.update
+            dl
+              dt.title
+                time datetime=(date.iso8601)
+                  = format_date(date, config['date_format']) + ': '
+              dd.content
+                == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
+
+      hr
       - if service = config['comments_service'] and account = config['comments_account']
         .comments#comments
           - case service
