@@ -7,6 +7,9 @@
   Readably https://github.com/sunaku/readably
   and thus distributed under the ISC license.
 
+  Requires: "column-gap: 0" to be set in CSS.
+  Otherwise, page alignment will be incorrect.
+
   Requires: jQuery 1.2.6 or newer
   http://docs.jquery.com/Release:jQuery_1.2.6
 
@@ -22,19 +25,21 @@ $(function() {
 
   // Computes the width of a page (amount of content that fits on a screen).
   function boundary() {
-    var display = $window.width(),
-        content = $screen.width();
     //
-    // midpoint of content width and midpoint of content and display widths:
+    // +-----FRAME-----+        <-- FRAME measures the browser window size
+    // | +---IMAGE---+ |        <-- IMAGE measures the content canvas size
+    // | |...........| |
+    // | |...USAGE...| |        <-- USAGE is amount of FRAME used by IMAGE
+    // | |...........| |
+    // | +-----------+ |
+    // +---------------+
     //
-    // __________________
-    // |xxxxxx          | <= content width
-    // |xxxxxxxxxxxxxxxx| <= display width
-    // |          A     | <= midpoint of content and display widths
-    // |       B        | <= midpoint of content and above midpoint
-    // |________________|
-    //
-    return Math.round((((display + content) / 2) + content) / 2);
+    var frame = $window.width(),
+        image = $screen.width(),
+        usage = image / frame;
+
+    // further reduce IMAGE by USAGE to mirror "padding: 1%" in the CSS
+    return Math.round(image * usage);
   }
 
   // Scrolls the screen horizontally to the given location, which can be
