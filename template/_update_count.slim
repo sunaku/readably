@@ -1,0 +1,5 @@
+- unless entry[:updates].empty?
+  .update_count
+    a href="#{entry[:url]}#updates"
+      - updates = entry[:updates].length
+      | #{updates} update#{'s' if updates > 1}

@@ -36,10 +36,6 @@ html
                   - date = entry[:updated_at]
                   time datetime=date.iso8601
                     = date.strftime('%F')
-                  - unless entry[:updates].empty?
-                    .updates
-                      a href="#{entry[:url]}#updates"
-                        - updates = entry[:updates].length
-                        | #{updates} update#{'s' if updates > 1}
+                  == render_slim_file('template/_update_count.slim', nil, :entry => entry)
 
       == render_slim_file('template/footer.html.slim', nil, :config => config, :target => config)
