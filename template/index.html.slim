@@ -33,9 +33,12 @@ html
                   .category
                     = entry[:category]
                 td.date
-                  - [entry[:updated_at], entry[:created_at]].uniq.each do |date|
-                    time datetime=date.iso8601
-                      = date.strftime('%F')
-                    br
+                  - date = entry[:updated_at]
+                  time datetime=date.iso8601
+                    = date.strftime('%F')
+                  - unless entry[:updates].empty?
+                    .updates
+                      a href="#{entry[:url]}#updates"
+                        | #{entry[:updates].length} updates
 
       == render_slim_file('template/footer.html.slim', nil, :config => config, :target => config)
