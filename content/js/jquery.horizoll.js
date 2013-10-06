@@ -158,6 +158,7 @@ $(function() {
 
   // automatically realign to nearest page boundary
   $window.bind('resize', realign);
+  window.onhashchange = realign;
   setTimeout(realign, 500);
 
 });
