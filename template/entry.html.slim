@@ -19,6 +19,11 @@ html
         time.date datetime=(date.iso8601)
           = format_date(date, config['date_format'], config['locale'])
 
+        - unless entry[:updates].empty?
+          .updates
+            a href='#updates'
+              | #{entry[:updates].length} updates
+
         - unless entry[:categories].empty?
           .category
             | (#{entry[:category]})
