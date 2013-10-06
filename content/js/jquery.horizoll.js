@@ -38,6 +38,12 @@ $(function() {
         image = $screen.width(),
         usage = image / frame;
 
+    // IE10 always reports equal window & screen widths
+    // whereas Chrome reports larger window than screen
+    if (usage == 1) {
+      usage = 0.96; // this mirrors "height: 96%" in the CSS
+    }
+
     // further reduce IMAGE by USAGE to mirror "padding: 1%" in the CSS
     return Math.round(image * usage);
   }
@@ -58,11 +64,11 @@ $(function() {
   function horizoll(where, options) {
     // browser could not fit document vertically into window so don't
     // interfere with user's ability to scroll the document normally
-    if ($document.height() > $window.height()) return;
+    if ($document.height() > Math.max($window.height(), $screen.height())) return;
 
     // browser was able to fit document horizontally into window, so
     // scrolling is unnecessary: there's nothing here to be scrolled!
-    if ($document.width() < $window.width()) return;
+    if ($document.width() <= $window.width()) return;
 
     var start = typeof where === 'number' ? where : $document.scrollLeft(),
         limit = boundary(),
