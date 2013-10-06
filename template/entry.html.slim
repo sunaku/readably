@@ -28,6 +28,7 @@ html
 
       - unless entry[:updates].empty?
         hr
+        h1#updates Updates
         - entry[:updates].reverse_each do |date, content|
           aside.update
             dl
