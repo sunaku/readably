@@ -40,35 +40,11 @@
 *****************************************************************************/
 
 $(function() {
-  var $window   = $(window),
-      $document = $(document),
-      $screen   = $('html,body'),
+  var $document = $(document),
+      $window   = $(window),
+      $html     = $('html'),
+      $body     = $('body'),
       wheeling  = false;
-
-  // Computes the width of a page (amount of content that fits on a screen).
-  function boundary() {
-    //
-    // +-----FRAME-----+        <-- FRAME measures the browser window size
-    // | +---IMAGE---+ |        <-- IMAGE measures the content canvas size
-    // | |...........| |
-    // | |...USAGE...| |        <-- USAGE is amount of FRAME used by IMAGE
-    // | |...........| |
-    // | +-----------+ |
-    // +---------------+
-    //
-    var frame = $window.width(),
-        image = $screen.width(),
-        usage = image / frame;
-
-    // IE10 always reports equal window & screen widths
-    // whereas Chrome reports larger window than screen
-    if (usage == 1) {
-      usage = 0.96; // this mirrors "height: 96%" in the CSS
-    }
-
-    // further reduce IMAGE by USAGE to mirror "padding: 1%" in the CSS
-    return Math.round(image * usage);
-  }
 
   // Scrolls the screen horizontally to the given location, which can be
   // an absolute pixel offset (number) or one of the following (string):
@@ -86,14 +62,16 @@ $(function() {
   function horizoll(where, options) {
     // browser could not fit document vertically into window so don't
     // interfere with user's ability to scroll the document normally
-    if ($document.height() > Math.max($window.height(), $screen.height())) return;
+    // NOTE: document height matches window height in Chrome browser;
+    // but in other the browsers, document height matches html height
+    if ($document.height() > Math.max($window.height(), $html.height())) return;
 
     // browser was able to fit document horizontally into window, so
     // scrolling is unnecessary: there's nothing here to be scrolled!
     if ($document.width() <= $window.width()) return;
 
     var start = typeof where === 'number' ? where : $document.scrollLeft(),
-        limit = boundary(),
+        limit = $body.width(),
         depth = start % limit,
         space = limit - depth;
 
@@ -105,7 +83,7 @@ $(function() {
       default     : where = start - depth;
     }
 
-    $screen.animate({ scrollLeft: where }, options);
+    $('html,body').animate({ scrollLeft: where }, options);
   }
 
   // Aligns the screen to the nearest page boundary
