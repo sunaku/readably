@@ -22,7 +22,8 @@ html
         - unless entry[:updates].empty?
           .updates
             a href='#updates'
-              | #{entry[:updates].length} updates
+              - updates = entry[:updates].length
+              | #{updates} update#{'s' if updates > 1}
 
         - unless entry[:categories].empty?
           .category

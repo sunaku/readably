@@ -39,6 +39,7 @@ html
                   - unless entry[:updates].empty?
                     .updates
                       a href="#{entry[:url]}#updates"
-                        | #{entry[:updates].length} updates
+                        - updates = entry[:updates].length
+                        | #{updates} update#{'s' if updates > 1}
 
       == render_slim_file('template/footer.html.slim', nil, :config => config, :target => config)
