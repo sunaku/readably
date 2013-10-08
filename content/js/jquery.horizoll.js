@@ -44,7 +44,16 @@ $(function() {
       $window   = $(window),
       $html     = $('html'),
       $body     = $('body'),
-      wheeling  = false;
+      wheeling  = false,
+      SPACE     = 32, // space bar
+      PRIOR     = 33, // page up
+      NEXT      = 34, // page down
+      END       = 35, // end key
+      HOME      = 36, // home key
+      LEFT      = 37, // left arrow
+      UP        = 38, // up arrow
+      RIGHT     = 39, // right arrow
+      DOWN      = 40; // down arrow
 
   // Scrolls the screen horizontally to the given location, which can be
   // an absolute pixel offset (number) or one of the following (string):
@@ -60,12 +69,6 @@ $(function() {
   // In either case, the screen will be left-aligned to a page boundary.
   //
   function horizoll(where, options) {
-    // browser could not fit document vertically into window so don't
-    // interfere with user's ability to scroll the document normally
-    // NOTE: document height matches window height in Chrome browser;
-    // but in other the browsers, document height matches html height
-    if ($document.height() > Math.max($window.height(), $html.height())) return;
-
     // browser was able to fit document horizontally into window, so
     // scrolling is unnecessary: there's nothing here to be scrolled!
     if ($document.width() <= $window.width()) return;
@@ -99,45 +102,55 @@ $(function() {
   }
 
   // Tests whether the given event qualifies as a cause for scrolling.
-  function qualify(event) {
+  function qualify(event, approved_scrolling_keycodes) {
     return !(
       // event originated from a form input field, so don't interfere:
       // the user is probably trying to enter text or scroll the field
       (event.target && event.target.form) ||
 
       // modifier was pressed along with keystroke, so don't interfere
-      event.altKey || event.ctrlKey || event.metaKey || (
-        // shift modifier was pressed along with a non-space-bar key
-        event.shiftKey && (event.keyCode !== 32) // space bar
-      )
+      event.altKey || event.ctrlKey || event.metaKey ||
+
+      // shift was pressed with a non-space-bar key, so don't interfere
+      (event.shiftKey && event.keyCode !== SPACE) ||
+
+      // browser could not fit document vertically into window so don't
+      // interfere with user's ability to scroll the document normally...
+      //
+      // (NOTE: document height matches window height in Chrome browser;
+      // whereas in other browsers, document height matches html height)
+      //
+      ($document.height() > Math.max($window.height(), $html.height()) &&
+       // ...unless the user has pressed an approved scrolling keycode
+       $.inArray(event.keyCode, approved_scrolling_keycodes) === -1)
     );
   }
 
   // traverse page boundaries using the keyboard
   $document.bind('keyup', function(event) {
-    if (qualify(event)) {
+    if (qualify(event, [LEFT, RIGHT])) {
       switch (event.keyCode) {
-        case 33: // page up
-        case 37: // left arrow
-        case 38: // up arrow
+        case PRIOR:
+        case LEFT:
+        case UP:
           horizoll('left');
           break;
 
-        case 34: // page down
-        case 39: // right arrow
-        case 40: // down arrow
+        case NEXT:
+        case RIGHT:
+        case DOWN:
           horizoll('right');
           break;
 
-        case 32: // space bar
+        case SPACE:
           horizoll(event.shiftKey ? 'left' : 'right');
           break;
 
-        case 36: // home key
+        case HOME:
           horizoll(0);
           break;
 
-        case 35: // end key
+        case END:
           horizoll($document.width());
           break;
       }
