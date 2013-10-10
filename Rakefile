@@ -30,6 +30,35 @@ begin
 
   renderer_class = Class.new(Redcarpet::Render::HTML) do
     include Redcarpet::Render::SmartyPants
+
+    # add URI fragment anchors to all headings
+    # https://gist.github.com/sunaku/6913731
+    #
+    # FIXME: this is a temporary workaround until the
+    #        following (merged) pull request is included
+    #        in the next gem release of Redcarpet 3:
+    #        https://github.com/vmg/redcarpet/pull/186
+    #
+    def header title, level
+      fragment = title.downcase.gsub(/\W+/, '-')
+
+      # make the fragment unique by appending an incremented counter
+      @fragments ||= []
+      if @fragments.include? fragment
+        fragment += '_1'
+        fragment = fragment.next while @fragments.include? fragment
+      end
+      @fragments << fragment
+
+      # generate HTML for this header containing the above fragment
+      [?\n,
+        %{<h#{level} id="#{fragment}">},
+          title,
+          %{<a name="#{fragment}" href="##{fragment}" class="permalink" title="permalink">},
+          '</a>',
+        "</h#{level}>",
+      ?\n].join
+    end
   end
 
   # try to use Rouge for syntax highlighting of code blocks inside Markdown
@@ -57,7 +86,7 @@ begin
     :no_links        => false,
     :no_styles       => false,
     :safe_links_only => false,
-    :with_toc_data   => true,
+    :with_toc_data   => false, # we're generating our own URI fragments above
     :hard_wrap       => false,
     :xhtml           => false,
     :prettify        => false,
