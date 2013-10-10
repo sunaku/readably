@@ -43,7 +43,7 @@ begin
       fragment = title.downcase.gsub(/\W+/, '-')
 
       # make the fragment unique by appending an incremented counter
-      @fragments ||= []
+      @fragments ||= ['updates'] # XXX: reserved by entry.html.slim
       if @fragments.include? fragment
         fragment += '_1'
         fragment = fragment.next while @fragments.include? fragment
