@@ -24,28 +24,20 @@ require 'rake/clean'
 require 'slim'
 require 'sass'
 
-# try use Redcarpet to process markdown subtemplates within Slim templates
+# try to use Redcarpet to process Markdown subtemplates inside Slim templates
 begin
   require 'redcarpet'
-  options = {
-    :autolink => true,
-    :fenced_code_blocks => true,
-    :gh_blockcode => true,
-    :no_intra_emphasis => true,
-    :space_after_headers => true,
-    :strikethrough => true,
-    :superscript => true,
-    :tables => true,
-    :renderer => Class.new(Redcarpet::Render::HTML) do
-      include Redcarpet::Render::SmartyPants
-    end
-  }
 
-  # try use Rouge for syntax highlighting of code blocks within markdown
+  renderer_class = Class.new(Redcarpet::Render::HTML) do
+    include Redcarpet::Render::SmartyPants
+  end
+
+  # try to use Rouge for syntax highlighting of code blocks inside Markdown
   begin
     require 'rouge'
-    options[:renderer].class_eval do
-      require 'rouge/plugins/redcarpet'
+    require 'rouge/plugins/redcarpet'
+
+    renderer_class.class_eval do
       include Rouge::Plugins::Redcarpet
 
       # don't highlight plain text (when no language specified or detected)
@@ -53,13 +45,48 @@ begin
         super.sub(/\sclass="highlight text"/, '')
       end
     end
+
   rescue LoadError => error
     warn error
   end
 
-  # https://github.com/slim-template/slim/issues/192#issuecomment-12925712
-  Slim::Embedded.set_default_options :markdown => options
+  # https://github.com/vmg/redcarpet#darling-i-packed-you-a-couple-renderers-for-lunch
+  renderer_options = {
+    :filter_html     => false,
+    :no_images       => false,
+    :no_links        => false,
+    :no_styles       => false,
+    :safe_links_only => false,
+    :with_toc_data   => true,
+    :hard_wrap       => false,
+    :xhtml           => false,
+    :prettify        => false,
+    :link_attributes => {},
+  }
+
+  # https://github.com/vmg/redcarpet#and-its-like-really-simple-to-use
+  markdown_extensions = {
+    :no_intra_emphasis            => true,
+    :tables                       => true,
+    :fenced_code_blocks           => true,
+    :autolink                     => true,
+    :disable_indented_code_blocks => false,
+    :strikethrough                => true,
+    :lax_spacing                  => true,
+    :space_after_headers          => true,
+    :superscript                  => true,
+    :underline                    => false,
+    :highlight                    => true,
+    :quote                        => false,
+    :footnotes                    => true,
+    :renderer                     => renderer_class.new(renderer_options)
+  }
+
+  # https://github.com/slim-template/slim/issues/245#issuecomment-8833818
+  Slim::Embedded.set_default_options :markdown => markdown_extensions
+  Tilt.register Tilt::RedcarpetTemplate::Redcarpet2, 'markdown', 'mkd', 'md'
   Tilt.prefer Tilt::RedcarpetTemplate::Redcarpet2, 'markdown'
+
 rescue LoadError => error
   warn error
 end
