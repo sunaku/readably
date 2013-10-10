@@ -225,6 +225,12 @@ $quoting_font: Delius, Constantia, Palatino, serif
     // StatusLine (zenburn.vim)
     color: #ccdc90
 
+    // reveal permalink on hover
+    &:hover
+      a.permalink:before
+        content: '\2665' // &hearts; symbol
+        padding-left: 0.25em
+
   hr
     // NonText (zenburn.vim)
     border: thin solid #5b605e
