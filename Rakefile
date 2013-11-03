@@ -288,7 +288,12 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
 
     entry[:created_at] =
       if created_at = entry['date']
-        Time.parse created_at.to_s
+        begin
+          Time.parse created_at.to_s
+        rescue => error
+          error.message.prepend "error parsing date #{created_at.inspect}: "
+          raise
+        end
       else
         File.mtime source_file
       end
