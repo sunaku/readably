@@ -326,6 +326,10 @@ $quoting_font: Delius, Constantia, Palatino, serif
     .idc-r strong
       color: inherit
 
+    // restore padding and margin for <pre>
+    .idc-c-t-inner pre
+      +bubble_border
+
 @media print
   blockquote, q
     font-style: italic
