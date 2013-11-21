@@ -1,23 +1,9 @@
 /*****************************************************************************
 
-  jquery.horizoll.js
-  ==================
-
   Keyboard and mouse enabled horizontal screen
   scrolling plugin, with automatic realignment.
 
-  Written in 2013 by Suraj N. Kurapati for
-  Readably https://github.com/sunaku/readably
-  and thus distributed under the ISC license.
-
-  Requires: "column-gap: 0" to be set in CSS.
-  Otherwise, page alignment will be incorrect.
-
-  Requires: jQuery 1.2.6 or newer
-  http://docs.jquery.com/Release:jQuery_1.2.6
-
-  Optional: jquery-mousewheel 3.1.3 or newer
-  https://github.com/brandonaaron/jquery-mousewheel
+  See https://github.com/sunaku/jquery-horizoll
 
 ******************************************************************************
 
@@ -92,9 +78,16 @@ $(function() {
   // Aligns the screen to the nearest page boundary
   // while ensuring that any hash target is visible.
   function realign() {
-    var target = $(':target');
-    if (target.length) {
-      horizoll(target.offset().left);
+    if (window.location.hash.length > 1) {
+      var target = $(':target,' + window.location.hash);
+      if (target.length) {
+        horizoll(target.offset().left);
+      }
+      else {
+        // hash was specified in URL but no DOM in document matched so retry
+        // after some time because matching DOM might be created dynamically
+        setTimeout(realign, 1000);
+      }
     }
     else {
       horizoll('align');
@@ -106,7 +99,7 @@ $(function() {
     return !(
       // event originated from a form input field, so don't interfere:
       // the user is probably trying to enter text or scroll the field
-      (event.target && event.target.form) ||
+      $(event.target).is(':input') ||
 
       // modifier was pressed along with keystroke, so don't interfere
       event.altKey || event.ctrlKey || event.metaKey ||
