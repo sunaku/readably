@@ -2,7 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     rake (10.1.0)
-    redcarpet (3.0.0)
+    redcarpet (3.1.1)
     rouge (1.0.0)
     sass (3.2.12)
     slim (2.0.1)

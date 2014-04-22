@@ -31,30 +31,14 @@ begin
   renderer_class = Class.new(Redcarpet::Render::HTML) do
     include Redcarpet::Render::SmartyPants
 
-    # add URI fragment anchors to all headings
+    # add permalink anchors to all headings
     # https://gist.github.com/sunaku/6913731
-    #
-    # FIXME: this is a temporary workaround until the
-    #        following (merged) pull request is included
-    #        in the next gem release of Redcarpet 3:
-    #        https://github.com/vmg/redcarpet/pull/186
-    #
-    def header title, level
-      fragment = title.downcase.gsub(/\W+/, '-')
-
-      # make the fragment unique by appending an incremented counter
-      @fragments ||= ['updates'] # XXX: reserved by entry.html.slim
-      if @fragments.include? fragment
-        fragment += '_1'
-        fragment = fragment.next while @fragments.include? fragment
-      end
-      @fragments << fragment
-
-      # generate HTML for this header containing the above fragment
+    def header title, level, anchor
+      anchor = anchor.gsub(/\W+/, '-').gsub(/^-|-$/, '') # fold non-word chars
       [?\n,
-        %{<h#{level} id="#{fragment}">},
+        %{<h#{level} id="#{anchor}">},
           title,
-          %{<a name="#{fragment}" href="##{fragment}" class="permalink" title="permalink">},
+          %{<a name="#{anchor}" href="##{anchor}" class="permalink" title="permalink">},
           '</a>',
         "</h#{level}>",
       ?\n].join
