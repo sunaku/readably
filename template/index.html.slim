@@ -30,8 +30,9 @@ html
                 td.title
                   a href=entry[:url]
                     = entry['title']
-                  .category
-                    = entry[:category]
+                  - unless entry[:categories].empty?
+                    .category
+                      | (#{entry[:category]})
                 td.date
                   - date = entry[:updated_at]
                   time datetime=date.iso8601
