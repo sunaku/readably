@@ -22,7 +22,7 @@ html
         == render_slim_file('template/_update_count.slim', nil, :entry => entry)
 
         - unless entry[:categories].empty?
-          .category
+          p.category
             | (#{entry[:category]})
 
       .content
