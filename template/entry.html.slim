@@ -25,11 +25,12 @@ html
           p.category
             | (#{entry[:category]})
 
+      hr.hidden
       .content
         == render_slim_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
 
       - unless entry[:updates].empty?
-        hr
+        hr.hidden
         h1#updates
           a name='updates' href='#updates' class='permalink' title='permalink'
           | Updates
@@ -42,7 +43,7 @@ html
               dd.content
                 == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
 
-      hr
+      hr.hidden
       - if service = config['comments_service'] and account = config['comments_account']
         .comments#comments
           - case service
