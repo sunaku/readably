@@ -229,12 +229,15 @@ $quoting_font: Delius, Constantia, Palatino, serif
     // StatusLine (zenburn.vim)
     color: #ccdc90
 
-    a.permalink:after
-      padding-left: 0.25em
-      content: '\2665' // &hearts;
+    a.permalink
+      float: left
+      margin-left: -1em
       opacity: 0.25
 
-    a.permalink:hover:after
+    a.permalink:before
+      content: '\2665' // &hearts;
+
+    a.permalink:hover, &:target a.permalink
       opacity: initial
 
   hr

@@ -37,9 +37,8 @@ begin
       anchor = anchor.gsub(/\W+/, '-').gsub(/^-|-$/, '') # fold non-word chars
       [?\n,
         %{<h#{level} id="#{anchor}">},
+          %{<a name="#{anchor}" href="##{anchor}" class="permalink" title="permalink"></a>},
           title,
-          %{<a name="#{anchor}" href="##{anchor}" class="permalink" title="permalink">},
-          '</a>',
         "</h#{level}>",
       ?\n].join
     end
