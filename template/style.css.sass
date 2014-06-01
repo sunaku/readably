@@ -206,6 +206,10 @@ $quoting_font: Delius, Constantia, Palatino, serif
     max-width: $column_width
 
     > nav.entries > table tr
+      -webkit-column-break-inside: avoid
+      -moz-column-break-inside: avoid
+      column-break-inside: avoid
+
       &:hover
         // CursorLine (zenburn.vim)
         background-color: #434443
