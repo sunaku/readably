@@ -95,33 +95,25 @@ $(function() {
   }
 
   // Tests whether the given event qualifies as a cause for scrolling.
-  function qualify(event, approved_scrolling_keycodes) {
-    return !(
-      // event originated from a form input field, so don't interfere:
-      // the user is probably trying to enter text or scroll the field
-      $(event.target).is(':input') ||
-
-      // modifier was pressed along with keystroke, so don't interfere
-      event.altKey || event.ctrlKey || event.metaKey ||
-
-      // shift was pressed with a non-space-bar key, so don't interfere
-      (event.shiftKey && event.keyCode !== SPACE) ||
-
-      // browser could not fit document vertically into window so don't
-      // interfere with user's ability to scroll the document normally...
-      //
-      // (NOTE: document height matches window height in Chrome browser;
-      // whereas in other browsers, document height matches html height)
-      //
-      ($document.height() > Math.max($window.height(), $html.height()) &&
-       // ...unless the user has pressed an approved scrolling keycode
-       $.inArray(event.keyCode, approved_scrolling_keycodes) === -1)
-    );
+  function qualify(event) {
+    // event originated from a form input field, so don't interfere:
+    // the user is probably trying to enter text or scroll the field
+    return !$(event.target).is(':input');
   }
 
   // traverse page boundaries using the keyboard
-  $document.bind('keyup', function(event) {
-    if (qualify(event, [LEFT, RIGHT])) {
+  $document.bind('keydown', function(event) {
+    if (// modifier was pressed along with keystroke, so don't interfere
+        !event.altKey && !event.ctrlKey && !event.metaKey &&
+
+        // shift was pressed with a non-space-bar key, so don't interfere
+        !(event.shiftKey && event.keyCode !== SPACE) &&
+
+        // qualify this event further before proceeding to take any action
+        qualify(event)
+    )
+    {
+      event.preventDefault();
       switch (event.keyCode) {
         case PRIOR:
         case LEFT:
@@ -151,14 +143,19 @@ $(function() {
   });
 
   // traverse page boundaries using the mouse wheel
-  $document.bind('mousewheel', function(event, delta, deltaX, deltaY) {
-    if (!wheeling && delta !== 0 && deltaX === 0 && qualify(event)) {
+  $document.on('mousewheel', function(event) {
+    // ignore wheel events from smooth scrolling devices such as touchpads,
+    // which give us fractional scroll velocity (event.deltaFactor) values
+    if (!wheeling && (event.deltaFactor % 1 === 0) && qualify(event)) {
       wheeling = true;
-      horizoll(deltaY > 0 ? 'left' : 'right', {
-        complete: function() {
-          wheeling = false;
-        }
-      });
+      event.preventDefault();
+
+      var direction =
+        (event.deltaX === 0 && event.deltaY > 0) || // mousewheel up
+        (event.deltaY === 0 && event.deltaX < 0)    // mousewheel left
+        ? 'left' : 'right';
+
+      horizoll(direction, { complete: function() { wheeling = false; } });
     }
   });
 
