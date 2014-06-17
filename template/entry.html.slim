@@ -6,7 +6,7 @@ html
     article#body data-entry-id=entry[:id]
 
       header
-        a.index href=path_join(entry[:index_path], 'index.html#' + entry[:id])
+        a.index href=entry[:index_url]
           = config['title']
 
         h1.title

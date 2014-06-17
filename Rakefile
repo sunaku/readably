@@ -265,6 +265,7 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
     entry[:index?] = !entry['hidden']
     entry[:index_path] = entry[:url].scan('/').map { '..' }.join('/')
     entry[:index_path] = nil if entry[:index_path].empty?
+    entry[:index_url] = path_join(entry[:index_path], 'index.html#' + entry[:id])
 
     entry[:output_file] = output_file = path_join(@output_dir, entry[:url])
     entry_sources_by_output[output_file] << source_file
