@@ -78,7 +78,7 @@ begin
 
   # https://github.com/vmg/redcarpet#and-its-like-really-simple-to-use
   markdown_extensions = {
-    :no_intra_emphasis            => true,
+    :no_intra_emphasis            => false,
     :tables                       => true,
     :fenced_code_blocks           => true,
     :autolink                     => true,
