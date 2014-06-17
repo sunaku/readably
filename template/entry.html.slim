@@ -3,7 +3,7 @@ html
   == render_slim_file('template/header.html.slim', nil, :config => config, :target => entry)
 
   body
-    article#body
+    article#body data-entry-id=entry[:id]
 
       header
         a.index href=path_join(entry[:index_path], 'index.html#' + entry[:id])

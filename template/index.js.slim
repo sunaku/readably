@@ -1,0 +1,40 @@
+ruby:
+  require 'json'
+
+  # construct a relative navigation chain for all entries on index page
+  chain_by_entry_id = Hash.new {|h,k| h[k] = {} }
+  relation = lambda {|entry, keys| Hash[keys.zip(entry.values_at(*keys))] }
+  keys = [:url, 'title']
+  entries.select {|e| e[:index?] }.each_cons(2) do |preceding, following|
+    chain_by_entry_id[preceding[:id]][:following] = relation[following, keys]
+    chain_by_entry_id[following[:id]][:preceding] = relation[preceding, keys]
+  end
+
+erb:
+  $(function() {
+    // create links to preceding and following entries in navigation chain
+    var chain_by_entry_id = <%== chain_by_entry_id.to_json %>;
+    var entry_id = $('#body').data('entry-id');
+    if (entry_id) {
+      var chain = chain_by_entry_id[entry_id];
+      if (chain) {
+        var $target = $('#body > header > .title');
+
+        var preceding = chain.preceding;
+        if (preceding) {
+          $target.prepend($('<a>').
+            attr('href', preceding.url).
+            attr('title', preceding.title).
+            html('&lArr;'), ' ');
+        }
+
+        var following = chain.following;
+        if (following) {
+          $target.append(' ', $('<a>').
+            attr('href', following.url).
+            attr('title', following.title).
+            html('&rArr;'));
+        }
+      }
+    }
+  });

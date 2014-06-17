@@ -349,6 +349,8 @@ directory @output_dir
 
 multitask :entry => @entry_output_files
 
+render_slim_template_task :index, 'template/index.js.slim'
+
 render_slim_template_task :index, 'template/index.atom.slim'
 
 render_slim_template_task :index, 'template/index.html.slim',
