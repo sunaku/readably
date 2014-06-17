@@ -25,7 +25,7 @@ feed xmlns='http://www.w3.org/2005/Atom'
       name
         = author
 
-  - entries.select {|e| e[:index?] }.slice(0..config['feed_length'].to_i).each do |entry|
+  - listed_entries.slice(0..config['feed_length'].to_i).each do |entry|
     - entry_url = entry[:published_url]
     entry
       id

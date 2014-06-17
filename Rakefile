@@ -190,7 +190,9 @@ def render_slim_template_task *args
     render_slim_file(
       src, nil,
       :config => @config,
-      :entries => @entries
+      :entries => @entries,
+      :listed_entries => @listed_entries,
+      :hidden_entries => @hidden_entries,
     )
   end
 end
@@ -262,7 +264,6 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
     entry[:published_url] = path_join(@config['published_url'], entry[:url])
     entry[:id] = entry[:url].pathmap('%X')
 
-    entry[:index?] = !entry['hidden']
     entry[:index_path] = entry[:url].scan('/').map { '..' }.join('/')
     entry[:index_path] = nil if entry[:index_path].empty?
     entry[:index_url] = path_join(entry[:index_path], 'index.html#' + entry[:id])
@@ -326,6 +327,8 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
     raise error
   end
 end.sort_by {|e| [-e[:updated_at].to_i, -e[:created_at].to_i] }
+
+@hidden_entries, @listed_entries = @entries.partition {|e| e['hidden'] }
 
 if @entries.empty?
   @config[:created_at] = @config[:updated_at] = Time.now

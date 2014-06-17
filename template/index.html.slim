@@ -25,7 +25,7 @@ html
       - unless entries.empty?
         nav.entries
           table border=1
-            - entries.select {|e| e[:index?] }.each do |entry|
+            - listed_entries.each do |entry|
               tr id=entry[:id]
                 td.title
                   a href=entry[:url]

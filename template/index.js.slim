@@ -5,7 +5,7 @@ ruby:
   chain_by_entry_id = Hash.new {|h,k| h[k] = {} }
   relation = lambda {|entry, keys| Hash[keys.zip(entry.values_at(*keys))] }
   keys = [:url, 'title']
-  entries.select {|e| e[:index?] }.each_cons(2) do |preceding, following|
+  listed_entries.each_cons(2) do |preceding, following|
     chain_by_entry_id[preceding[:id]][:following] = relation[following, keys]
     chain_by_entry_id[following[:id]][:preceding] = relation[preceding, keys]
   end
