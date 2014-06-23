@@ -31,14 +31,25 @@ begin
   renderer_class = Class.new(Redcarpet::Render::HTML) do
     include Redcarpet::Render::SmartyPants
 
+    def preprocess document
+      @seen_count_by_id = Hash.new {|h,k| h[k] = 0 }
+      document
+    end
+
     # add permalink anchors to all headings
     # https://gist.github.com/sunaku/6913731
-    def header title, level, anchor
-      anchor = anchor.gsub(/\W+/, '-').gsub(/^-|-$/, '') # fold non-word chars
+    def header text, level, _=nil
+      # strip all HTML tags, squeeze all non-word characters, and lowercase it
+      id = text.gsub(/<.+?>/, '-').gsub(/\W+/, '-').gsub(/^-|-$/, '').downcase
+
+      # make duplicate anchors unique by appending numerical suffixes to them
+      count = @seen_count_by_id[id] += 1
+      id += "-#{count - 1}" if count > 1
+
       [?\n,
-        %{<h#{level} id="#{anchor}">},
-          %{<a name="#{anchor}" href="##{anchor}" class="permalink" title="permalink"></a>},
-          title,
+        %{<h#{level} id="#{id}">},
+          %{<a name="#{id}" href="##{id}" class="permalink" title="permalink"></a>},
+          text,
         "</h#{level}>",
       ?\n].join
     end
