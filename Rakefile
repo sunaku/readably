@@ -316,7 +316,7 @@ entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
     directory output_dir = File.dirname(output_file)
 
     file output_file => [
-      source_file, @config[:source_file], output_dir,
+      source_file, @config[:source_file], output_dir, __FILE__,
       'template/header.html.slim',
       'template/footer.html.slim',
       'template/entry.html.slim', # XXX: this must be LAST in the list
