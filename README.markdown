@@ -14,7 +14,7 @@ You can view them locally on your own computer without needing a Web server.
 And when you publish them to *any* Web server, they will function just as they
 did locally on your computer.  This is the benefit of a *static* blog engine!
 
-See my blog <http://snk.tuxfamily.org/log/> for an example of Readably output.
+See my blog at <http://sunaku.github.io> for an example of Readably output.
 
 ------------------------------------------------------------------------------
 Features
