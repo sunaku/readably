@@ -37,4 +37,13 @@ erb:
         }
       }
     }
+
+    // add fullscreen zooming and panning capabilites to images when clicked
+    $('img[alt]:not([data-title])').each(function() {
+      $(this).attr('data-title', $(this).attr('alt'));
+    });
+    $('img:not([data-caption])').each(function() {
+      $(this).attr('data-caption', $(this).attr('src').replace(/.*\//g, ''));
+    });
+    Intense( $('img') );
   });

@@ -70,6 +70,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
 
   a > img
     border: none
+    cursor: pointer
 
   #body
     display: block
@@ -260,6 +261,11 @@ $quoting_font: Delius, Constantia, Palatino, serif
     // fit media elements within their parent container
     // http://unstoppablerobotninja.com/entry/fluid-images
     max-width: 100%
+
+  // intense.js wraps the zoomed-in image inside <figure>
+  figure > img
+    cursor: initial
+    max-width: initial
 
   a
     text-decoration: none
