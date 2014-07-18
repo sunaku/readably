@@ -55,7 +55,7 @@ html
                 var idcomments_post_url = #{{entry[:published_url].inspect}};
                 var idcomments_post_id = #{{entry[:id].inspect}};
 
-              script src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'
+              script src='http://www.intensedebate.com/js/genericCommentWrapperV2.js' async=true
 
             - when 'Disqus'
               javascript:
