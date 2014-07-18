@@ -1,5 +1,3 @@
-/content/*.html
-/content/index.atom
-/content/style.css
+/content/*
+!/content/*.readably
 /.sass-cache
-/.bundle
