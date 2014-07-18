@@ -256,6 +256,11 @@ $quoting_font: Delius, Constantia, Palatino, serif
     &.hidden
       display: none
 
+  img, video, audio, embed, iframe
+    // fit media elements within their parent container
+    // http://unstoppablerobotninja.com/entry/fluid-images
+    max-width: 100%
+
   a
     text-decoration: none
     font-weight: bold
