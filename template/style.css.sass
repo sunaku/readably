@@ -8,6 +8,32 @@ $content_font: Molengo, Calibri, Helvetica, sans-serif
 $literal_font: 'Ubuntu Mono', Monaco, Consolas, Fixedsys, monospace
 $quoting_font: Delius, Constantia, Palatino, serif
 
+// colors from zenburn.vim theme
+$color-aside           : #9f9f9f  // Pmenu
+$color-aside-bg        : #2c2e2e  // Pmenu
+$color-blockquote      : #ffcfaf  // Define
+$color-body-bg         : #3f3f3f  // Normal
+$color-body            : #dcdccc  // Normal
+$color-category        : #7f9f7f  // Comment
+$color-code            : #dca3a3  // Boolean
+$color-del             : #333333  // VisualNOS
+$color-del-bg          : #f18c96  // VisualNOS
+$color-em              : #dfdfbf  // Type
+$color-heading         : #ccdc90  // StatusLine
+$color-ins-bg          : #385f38  // IncSearch
+$color-ins             : #f8f893  // IncSearch
+$color-link            : #8cd0d3  // Number
+$color-nav-bg-hover    : #434443  // CursorLine
+$color-nav-bg-target   : #4f4f4f  // CursorColumn
+$color-pre             : #9fafaf  // SignColumn
+$color-pre-bg          : #343434  // SignColumn
+$color-scroll-hint     : #484848  // ColorColumn
+$color-strong          : #efef8f  // Function
+$color-table-border    : #5b605e  // NonText
+$color-table-header    : #88b090  // StatusLineNC
+$color-table-header-bg : #2e3330  // StatusLineNC
+$color-update          : #d0d0a0  // PmenuSel
+
 =heading_style
   font-family: $heading_font
   font-weight: normal
@@ -47,8 +73,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
   top: 45%
   font-size: 1250%
   font-weight: bolder
-  // ColorColumn (zenburn.vim)
-  color: #484848
+  color: $color-scroll-hint
 
 @media all
   body
@@ -77,8 +102,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
     text-align: justify
 
     .category
-      // Comment (zenburn.vim)
-      color: #7f9f7f
+      color: $color-category
 
     > header
       +center_text
@@ -126,15 +150,13 @@ $quoting_font: Delius, Constantia, Palatino, serif
         border-collapse: collapse
 
         &, th, td
-          // NonText (zenburn.vim)
-          border: thin solid #5b605e
+          border: thin solid $color-table-border
           padding: 0.5em
 
         th
           text-align: center
-          // StatusLineNC (zenburn.vim)
-          color: #88b090
-          background-color: #2e3330
+          color: $color-table-header
+          background-color: $color-table-header-bg
 
       h1, h2, h3, h4, h5, h6
         margin-top: 2em
@@ -164,8 +186,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
     padding: 0
 
   body
-    // NonText (zenburn.vim)
-    $column_color: #5b605e
+    $column_color: $color-table-border
     $column_ruler: "thin" "solid" $column_color
 
     &:before
@@ -198,9 +219,8 @@ $quoting_font: Delius, Constantia, Palatino, serif
 
 @media screen
   body
-    // Normal (zenburn.vim)
-    color: #dcdccc
-    background-color: #3f3f3f
+    color: $color-body
+    background-color: $color-body-bg
 
   #body
     +center_elem
@@ -212,23 +232,19 @@ $quoting_font: Delius, Constantia, Palatino, serif
       column-break-inside: avoid
 
       &:hover
-        // CursorLine (zenburn.vim)
-        background-color: #434443
+        background-color: $color-nav-bg-hover
 
       &:target
-        // CursorColumn (zenburn.vim)
-        background-color: #4f4f4f
+        background-color: $color-nav-bg-target
 
     > .content aside
       +bubble_border
-      // Pmenu (zenburn.vim)
-      color: #9f9f9f
-      background-color: #2c2e2e
+      color: $color-aside
+      background-color: $color-aside-bg
 
     > aside.update > dl > dt.title
       font-weight: bold
-      // PmenuSel (zenburn.vim)
-      color: #d0d0a0
+      color: $color-update
 
     > #updates, > #comments
       -webkit-column-break-before: always
@@ -236,8 +252,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
       column-break-before: always
 
   h1, h2, h3, h4, h5, h6
-    // StatusLine (zenburn.vim)
-    color: #ccdc90
+    color: $color-heading
 
     a.permalink
       float: left
@@ -251,8 +266,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
       opacity: initial
 
   hr
-    // NonText (zenburn.vim)
-    border: thin solid #5b605e
+    border: thin solid $color-table-border
 
     &.hidden
       display: none
@@ -270,38 +284,31 @@ $quoting_font: Delius, Constantia, Palatino, serif
   a
     text-decoration: none
     font-weight: bold
-    // Number (zenburn.vim)
-    color: #8cd0d3
+    color: $color-link
 
     &:hover
       text-decoration: underline
 
   em, i, var
     font-weight: bolder
-    // Type (zenburn.vim)
-    color: #dfdfbf
+    color: $color-em
 
   strong, b
-    // Function (zenburn.vim)
-    color: #efef8f
+    color: $color-strong
 
   ins
-    // IncSearch (zenburn.vim)
-    color: #f8f893
-    background-color: #385f38
+    color: $color-ins
+    background-color: $color-ins-bg
 
   del
-    // VisualNOS (zenburn.vim)
-    color: #333333
-    background-color: #f18c96
+    color: $color-del
+    background-color: $color-del-bg
 
   blockquote, q
-    // Define (zenburn.vim)
-    color: #ffcfaf
+    color: $color-blockquote
 
   code, samp, tt
-    // Boolean (zenburn.vim)
-    color: #dca3a3
+    color: $color-code
 
   kbd
     border-style: outset
@@ -335,9 +342,8 @@ $quoting_font: Delius, Constantia, Palatino, serif
     // Markdown renders 4-space indented blocks as <pre><code>
     // however, I want to treat them as pure <pre> blocks only!
     &, & > code:only-child
-      // SignColumn (zenburn.vim)
-      color: #9fafaf
-      background-color: #343434 !important
+      color: $color-pre
+      background-color: $color-pre-bg !important
 
   // styling for IntenseDebate comments
   // http://support.intensedebate.com/css-documentation/
@@ -348,8 +354,7 @@ $quoting_font: Delius, Constantia, Palatino, serif
 
     // make dates visible
     .idc-thread_active, .idc-time > a
-      // StatusLine (zenburn.vim)
-      color: #ccdc90
+      color: $color-heading
 
     // fix for strong colors being applied to
     // IntenseDebate comment form submit link
