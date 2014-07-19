@@ -22,7 +22,7 @@ html
         input type='search' name='q' value=" site:#{site}" onfocus="this.value = this.value.replace(this.defaultValue, '')" required=true
         input type='submit' value='Search'
 
-      - unless entries.empty?
+      - unless listed_entries.empty?
         nav.entries
           table border=1
             - listed_entries.each do |entry|
