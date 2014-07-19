@@ -19,7 +19,11 @@ html
         time.date datetime=(date.iso8601)
           = format_date(date, config['date_format'], config['locale'])
 
-        == render_slim_file('template/_update_count.slim', nil, :entry => entry)
+        - unless entry[:updates].empty?
+          .update_count
+            a href="#{entry[:url]}#updates"
+              - updates = entry[:updates].length
+              | #{updates} update#{'s' if updates > 1}
 
         - unless entry[:categories].empty?
           p.category

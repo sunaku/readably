@@ -21,22 +21,20 @@ html
       form.search action='https://encrypted.google.com/search' onsubmit='this.q.value += this.q.defaultValue'
         input type='search' name='q' value=" site:#{site}" onfocus="this.value = this.value.replace(this.defaultValue, '')" required=true
         input type='submit' value='Search'
+      p.hidden &nbsp;
 
       - unless listed_entries.empty?
         nav.entries
-          table border=1
-            - listed_entries.each do |entry|
-              tr id=entry[:id]
-                td.title
-                  a href=entry[:url]
-                    = entry['title']
+          - listed_entries.group_by {|entry| entry[:updated_at].year }.each_pair do |year, entries|
+            h2= year
+            ul
+              - entries.each do |entry|
+                li id=entry[:id]
+                  .title
+                    a href=entry[:url]
+                      = entry['title']
                   - unless entry[:categories].empty?
                     .category
                       | (#{entry[:category]})
-                td.date
-                  - date = entry[:updated_at]
-                  time datetime=date.iso8601
-                    = date.strftime('%F')
-                  == render_slim_file('template/_update_count.slim', nil, :entry => entry)
 
       == render_slim_file('template/footer.html.slim', nil, :config => config, :target => config)
