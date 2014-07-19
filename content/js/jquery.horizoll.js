@@ -30,6 +30,7 @@ $(function() {
       $window   = $(window),
       $html     = $('html'),
       $body     = $('body'),
+      $screen   = $('html,body'),
       wheeling  = false,
       SPACE     = 32, // space bar
       PRIOR     = 33, // page up
@@ -72,7 +73,7 @@ $(function() {
       default     : where = start - depth;
     }
 
-    $('html,body').animate({ scrollLeft: where }, options);
+    $screen.animate({ scrollLeft: where }, options);
   }
 
   // Aligns the screen to the nearest page boundary
@@ -146,7 +147,20 @@ $(function() {
   $document.on('mousewheel', function(event) {
     // ignore wheel events from smooth scrolling devices such as touchpads,
     // which give us fractional scroll velocity (event.deltaFactor) values
-    if (!wheeling && (event.deltaFactor % 1 === 0) && qualify(event)) {
+    if (event.deltaFactor % 1 !== 0) {
+      // the logic above isn't perfect: the analog scroll velocity sometimes
+      // takes on a non-fractional, integer value; such cases would fool us
+      // into thinking that a wheel event came from a non-smooth scrolling
+      // device (such as a typical mouse with a scroll wheel) and we would
+      // then act on that event and begin to scroll the screen accordingly.
+      // fortunately, that anomaly (which can occur in an unbroken sequence
+      // temporarily) is always followed by a fractional scroll velocity!
+      // and we make use of it here to undo (or at least make up for) our
+      // mistake by stopping the current scroll animation (if any) which
+      // resulted from our imperfect smooth scrolling detection logic above
+      $screen.stop(true, false);
+    }
+    else if (!wheeling && qualify(event)) {
       wheeling = true;
       event.preventDefault();
 
