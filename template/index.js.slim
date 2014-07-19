@@ -38,6 +38,11 @@ erb:
       }
     }
 
+    // make alternate texts on images appear as tooltip labels on mouse-over
+    $('img[alt]:not([title])').each(function() {
+      $(this).attr('title', $(this).attr('alt'));
+    });
+
     // add fullscreen zooming and panning capabilites to images when clicked
     $('img[alt]:not([data-title])').each(function() {
       $(this).attr('data-title', $(this).attr('alt'));
