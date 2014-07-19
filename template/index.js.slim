@@ -50,5 +50,5 @@ erb:
     $('img:not([data-caption])').each(function() {
       $(this).attr('data-caption', $(this).attr('src').replace(/.*\//g, ''));
     });
-    Intense( $('img') );
+    Intense( $('img').filter(':not(a img)') );
   });
