@@ -31,7 +31,7 @@ $(function() {
       $html     = $('html'),
       $body     = $('body'),
       $screen   = $('html,body'),
-      wheeling  = false,
+      scrolling = false,
       SPACE     = 32, // space bar
       PRIOR     = 33, // page up
       NEXT      = 34, // page down
@@ -60,6 +60,10 @@ $(function() {
     // scrolling is unnecessary: there's nothing here to be scrolled!
     if ($document.width() <= $window.width()) return;
 
+    // we are already in the process of scrolling to the given location
+    if (scrolling === where) return;
+    scrolling = where;
+
     var start = typeof where === 'number' ? where : $document.scrollLeft(),
         limit = $body.width(),
         depth = start % limit,
@@ -73,6 +77,13 @@ $(function() {
       default     : where = start - depth;
     }
 
+    if (!options) options = {};
+    var complete = options.complete;
+    options.complete = function() {
+      scrolling = false;
+      if (complete) complete();
+    }
+    options.queue = false;
     $screen.animate({ scrollLeft: where }, options);
   }
 
@@ -114,43 +125,47 @@ $(function() {
         qualify(event)
     )
     {
-      event.preventDefault();
+      var where = null;
       switch (event.keyCode) {
         case PRIOR:
         case LEFT:
         case UP:
-          horizoll('left');
+          where = 'left';
           break;
 
         case NEXT:
         case RIGHT:
         case DOWN:
-          horizoll('right');
+          where = 'right';
           break;
 
         case SPACE:
-          horizoll(event.shiftKey ? 'left' : 'right');
+          where = event.shiftKey ? 'left' : 'right';
           break;
 
         case HOME:
-          horizoll(0);
+          where = 0;
           break;
 
         case END:
-          horizoll($document.width());
+          where = $document.width();
           break;
+      }
+      if (where !== null) {
+        event.preventDefault();
+        horizoll(where);
       }
     }
   });
 
   // traverse page boundaries using the mouse wheel
-  $document.on('mousewheel', function(event) {
+  $document.bind('mousewheel', function(event) {
     // ignore wheel events from smooth scrolling devices such as touchpads,
     // which give us fractional scroll velocity (event.deltaFactor) values
     if (event.deltaFactor % 1 !== 0) {
       // the logic above isn't perfect: the analog scroll velocity sometimes
       // takes on a non-fractional, integer value; such cases would fool us
-      // into thinking that a wheel event came from a non-smooth scrolling
+      // into thinking that the event originated from a non-smooth scrolling
       // device (such as a typical mouse with a scroll wheel) and we would
       // then act on that event and begin to scroll the screen accordingly.
       // fortunately, that anomaly (which can occur in an unbroken sequence
@@ -160,8 +175,7 @@ $(function() {
       // resulted from our imperfect smooth scrolling detection logic above
       $screen.stop(true, false);
     }
-    else if (!wheeling && qualify(event)) {
-      wheeling = true;
+    else if (qualify(event)) {
       event.preventDefault();
 
       var direction =
@@ -169,7 +183,7 @@ $(function() {
         (event.deltaY === 0 && event.deltaX < 0)    // mousewheel left
         ? 'left' : 'right';
 
-      horizoll(direction, { complete: function() { wheeling = false; } });
+      horizoll(direction);
     }
   });
 
