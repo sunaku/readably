@@ -51,4 +51,28 @@ erb:
       $(this).attr('data-caption', $(this).attr('src').replace(/.*\//g, ''));
     });
     Intense( $('img').filter(':not(a img)') );
+
+    // filter entries on index page based on user input in the search box
+    var $entries = $('nav.entries li');
+    $('article#body > form.search > input[type=search]').bind(
+      'keyup change focus blur search', function() {
+        var input = event.target.value;
+        if (input.match(/\S/)) {
+          var words = input.replace(/^\s+|\s+$/g, '').split(/\s+/g);
+          var regexp = new RegExp(words.join('|'), 'ig');
+          $entries.each(function() {
+            var $entry = $(this);
+            if (regexp.test($entry.text())) {
+              $entry.fadeIn();
+            }
+            else {
+              $entry.fadeOut();
+            }
+          });
+        }
+        else {
+          $entries.fadeIn();
+        }
+      }
+    );
   });
