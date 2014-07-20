@@ -31,6 +31,7 @@ $(function() {
       $html     = $('html'),
       $body     = $('body'),
       $screen   = $('html,body'),
+      wheeledAt = 0,
       scrolling = false,
       SPACE     = 32, // space bar
       PRIOR     = 33, // page up
@@ -152,6 +153,7 @@ $(function() {
           break;
       }
       if (where !== null) {
+        event.stopPropagation();
         event.preventDefault();
         horizoll(where);
       }
@@ -160,31 +162,24 @@ $(function() {
 
   // traverse page boundaries using the mouse wheel
   $document.bind('mousewheel', function(event) {
-    // ignore wheel events from smooth scrolling devices such as touchpads,
-    // which give us fractional scroll velocity (event.deltaFactor) values
-    if (event.deltaFactor % 1 !== 0) {
-      // the logic above isn't perfect: the analog scroll velocity sometimes
-      // takes on a non-fractional, integer value; such cases would fool us
-      // into thinking that the event originated from a non-smooth scrolling
-      // device (such as a typical mouse with a scroll wheel) and we would
-      // then act on that event and begin to scroll the screen accordingly.
-      // fortunately, that anomaly (which can occur in an unbroken sequence
-      // temporarily) is always followed by a fractional scroll velocity!
-      // and we make use of it here to undo (or at least make up for) our
-      // mistake by stopping the current scroll animation (if any) which
-      // resulted from our imperfect smooth scrolling detection logic above
-      $screen.stop(true, false);
-    }
-    else if (qualify(event)) {
+    // we are only interested in scroll wheels that travel along Y axis
+    if (qualify(event) && event.deltaY !== 0) {
+      event.stopPropagation();
       event.preventDefault();
+      if (
+          // ignore touchpad swipes that travel along _both_ Y and X axes!
+          event.deltaX === 0 &&
 
-      var direction =
-        (event.deltaX === 0 && event.deltaY > 0) || // mousewheel up
-        (event.deltaY === 0 && event.deltaX < 0)    // mousewheel left
-        ? 'left' : 'right';
+          // ignore touchpads swipes that produce extreme/fractional deltas
+          event.deltaFactor == 16 &&
 
-      horizoll(direction);
+          // ignore redundant event spam that we get after touchpads swipes
+          event.timeStamp - wheeledAt > 50
+      ) {
+        horizoll(event.deltaY > 0 ? 'left' : 'right');
+      }
     }
+    wheeledAt = event.timeStamp;
   });
 
   // automatically realign to nearest page boundary
