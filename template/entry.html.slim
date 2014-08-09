@@ -59,7 +59,7 @@ html
                 var idcomments_post_url = #{{entry[:published_url].inspect}};
                 var idcomments_post_id = #{{entry[:id].inspect}};
 
-              script src='http://www.intensedebate.com/js/genericCommentWrapperV2.js' async=true
+              script src='https://www.intensedebate.com/js/genericCommentWrapperV2.js' async=true
 
             - when 'Disqus'
               javascript:
@@ -67,7 +67,7 @@ html
                 var disqus_title = #{{entry['title'].inspect}};
                 var disqus_url = #{{entry[:published_url].inspect}};
 
-              script src="http://#{account}.disqus.com/embed.js" async=true
+              script src="https://#{account}.disqus.com/embed.js" async=true
 
             - else raise NotImplementedError, "unknown comments service: #{service}"
 
