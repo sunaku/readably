@@ -56,7 +56,7 @@ erb:
     // filter entries on index page based on user input in the search box
     var $entries = $('nav.entries li');
     $('article#body > form.search > input[type=search]').bind(
-      'keyup change focus blur search', function() {
+      'keyup change focus blur search', function(event) {
         var input = event.target.value;
         if (input.match(/\S/)) {
           var words = input.replace(/^\s+|\s+$/g, '').split(/\s+/g);
