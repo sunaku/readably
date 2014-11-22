@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css?family=Audiowide|Molengo|Ubuntu+Mono|Delius+Swash+Caps')
+@import url('https://fonts.googleapis.com/css?family=Audiowide|Ubuntu|Ubuntu+Mono|Delius+Swash+Caps')
 $heading_font: Comfortaa, Constantia, Palatino, serif
-$content_font: Molengo, Calibri, Helvetica, sans-serif
+$content_font: Ubuntu, Calibri, Helvetica, sans-serif
 $literal_font: 'Ubuntu Mono', Monaco, Consolas, Fixedsys, monospace
 $quoting_font: 'Delius Swash Caps', Constantia, Palatino, serif
 
@@ -38,8 +38,7 @@ $color-update          : #d0d0a0  // PmenuSel
 
 =content_style
   font-family: $content_font
-  line-height: 155%
-  font-size: 125%
+  line-height: 150%
 
 =literal_style
   font-family: $literal_font
@@ -136,7 +135,7 @@ $color-update          : #d0d0a0  // PmenuSel
           list-style-type: none
 
           > .title
-            font-size: x-large
+            font-size: larger
 
     > .content
       table
@@ -181,7 +180,7 @@ $color-update          : #d0d0a0  // PmenuSel
 
   #body
     +center_elem
-    max-width: 33em
+    max-width: 66ch
 
     > nav.entries li
       -webkit-column-break-inside: avoid
@@ -275,8 +274,8 @@ $color-update          : #d0d0a0  // PmenuSel
   pre
     +bubble_border
     +literal_style
-    overflow: auto
-    white-space: pre-wrap
+    overflow: none
+    width: 80ch
 
     &::-webkit-scrollbar
       width: 1ex
@@ -306,7 +305,7 @@ $color-update          : #d0d0a0  // PmenuSel
   #idc-container-parent #idc-container
     // increase font size
     &, & div
-      font-size: large
+      font-size: medium
 
     // make dates visible
     .idc-thread_active, .idc-time > a
