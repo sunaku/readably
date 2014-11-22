@@ -18,22 +18,23 @@ erb:
     if (entry_id) {
       var chain = chain_by_entry_id[entry_id];
       if (chain) {
-        var $target = $('#body > header > .title');
+        // element to surround with navigation links
+        var $target = $('#body > header > .index');
 
         var preceding = chain.preceding;
         if (preceding) {
-          $target.prepend($('<a>').
+          $target.before($('<a>').
             attr('href', preceding.url).
             attr('title', preceding.title).
-            html('&lArr;'), ' ');
+            html('&larr;'), ' ');
         }
 
         var following = chain.following;
         if (following) {
-          $target.append(' ', $('<a>').
+          $target.after(' ', $('<a>').
             attr('href', following.url).
             attr('title', following.title).
-            html('&rArr;'));
+            html('&rarr;'));
         }
       }
     }
