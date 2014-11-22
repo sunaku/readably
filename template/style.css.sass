@@ -1,7 +1,3 @@
-$column_width: 26em
-$column_space: 0
-$column_count: auto
-
 @import url('https://fonts.googleapis.com/css?family=Audiowide|Molengo|Ubuntu+Mono|Delius+Swash+Caps')
 $heading_font: Comfortaa, Constantia, Palatino, serif
 $content_font: Molengo, Calibri, Helvetica, sans-serif
@@ -175,45 +171,6 @@ $color-update          : #d0d0a0  // PmenuSel
         &.credits
           margin-top: 0
 
-// only apply columns on high resolution displays
-@media only screen and (min-device-width: 1024px)
-  html, body
-    height: 96%
-    margin: 1%
-    padding: 0
-
-  body
-    $column_color: $color-table-border
-    $column_ruler: "thin" "solid" $column_color
-
-    &:before
-      +scroll_arrow
-      content: '<'
-      left: 0
-
-    &:after
-      +scroll_arrow
-      content: '>'
-      right: 0.5%
-
-    column:
-      count: $column_count
-      width: $column_width
-      gap:   $column_space
-      rule:  $column_ruler
-
-    -moz-column:
-      count: $column_count
-      width: $column_width
-      gap:   $column_space
-      rule:  $column_ruler
-
-    -webkit-column:
-      count: $column_count
-      width: $column_width
-      gap:   $column_space
-      rule:  $column_ruler
-
 @media screen
   .hidden
     display: none
@@ -224,7 +181,7 @@ $color-update          : #d0d0a0  // PmenuSel
 
   #body
     +center_elem
-    max-width: $column_width
+    max-width: 33em
 
     > nav.entries li
       -webkit-column-break-inside: avoid
