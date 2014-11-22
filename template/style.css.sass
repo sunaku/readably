@@ -21,6 +21,7 @@ $color-ins             : #f8f893  // IncSearch
 $color-link            : #8cd0d3  // Number
 $color-nav-bg-hover    : #434443  // CursorLine
 $color-nav-bg-target   : #4f4f4f  // CursorColumn
+$color-navigation-link : #dca3a3  // Boolean
 $color-pre             : #9fafaf  // SignColumn
 $color-pre-bg          : #343434  // SignColumn
 $color-scroll-hint     : #484848  // ColorColumn
@@ -108,8 +109,14 @@ $color-update          : #d0d0a0  // PmenuSel
         +heading_style
         font-size: xx-large
 
+        &:not(.index)
+          color: $color-navigation-link
+
       > .title > a.feed > img
         display: inline
+
+      > .update_count > a
+        color: $color-navigation-link
 
       > .category
         margin-top: 1em
