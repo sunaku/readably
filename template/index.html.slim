@@ -14,16 +14,17 @@ html
         .author
           = config['author']
 
-      .description
-        == render_slim_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
+        .description
+          == render_slim_file("'description' in #{config[:source_file]}", config['description'].to_s, :config => config)
 
-      - site = config['published_url'].to_s.sub(%r{^.*?://}, '').sub(%r{/.*}, '')
-      form.search action='https://encrypted.google.com/search' onsubmit='this.q.value += this.q.defaultValue'
-        input type='search' name='q' value=" site:#{site}" onfocus="this.value = this.value.replace(this.defaultValue, '')" required=true
-        input type='submit' value='Search'
-      p.hidden &nbsp;
+        - site = config['published_url'].to_s.sub(%r{^.*?://}, '').sub(%r{/.*}, '')
+        form.search action='https://encrypted.google.com/search' onsubmit='this.q.value += this.q.defaultValue'
+          input type='search' name='q' value=" site:#{site}" onfocus="this.value = this.value.replace(this.defaultValue, '')" required=true
+          input type='submit' value='Search'
+        br
 
       - unless listed_entries.empty?
+        hr
         nav.entries
           - listed_entries.group_by {|entry| entry[:updated_at].year }.each_pair do |year, entries|
             h2= year

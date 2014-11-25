@@ -1,4 +1,4 @@
-Readably: YAML + Slim => HTML5 + Zenburn
+Readably: YAML + Slim => HTML5
 ==============================================================================
 
                        _____

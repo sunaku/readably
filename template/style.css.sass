@@ -1,343 +1,119 @@
-@import url('https://fonts.googleapis.com/css?family=Audiowide|Ubuntu|Ubuntu+Mono|Delius+Swash+Caps')
-$heading_font: Comfortaa, Constantia, Palatino, serif
-$content_font: Ubuntu, Calibri, Helvetica, sans-serif
-$literal_font: 'Ubuntu Mono', Monaco, Consolas, Fixedsys, monospace
-$quoting_font: 'Delius Swash Caps', Constantia, Palatino, serif
+$content_font: Ubuntu,        Corbel,   sans-serif
+$literal_font: "Ubuntu Mono", Consolas, monospace
 
-// colors from zenburn.vim theme
-$color-aside           : #9f9f9f  // Pmenu
-$color-aside-bg        : #2c2e2e  // Pmenu
-$color-blockquote      : #ffcfaf  // Define
-$color-body-bg         : #3f3f3f  // Normal
-$color-body            : #dcdccc  // Normal
-$color-category        : #7f9f7f  // Comment
-$color-code            : #dca3a3  // Boolean
-$color-del             : #333333  // VisualNOS
-$color-del-bg          : #f18c96  // VisualNOS
-$color-em              : #dfdfbf  // Type
-$color-heading         : #ccdc90  // StatusLine
-$color-ins-bg          : #385f38  // IncSearch
-$color-ins             : #f8f893  // IncSearch
-$color-link            : #8cd0d3  // Number
-$color-nav-bg-hover    : #434443  // CursorLine
-$color-nav-bg-target   : #4f4f4f  // CursorColumn
-$color-navigation-link : #dca3a3  // Boolean
-$color-pre             : #9fafaf  // SignColumn
-$color-pre-bg          : #343434  // SignColumn
-$color-scroll-hint     : #484848  // ColorColumn
-$color-strong          : #efef8f  // Function
-$color-table-border    : #5b605e  // NonText
-$color-table-header    : #88b090  // StatusLineNC
-$color-table-header-bg : #2e3330  // StatusLineNC
-$color-update          : #d0d0a0  // PmenuSel
+$all_fg_color: black
+$all_bg_color: whitesmoke
+$border_color: gainsboro
+$subtle_color: darkgray
+$target_color: crimson
 
-=heading_style
-  font-family: $heading_font
-  font-weight: normal
-  line-height: 140%
-  text-shadow: 0 0 20px black
-
-=content_style
-  font-family: $content_font
-  line-height: 150%
-
-=literal_style
-  font-family: $literal_font
-  line-height: normal
-
-=quoting_style
-  font-family: $quoting_font
-
-=center_text
-  display: block
-  text-align: center
-
-=center_elem
-  display: block
+=center_element
   margin: auto
-
-=bubble_border
   display: block
-  border-radius: 1em
-  -moz-border-radius: 1em
-  -webkit-border-radius: 1em
-  padding: 0.75em 1em 0.75em 1em
 
-=scroll_arrow
-  position: fixed
-  z-index: -1
-  top: 45%
-  font-size: 1250%
-  font-weight: bolder
-  color: $color-scroll-hint
+body
+  color: $all_fg_color
+  background-color: $all_bg_color
 
-@media all
-  body
-    +content_style
-    margin: 2em
-
-  h1, h2, h3, h4, h5, h6
-    +heading_style
-
-  pre, code, samp, kbd, tt
-    +literal_style
-    font-size: medium
-
-  img, video, audio, embed, iframe
-    +center_elem
-
-  blockquote, q
-    +quoting_style
-
-  a > img
-    border: none
-    cursor: pointer
-
-  #body
-    display: block
+  article
+    +center_element
+    max-width: 66ch
     text-align: justify
+    line-height: 150%
+    font-family: $content_font
 
-    .category
-      color: $color-category
-
-    > header
-      +center_text
-      clear: both
-      margin-bottom: 2em
-
-      > a
-        +heading_style
-        font-size: xx-large
-
-        &:not(.index)
-          color: $color-navigation-link
-
-      > .title > a.feed > img
-        display: inline
-
-      > .update_count > a
-        color: $color-navigation-link
-
-      > .category
-        margin-top: 1em
-
-    > .description
-      +center_text
-
-    > form.search
-      +center_text
-      margin-bottom: 3em
-
-    > nav.entries
+    header, footer
       text-align: center
 
-      > ul
-        margin: 0
-        padding: 0
+    .category, .credits
+      color: $subtle_color
 
-        > li
-          padding: 1em
-          margin-top: 0.5em
-          margin-bottom: 1.5em
-          list-style-type: none
-
-          > .title
-            font-size: larger
-
-    > .content
-      table
-        border-collapse: collapse
-
-        &, th, td
-          border: thin solid $color-table-border
-          padding: 0.5em
-
-        th
-          text-align: center
-          color: $color-table-header
-          background-color: $color-table-header-bg
+    .content
+      img, video, audio, embed, iframe
+        +center_element
+        // fit media elements within their parent container
+        // http://unstoppablerobotninja.com/entry/fluid-images
+        max-width: 100%
+        max-height: 100%
 
       h1, h2, h3, h4, h5, h6
         margin-top: 2em
-        text-align: left
 
-    > .comments
-      margin-top: 3em
+    hr
+      border: none
+      border-top: thick dotted $border_color
 
-    > footer
-      +center_text
-      margin-top: 2em
+    pre, code
+      font-family: $literal_font
 
-      > p
-        font-size: smaller
+    pre
+      line-height: 100%
+      padding-left: 1.5em
 
-        &.copyright
-          margin-bottom: 0
+      &, code.highlight
+        background-color: inherit
 
-        &.credits
-          margin-top: 0
+    dt, em, code:not(.highlight)
+      font-weight: bolder
 
-@media screen
-  .hidden
-    display: none
+    table
+      border-collapse: collapse
 
-  body
-    color: $color-body
-    background-color: $color-body-bg
+      tr
+        border-bottom: thin solid $border_color
 
-  #body
-    +center_elem
-    max-width: 66ch
+        th, td
+          margin: none
+          padding: 0.5em
+          text-align: center
 
-    > nav.entries li
-      -webkit-column-break-inside: avoid
-      -moz-column-break-inside: avoid
-      column-break-inside: avoid
+    nav.entries > ul > li
+      margin-top: 1em
 
-      &:hover
-        background-color: $color-nav-bg-hover
+      &:target > .title > a
+        color: $target_color
 
-      &:target
-        background-color: $color-nav-bg-target
+    a img
+      border: none
 
-    > .content aside
-      +bubble_border
-      color: $color-aside
-      background-color: $color-aside-bg
+    a:hover
+      color: $target_color
 
-    > aside.update > dl > dt.title
-      font-weight: bold
-      color: $color-update
-
-    > #updates, > #comments
-      -webkit-column-break-before: always
-      -moz-column-break-before: always
-      column-break-before: always
-
-  h1, h2, h3, h4, h5, h6
-    color: $color-heading
+    a.navigation
+      margin: 0.25em
+      font-size: larger
 
     a.permalink
-      float: left
-      margin-left: -1em
-      opacity: 0.25
+      margin-right: 0.25em
 
-    a.permalink:before
-      content: '\2665' // &hearts;
+      &:before
+        content: '\2605' // &starf;
 
-    a.permalink:hover, &:target a.permalink
-      opacity: initial
+    *:target > a.permalink
+      color: $target_color
+      text-decoration: none
 
-  hr
-    border: thin solid $color-table-border
+// http://support.intensedebate.com/css-documentation/
+#idc-container-parent #idc-container
+  &, & div
+    // use same font size as the rest of the web page
+    font-size: inherit
 
-  img, video, audio, embed, iframe
-    // fit media elements within their parent container
-    // http://unstoppablerobotninja.com/entry/fluid-images
-    max-width: 100%
-    max-height: 100%
+// intense.js wraps the zoomed image inside a <figure>
+figure > img
+  cursor: initial
+  max-width: initial
+  max-height: initial
 
-  // intense.js wraps the zoomed-in image inside <figure>
-  figure > img
-    cursor: initial
-    max-width: initial
-    max-height: initial
+@media print
+  article
+    hr, a.index, a.permalink, a.navigation, .comments, footer
+      display: none
 
   a
     text-decoration: none
-    font-weight: bold
-    color: $color-link
-
-    &:hover
-      text-decoration: underline
-
-  em, i, var
-    font-weight: bolder
-    color: $color-em
-
-  strong, b
-    color: $color-strong
-
-  ins
-    color: $color-ins
-    background-color: $color-ins-bg
-
-  del
-    color: $color-del
-    background-color: $color-del-bg
-
-  blockquote, q
-    color: $color-blockquote
-
-  code, samp, tt
-    color: $color-code
-
-  kbd
-    border-style: outset
-    padding: 2px
-    color: black
-    background-color: silver
-
-  pre
-    +bubble_border
-    +literal_style
-    overflow: none
-    width: 80ch
-
-    &::-webkit-scrollbar
-      width: 1ex
-      height: 1ex
-
-    &::-webkit-scrollbar-track
-      margin: 1ex
-
-    &::-webkit-scrollbar-thumb
-      -webkit-border-radius: 1ex
-      background: rgba(0, 0, 0, .25)
-
-      &:hover
-        background: rgba(0, 0, 0, .55)
-
-    &::-webkit-scrollbar-corner
-      display: none
-
-    // Markdown renders 4-space indented blocks as <pre><code>
-    // however, I want to treat them as pure <pre> blocks only!
-    &, & > code:only-child
-      color: $color-pre
-      background-color: $color-pre-bg !important
-
-  // styling for IntenseDebate comments
-  // http://support.intensedebate.com/css-documentation/
-  #idc-container-parent #idc-container
-    // increase font size
-    &, & div
-      font-size: medium
-
-    // make dates visible
-    .idc-thread_active, .idc-time > a
-      color: $color-heading
-
-    // fix for strong colors being applied to
-    // IntenseDebate comment form submit link
-    .idc-r strong
-      color: inherit
-
-    // restore padding and margin for <pre>
-    .idc-c-t-inner pre
-      +bubble_border
-
-@media print
-  blockquote, q
-    font-style: italic
-
-  #body
-    > header > a,
-    > .comments,
-    > footer
-      display: none
 
   // show destination URL for external hyperlinks
   a[href]:not([href^='#']):after
-    content: ' ' attr(href)
-    +literal_style
+    content: ' ' attr(href) ' '
+    font-family: monospace
