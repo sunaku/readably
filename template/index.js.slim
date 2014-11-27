@@ -57,25 +57,29 @@ erb:
     if ($zoomable.length > 0) Intense( $zoomable );
 
     // filter entries on index page based on user input in the search box
-    var $entries = $('nav.entries li');
-    $('article > header > form.search > input[type=search]').bind(
+    var $entries = $('nav.entries > ul > li');
+    var $headings = $('nav.entries > h2');
+    $('article > header > form.search > input[type=search]').on(
       'keyup change focus blur search', function(event) {
         var input = event.target.value;
         if (input.match(/\S/)) {
           var words = input.replace(/^\s+|\s+$/g, '').split(/\s+/g);
           var regexp = new RegExp(words.join('|'), 'ig');
+          $headings.hide();
           $entries.each(function() {
             var $entry = $(this);
             if (regexp.test($entry.text())) {
-              $entry.fadeIn();
+              $entry.show();
+              $entry.parent('ul').prev('h2').show();
             }
             else {
-              $entry.fadeOut();
+              $entry.hide();
             }
           });
         }
         else {
-          $entries.fadeIn();
+          $entries.show();
+          $headings.show();
         }
       }
     );
