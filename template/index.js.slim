@@ -53,7 +53,7 @@ erb:
     $('img:not([data-caption])').each(function() {
       $(this).attr('data-caption', $(this).attr('src').replace(/.*\//g, ''));
     });
-    var $zoomable = $('img').filter(':not(a img)');
+    var $zoomable = $('img').not('a img');
     if ($zoomable.length > 0) Intense( $zoomable );
 
     // filter entries on index page based on user input in the search box
