@@ -56,6 +56,15 @@ body
     dt, em, code:not(.highlight)
       font-weight: bolder
 
+    ol > li
+      list-style-type: decimal
+
+      & > ol > li
+        list-style-type: lower-alpha
+
+        & > ol > li
+          list-style-type: lower-roman
+
     table
       border-collapse: collapse
 
