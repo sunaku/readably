@@ -1,8 +1,6 @@
 $content_font: Ubuntu,        Corbel,   sans-serif
 $literal_font: "Ubuntu Mono", Consolas, monospace
 
-$all_fg_color: black
-$all_bg_color: whitesmoke
 $border_color: gainsboro
 $subtle_color: darkgray
 $target_color: crimson
@@ -11,96 +9,92 @@ $target_color: crimson
   margin: auto
   display: block
 
-body
-  color: $all_fg_color
-  background-color: $all_bg_color
+article
+  +center_element
+  max-width: 66ch
+  text-align: justify
+  line-height: 150%
+  font-family: $content_font
 
-  article
-    +center_element
-    max-width: 66ch
-    text-align: justify
-    line-height: 150%
-    font-family: $content_font
+  header, footer
+    text-align: center
 
-    header, footer
-      text-align: center
+  .category, .credits
+    color: $subtle_color
 
-    .category, .credits
-      color: $subtle_color
+  .content
+    img, video, audio, embed, iframe
+      +center_element
+      // fit media elements within their parent container
+      // http://unstoppablerobotninja.com/entry/fluid-images
+      max-width: 100%
+      max-height: 100%
 
-    .content
-      img, video, audio, embed, iframe
-        +center_element
-        // fit media elements within their parent container
-        // http://unstoppablerobotninja.com/entry/fluid-images
-        max-width: 100%
-        max-height: 100%
+    h1, h2, h3, h4, h5, h6
+      margin-top: 2em
 
-      h1, h2, h3, h4, h5, h6
-        margin-top: 2em
+  hr
+    border: none
+    border-top: thick dotted $border_color
 
-    hr
-      border: none
-      border-top: thick dotted $border_color
+  pre, code
+    font-family: $literal_font
 
-    pre, code
-      font-family: $literal_font
+  pre
+    line-height: 100%
+    padding-left: 1.5em
 
-    pre
-      line-height: 100%
-      padding-left: 1.5em
+    &, code.highlight
+      background-color: inherit
 
-      &, code.highlight
-        background-color: inherit
+  dt, em, code:not(.highlight)
+    font-weight: bolder
 
-    dt, em, code:not(.highlight)
-      font-weight: bolder
+  ol > li
+    list-style-type: decimal
 
-    ol > li
-      list-style-type: decimal
+    & > ol > li
+      list-style-type: lower-alpha
 
       & > ol > li
-        list-style-type: lower-alpha
+        list-style-type: lower-roman
 
-        & > ol > li
-          list-style-type: lower-roman
+  table
+    border-collapse: collapse
 
-    table
-      border-collapse: collapse
+    tr
+      border-bottom: thin solid $border_color
 
-      tr
-        border-bottom: thin solid $border_color
+      th, td
+        margin: none
+        padding: 0.5em
+        text-align: center
 
-        th, td
-          margin: none
-          padding: 0.5em
-          text-align: center
+  nav.entries > ul > li
+    margin-top: 1em
 
-    nav.entries > ul > li
-      margin-top: 1em
-
-      &:target > .title > a
-        color: $target_color
-
-    a img
-      border: none
-
-    a:hover
+    &:target > .title > a
       color: $target_color
 
-    a.navigation
-      margin: 0.25em
-      font-size: larger
+  a img
+    border: none
 
-    a.permalink
-      margin-right: 0.25em
+  a:hover
+    color: $target_color
 
-      &:before
-        content: '\2605' // &starf;
+  a.navigation
+    margin: 0.25em
+    font-size: larger
 
-    *:target > a.permalink
-      color: $target_color
-      text-decoration: none
+  a.permalink
+    margin-right: 0.25em
+
+    &:before
+      content: '\2605' // &starf;
+
+  *:target > a.permalink
+    color: $target_color
+    text-decoration: none
 
 // http://support.intensedebate.com/css-documentation/
 #idc-container-parent #idc-container
