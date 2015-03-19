@@ -1,8 +1,10 @@
-$all_fg_color: black
-$all_bg_color: whitesmoke
-$border_color: gainsboro
-$subtle_color: darkgray
-$target_color: crimson
+$all_fg_color: DarkSlateGray
+$all_bg_color: WhiteSmoke
+$border_color: Gainsboro
+$subtle_color: SlateGray
+$target_color: Crimson
+$a_link_color: RoyalBlue
+$a_seen_color: MediumOrchid
 
 =center_element
   margin: auto
@@ -78,21 +80,28 @@ article
     &:target > .title > a
       color: $target_color
 
-  a img
-    border: none
+  a
+    img
+      border: none
 
-  a:hover
-    color: $target_color
+    &:link
+      color: $a_link_color
 
-  a.navigation
-    margin: 0.25em
-    font-size: larger
+    &:visited
+      color: $a_seen_color
 
-  a.permalink
-    margin-right: 0.25em
+    &:hover
+      color: $target_color
 
-    &:before
-      content: '\2605' // &starf;
+    &.navigation
+      margin: 0.25em
+      font-size: larger
+
+    &.permalink
+      margin-right: 0.25em
+
+      &:before
+        content: '\2605' // &starf;
 
   *:target > a.permalink
     color: $target_color
