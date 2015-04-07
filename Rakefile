@@ -344,14 +344,14 @@ end.sort_by {|e| [-e[:updated_at].to_i, -e[:created_at].to_i] }
 if @entries.empty?
   @config[:created_at] = @config[:updated_at] = Time.now
 else
-  @config[:created_at] = @entries.last[:updated_at]
-  @config[:updated_at] = @entries.first[:updated_at]
+  @config[:created_at] = @listed_entries.last[:updated_at]
+  @config[:updated_at] = @listed_entries.first[:updated_at]
 end
 
 @entry_source_files = entry_sources_by_output.values.flatten
 @entry_output_files = entry_sources_by_output.keys
 
-@config[:categories] = @entries.map {|e| e[:categories] }.
+@config[:categories] = @listed_entries.map {|e| e[:categories] }.
                        flatten.uniq.sort
 
 @config[:category] = comma_join(@config[:categories])
