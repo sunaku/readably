@@ -26,17 +26,15 @@ erb:
           $target.before($('<a>').
             attr('class', 'navigation').
             attr('href', preceding.url).
-            attr('title', preceding.title).
-            html('&ltrif;&ctdot;'), ' ');
+            attr('title', preceding.title));
         }
 
         var following = chain.following;
         if (following) {
-          $target.after(' ', $('<a>').
+          $target.after($('<a>').
             attr('class', 'navigation').
             attr('href', following.url).
-            attr('title', following.title).
-            html('&ctdot;&rtrif;'));
+            attr('title', following.title));
         }
       }
     }

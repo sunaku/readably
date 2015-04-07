@@ -94,8 +94,14 @@ article
       color: $target_color
 
     &.navigation
-      margin: 0.25em
-      font-size: larger
+      margin: 1em
+      opacity: 0.75
+
+      &:first-child:before
+        content: '\25c0\25c2' // left-pointing triangles
+
+      &:not(:first-child):after
+        content: '\25b8\25b6' // right-pointing triangles
 
     &.permalink
       margin-right: 0.25em
