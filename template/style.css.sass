@@ -6,16 +6,12 @@ $target_color: Crimson
 $a_link_color: RoyalBlue
 $a_seen_color: MediumOrchid
 
-=center_element
-  margin: auto
-  display: block
-
 body
   color: $all_fg_color
   background-color: $all_bg_color
 
 article
-  +center_element
+  margin: auto
   max-width: 66ch
   text-align: justify
   line-height: 150%
@@ -28,7 +24,8 @@ article
 
   .content
     img, video, audio, embed, iframe
-      +center_element
+      margin: auto
+      display: block
       // fit media elements within their parent container
       // http://unstoppablerobotninja.com/entry/fluid-images
       max-width: 100%
@@ -68,6 +65,7 @@ article
         list-style-type: lower-roman
 
   table
+    margin: auto
     border-collapse: collapse
 
     tr
