@@ -39,6 +39,55 @@ erb:
       }
     }
 
+    // create table of contents which links to headings that already have IDs
+    var toc_list_type = 'ol';
+    var $targets = $('#body [id]');
+    if ($targets.length > 0) {
+      var $root = $('<'+ toc_list_type +'>').attr('class', 'table-of-contents');
+      var $head = $root;
+      var level = 0;
+      $targets.each(function() {
+        var matches = this.tagName.match(/^H([1-6])$/i); // filter for headings
+        if (matches) {
+          var next_level = parseInt(matches[1]);
+          if (next_level > level) {
+            var $next_root = $('<'+ toc_list_type +'>');
+            var $next_head = $('<li>');
+            $next_root.append($next_head);
+            $head.append($next_root);
+            $head = $next_head;
+          }
+          else if (next_level < level) {
+            // rewind the stack to reach higher level
+            for (var i = level; i > next_level; i--) {
+              var $ancestor = $head.parent().parent();
+              if ($ancestor.get(0) === $root.get(0)) {
+                break;
+              }
+              $head = $ancestor;
+            }
+            var $next_head = $('<li>');
+            $head.after($next_head);
+            $head = $next_head;
+          }
+          else if ($head.children().length > 0) {
+            var $next_head = $('<li>');
+            $head.after($next_head);
+            $head = $next_head;
+          }
+          level = next_level;
+
+          var $target = $(this);
+          var $link = $('<a>').text($target.text()).
+            attr('href', '#' + $target.attr('id'));
+          $head.append($link);
+        }
+      });
+      if (level > 0) {
+        $('#body > .content').prepend($root);
+      }
+    }
+
     // make alternate texts on images appear as tooltip labels on mouse-over
     $('img[alt]:not([title])').each(function() {
       $(this).attr('title', $(this).attr('alt'));
