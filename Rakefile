@@ -31,9 +31,16 @@ begin
   renderer_class = Class.new(Redcarpet::Render::HTML) do
     include Redcarpet::Render::SmartyPants
 
+    Heading = Struct.new(:level, :id, :text, :children, :parent)
+
     def preprocess document
       @seen_count_by_id = Hash.new {|h,k| h[k] = 0 }
+      @headings = []
       document
+    end
+
+    def postprocess document
+      table_of_contents + super
     end
 
     # add permalink anchors to all headings
@@ -46,12 +53,40 @@ begin
       count = @seen_count_by_id[id] += 1
       id += "-#{count - 1}" if count > 1
 
+      # keep track of the heading to generate the table_of_contents() later on
+      heading = Heading.new(level, id, text, [], nil)
+      if parent = @headings.last
+        if parent.level == level
+          parent = parent.parent
+        end
+        if parent and parent.level < level
+          parent.children << heading
+          heading.parent = parent
+        end
+      end
+      @headings << heading
+
       [?\n,
         %{<h#{level} id="#{id}">},
           %{<a name="#{id}" href="##{id}" class="permalink" title="permalink"></a>},
           text,
         "</h#{level}>",
       ?\n].join
+    end
+
+    private
+
+    def table_of_contents
+      helper = lambda do |subtrees|
+        subtrees.map do |heading|
+          %{<li><a href="##{heading.id}">#{heading.text}</a><ol>#{
+            helper.call heading.children
+          }</ol></li>}
+        end.join
+      end
+      %{<ol class="table-of-contents">#{
+        helper.call @headings.reject(&:parent) # tree roots only!
+      }</ol>}
     end
   end
 
