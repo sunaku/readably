@@ -56,13 +56,9 @@ begin
       # keep track of the heading to generate the table_of_contents() later on
       heading = Heading.new(level, id, text, [], nil)
       if parent = @headings.last
-        if parent.level == level
-          parent = parent.parent
-        end
-        if parent and parent.level < level
-          parent.children << heading
-          heading.parent = parent
-        end
+        parent = parent.parent while parent and parent.level >= level
+        parent.children << heading if parent
+        heading.parent = parent
       end
       @headings << heading
 
