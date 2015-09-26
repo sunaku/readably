@@ -25,10 +25,6 @@ html
               - updates = entry[:updates].length
               | #{updates} update#{'s' if updates > 1}
 
-        - unless entry[:categories].empty?
-          p.category
-            | (#{entry[:category]})
-
       hr
       .content
         == render_slim_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
