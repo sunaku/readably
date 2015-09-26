@@ -21,9 +21,9 @@ html
 
         - unless entry[:updates].empty?
           .update_count
-            a href="#updates"
-              - updates = entry[:updates].length
-              | #{updates} update#{'s' if updates > 1}
+            - update_count = entry[:updates].length
+            a href="#updates" title="#{update_count} update#{'s' if update_count > 1}"
+              == '&nabla; ' * update_count
 
       hr
       .content
