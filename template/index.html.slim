@@ -36,6 +36,6 @@ html
                       = entry['title']
                   - unless entry[:categories].empty?
                     .category
-                      | (#{entry[:category]})
+                      | #{entry[:category]}
 
       == render_slim_file('template/footer.html.slim', nil, :config => config, :target => config)
