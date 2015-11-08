@@ -40,7 +40,7 @@ begin
     end
 
     def postprocess document
-      table_of_contents + super
+      table_of_contents.to_s + super
     end
 
     # add permalink anchors to all headings
@@ -80,9 +80,8 @@ begin
           }</ol></li>}
         end.join
       end
-      %{<ol class="table-of-contents">#{
-        helper.call @headings.reject(&:parent) # tree roots only!
-      }</ol>}
+      toc = helper.call @headings.reject(&:parent) # tree roots only!
+      %{<ol class="table-of-contents">#{toc}</ol>} unless toc.empty?
     end
   end
 
