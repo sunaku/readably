@@ -64,7 +64,7 @@ begin
 
       [?\n,
         %{<h#{level} id="#{id}">},
-          %{<a name="#{id}" href="##{id}" class="permalink" title="permalink"></a>},
+          %{<a name="#{id}" href="##{id}" class="permalink" title="Permalink"></a>},
           text,
         "</h#{level}>",
       ?\n].join
@@ -81,7 +81,10 @@ begin
         end.join
       end
       toc = helper.call @headings.reject(&:parent) # tree roots only!
-      %{<ol class="table-of-contents">#{toc}</ol>} unless toc.empty?
+      unless toc.empty?
+        permalink = %{<a href="#_toc" class="permalink" title="Contents"></a>}
+        %{<ol id="_toc" class="table-of-contents">#{permalink}#{toc}</ol>}
+      end
     end
   end
 
