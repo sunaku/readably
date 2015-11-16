@@ -64,27 +64,32 @@ begin
 
       [?\n,
         %{<h#{level} id="#{id}">},
-          %{<a name="#{id}" href="##{id}" class="permalink" title="Permalink"></a>},
           text,
+          %{<a name="#{id}" href="##{id}" class="permalink" title="Permalink"></a>},
+          %{<a href="##{backlink_id id}" class="backlink" title="Contents"></a>},
         "</h#{level}>",
       ?\n].join
     end
 
     private
 
+    def backlink_id id
+      "__#{id}__"
+    end
+
     def table_of_contents
       helper = lambda do |subtrees|
         subtrees.map do |heading|
-          %{<li><a href="##{heading.id}">#{heading.text}</a><ol>#{
+          id = backlink_id(heading.id)
+          %{<li><a id="#{id}" name="#{id}" href="##{heading.id}">#{
+            heading.text
+          }</a><ol>#{
             helper.call heading.children
           }</ol></li>}
         end.join
       end
       toc = helper.call @headings.reject(&:parent) # tree roots only!
-      unless toc.empty?
-        permalink = %{<a href="#_toc" class="permalink" title="Contents"></a>}
-        %{<ol id="_toc" class="table-of-contents">#{permalink}#{toc}</ol>}
-      end
+      %{<ol class="table-of-contents">#{toc}</ol>} unless toc.empty?
     end
   end
 

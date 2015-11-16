@@ -32,8 +32,8 @@ html
       - unless entry[:updates].empty?
         hr
         h1#updates
-          a name='updates' href='#updates' class='permalink' title='permalink'
           | Updates
+          a name='updates' href='#updates' class='permalink' title='permalink'
         - entry[:updates].reverse_each do |date, content|
           aside.update
             dl

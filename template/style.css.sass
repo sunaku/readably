@@ -35,15 +35,6 @@ article
       padding-top: 1em
       padding-bottom: 1em
 
-      > a.permalink
-        font-size: x-large
-        margin-left: -5em
-        position: fixed
-        top: 0
-
-        &:before
-          content: '\224B' // &apid;
-
     img, video, audio, embed, iframe
       margin: auto
       display: block
@@ -142,15 +133,35 @@ article
         content: '\25b8\25b6' // right-pointing triangles
 
     &.permalink
-      margin-right: 0.5em
-      margin-left: -1.5em
+      float: right
 
       &:before
         content: '\2605' // &starf;
 
-  *:target > a.permalink
-    color: $target_color
-    text-decoration: none
+    &:target
+      color: $target_color
+      font-weight: bolder
+
+      &:after
+        float: right
+        font-size: xx-large
+        content: '\2605' // &starf;
+
+  *:target
+
+    > a.permalink
+      float: left
+      font-size: xx-large
+      margin-left: -1.25em
+      color: $target_color
+      text-decoration: none
+
+    > a.backlink
+      float: right
+
+      &:before
+        content: '\224B' // &apid;
+
 
 // http://support.intensedebate.com/css-documentation/
 #idc-container-parent #idc-container
