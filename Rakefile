@@ -65,7 +65,7 @@ begin
       [?\n,
         %{<h#{level} id="#{id}">},
           text,
-          %{<a name="#{id}" href="##{id}" class="permalink" title="Permalink"></a>},
+          %{<a href="##{id}" class="permalink" title="Permalink"></a>},
           %{<a href="##{uplink_id id}" class="uplink" title="Contents"></a>},
         "</h#{level}>",
       ?\n].join
@@ -73,15 +73,11 @@ begin
 
     private
 
-    def uplink_id id
-      "__#{id}__"
-    end
-
     def table_of_contents
       helper = lambda do |subtrees|
         subtrees.map do |heading|
           id = uplink_id(heading.id)
-          %{<li><a id="#{id}" name="#{id}" href="##{heading.id}" class="downlink">#{
+          %{<li><a id="#{id}" href="##{heading.id}" class="downlink">#{
             heading.text
           }</a><ol>#{
             helper.call heading.children
@@ -90,6 +86,10 @@ begin
       end
       toc = helper.call @headings.reject(&:parent) # tree roots only!
       %{<ol class="table-of-contents">#{toc}</ol>} unless toc.empty?
+    end
+
+    def uplink_id id
+      "__#{id}__"
     end
   end
 

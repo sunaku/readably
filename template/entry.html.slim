@@ -33,7 +33,7 @@ html
         hr
         h1#updates
           | Updates
-          a name='updates' href='#updates' class='permalink' title='permalink'
+          a id='updates' href='#updates' class='permalink' title='permalink'
         - entry[:updates].reverse_each do |date, content|
           aside.update
             dl
