@@ -6,6 +6,22 @@ $target_color: Crimson
 $a_link_color: RoyalBlue
 $a_seen_color: MediumOrchid
 
+=content_star
+  content: '\2605' // &starf;
+  font-size: xx-large
+
+=content_wave
+  content: '\224B' // &apid;
+  font-size: xx-large
+
+=anchor_target
+  color: $target_color
+  font-weight: bolder
+
+  &:before
+    +content_star
+    float: left
+
 body
   color: $all_fg_color
   background-color: $all_bg_color
@@ -106,8 +122,10 @@ article
   nav.entries > ul > li
     margin-top: 1em
 
+    // when user follows link to index page from an entry
+    // they are placed at its location in the entry list
     &:target > .title > a
-      color: $target_color
+      +anchor_target
 
   a
     img
@@ -132,36 +150,33 @@ article
       &:not(:first-child):after
         content: '\25b8\25b6' // right-pointing triangles
 
-    &.permalink
-      float: right
-
-      &:before
-        content: '\2605' // &starf;
-
-    &:target
-      color: $target_color
-      font-weight: bolder
-
-      &:after
-        float: right
-        font-size: xx-large
-        content: '\2605' // &starf;
-
-  *:target
-
-    > a.permalink
-      float: left
-      font-size: xx-large
-      margin-left: -1.25em
-      color: $target_color
+    &.permalink, &.uplink
       text-decoration: none
+      visibility: hidden
 
-    > a.backlink
-      float: right
+    &.permalink:before
+      +content_star
 
-      &:before
-        content: '\224B' // &apid;
+    &.uplink:before
+      +content_wave
 
+    &.downlink:target
+      +anchor_target
+
+  *
+
+    // reveal permalink on hover even if non-target
+    &:hover
+      > a.permalink
+        visibility: visible
+
+    // always reveal permalink and uplink on target
+    &:target
+      > a.permalink, > a.uplink
+        visibility: visible
+
+      > a.permalink
+        color: $target_color
 
 // http://support.intensedebate.com/css-documentation/
 #idc-container-parent #idc-container

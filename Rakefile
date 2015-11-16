@@ -66,22 +66,22 @@ begin
         %{<h#{level} id="#{id}">},
           text,
           %{<a name="#{id}" href="##{id}" class="permalink" title="Permalink"></a>},
-          %{<a href="##{backlink_id id}" class="backlink" title="Contents"></a>},
+          %{<a href="##{uplink_id id}" class="uplink" title="Contents"></a>},
         "</h#{level}>",
       ?\n].join
     end
 
     private
 
-    def backlink_id id
+    def uplink_id id
       "__#{id}__"
     end
 
     def table_of_contents
       helper = lambda do |subtrees|
         subtrees.map do |heading|
-          id = backlink_id(heading.id)
-          %{<li><a id="#{id}" name="#{id}" href="##{heading.id}">#{
+          id = uplink_id(heading.id)
+          %{<li><a id="#{id}" name="#{id}" href="##{heading.id}" class="downlink">#{
             heading.text
           }</a><ol>#{
             helper.call heading.children
