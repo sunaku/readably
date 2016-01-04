@@ -38,6 +38,17 @@ article
   header
     margin-bottom: 2em
 
+    .navigation
+      margin-bottom: 0.5em
+
+      a
+        margin: 0.25em
+        text-decoration: none
+        opacity: 0.5
+
+        &:hover
+          opacity: inherit
+
     .title
       font-size: xx-large
       line-height: 1.5em
@@ -140,16 +151,6 @@ article
     &:hover
       color: $target_color
 
-    &.navigation
-      margin: 1em
-      opacity: 0.75
-
-      &:first-child:before
-        content: '\25c0\25c2' // left-pointing triangles
-
-      &:not(:first-child):after
-        content: '\25b8\25b6' // right-pointing triangles
-
     &.permalink, &.uplink
       text-decoration: none
       visibility: hidden
@@ -192,8 +193,8 @@ figure > img
 
 @media print
   article
-    hr, a.index, a.permalink, a.navigation, .comments, footer
-      display: none
+    hr, .navigation, .comments, footer
+      display: none !important
 
   a
     text-decoration: none

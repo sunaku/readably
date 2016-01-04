@@ -6,10 +6,10 @@ html
     article#body data-entry-id=entry[:id]
 
       header
-        a.index href=entry[:index_url]
-          = config['title']
-
         h1.title
+          .navigation
+            a href=entry[:index_url] title=config['title']
+              | &apid;
           = entry['title']
           - unless entry[:updates].empty?
             | &nbsp;
@@ -44,7 +44,6 @@ html
                 == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
 
       - if service = config['comments_service'] and account = config['comments_account']
-        hr
         .comments#comments
           - case service
             - when 'IntenseDebate'

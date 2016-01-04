@@ -19,22 +19,29 @@ erb:
       var chain = chain_by_entry_id[entry_id];
       if (chain) {
         // element to surround with navigation links
-        var $target = $('article > header > a.index');
+        var $target = $('article > header .navigation > a');
 
         var preceding = chain.preceding;
         if (preceding) {
           $target.before($('<a>').
-            attr('class', 'navigation').
             attr('href', preceding.url).
-            attr('title', preceding.title));
+            attr('title', preceding.title).
+            html('&prec;'));
         }
 
         var following = chain.following;
         if (following) {
           $target.after($('<a>').
-            attr('class', 'navigation').
             attr('href', following.url).
-            attr('title', following.title));
+            attr('title', following.title).
+            html('&succ;'));
+
+          if (!preceding) {
+            // make sure it occupies space on the screen so that
+            // navigation links always appear in the same place
+            $target.before($('<a>').
+              attr('style', 'visibility: hidden'));
+          }
         }
       }
     }
