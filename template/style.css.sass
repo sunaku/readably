@@ -6,20 +6,13 @@ $target_color: Crimson
 $a_link_color: RoyalBlue
 $a_seen_color: MediumOrchid
 
-=content_star
-  content: '\2605' // &starf;
-  font-size: xx-large
-
-=content_wave
-  content: '\224B' // &apid;
-  font-size: xx-large
-
 =anchor_target
   color: $target_color
   font-weight: bolder
 
   &:before
-    +content_star
+    content: '\2605' // &starf;
+    font-size: xx-large
     float: left
 
 body
@@ -157,12 +150,7 @@ article
     &.permalink, &.uplink
       text-decoration: none
       visibility: hidden
-
-    &.permalink:before
-      +content_star
-
-    &.uplink:before
-      +content_wave
+      font-size: xx-large
 
     &.downlink:target
       +anchor_target
