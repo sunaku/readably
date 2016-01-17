@@ -78,7 +78,7 @@ begin
         subtrees.map do |heading|
           id = uplink_id(heading.id)
           %{<li><a id="#{id}" href="##{heading.id}" class="downlink">#{
-            heading.text
+            heading.text.gsub(/<.*?>/, '')
           }</a><ol>#{
             helper.call heading.children
           }</ol></li>}
