@@ -19,7 +19,7 @@ erb:
       var chain = chain_by_entry_id[entry_id];
       if (chain) {
         // element to surround with navigation links
-        var $target = $('article > header .navigation > a');
+        var $target = $('article > header .navigation > a.rootlink');
 
         var preceding = chain.preceding;
         $target.before($('<a>').html('&prec;').

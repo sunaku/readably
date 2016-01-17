@@ -6,14 +6,37 @@ $target_color: Crimson
 $a_link_color: RoyalBlue
 $a_seen_color: MediumOrchid
 
-=anchor_target
+=navigation_icon
+  float: left
+  font-size: xx-large
+  text-decoration: none
+
+=icon_wave
+  content: '\224B' // &apid;
+
+=icon_star_outline
+  content: '\2606' // &star;
+
+=icon_star_filled
+  content: '\2605' // &starf;
+
+=opacity_hint
+  opacity: 0.25
+
+=opacity_fade
+  opacity: 0.5
+
+=opacity_show
+  opacity: inherit
+
+=you_are_here
   color: $target_color
   font-weight: bolder
+  +opacity_show
 
   &:before
-    content: '\2605' // &starf;
-    font-size: xx-large
-    float: left
+    +navigation_icon
+    +icon_star_filled
 
 body
   color: $all_fg_color
@@ -36,14 +59,17 @@ article
 
       a
         margin: 0.25em
-        opacity: 0.5
         text-decoration: none
+        +opacity_fade
 
         &:hover
-          opacity: inherit
+          +opacity_show
 
         &:not([href])
           visibility: hidden
+
+        &.rootlink:before
+          +icon_wave
 
     .title
       font-size: xx-large
@@ -140,7 +166,7 @@ article
     // when user follows link to index page from an entry
     // they are placed at its location in the entry list
     &:target > .title > a
-      +anchor_target
+      +you_are_here
 
   a
     img
@@ -155,28 +181,36 @@ article
     &:hover
       color: $target_color
 
-    &.permalink, &.uplink
-      text-decoration: none
-      visibility: hidden
-      font-size: xx-large
+    &.uplink, &.permalink
+      +navigation_icon
+
+      &:hover
+        +opacity_show
+
+    &.uplink
+      margin-left: -1.75em
+      +opacity_fade
+
+    &.permalink
+      margin-left: -1em
+      +opacity_hint
+
+      &:before
+        +icon_star_outline
+
+      &:hover:before
+        +icon_star_filled
 
     &.downlink:target
-      +anchor_target
+      +you_are_here
 
-  *
+  // reveal uplink and embellish permalink on target
+  *:target > a
+    &.uplink:before
+      +icon_wave
 
-    // reveal permalink on hover even if non-target
-    &:hover
-      > a.permalink
-        visibility: visible
-
-    // always reveal permalink and uplink on target
-    &:target
-      > a.permalink, > a.uplink
-        visibility: visible
-
-      > a.permalink
-        color: $target_color
+    &.permalink
+      +you_are_here
 
 // http://support.intensedebate.com/css-documentation/
 #idc-container-parent #idc-container
@@ -192,7 +226,7 @@ figure > img
 
 @media print
   article
-    hr, .navigation, .comments, footer
+    hr, .navigation, a.uplink, a.permalink, .comments, footer
       display: none !important
 
   a

@@ -8,8 +8,7 @@ html
       header
         h1.title
           .navigation
-            a href=entry[:index_url] title=config['title']
-              | &apid;
+            a.rootlink href=entry[:index_url] title=config['title']
           = entry['title']
 
         .author
@@ -33,7 +32,6 @@ html
         h1#updates
           | Updates
           a href='#updates' class='permalink' title='Permalink'
-            | &starf;
         - entry[:updates].reverse_each do |date, content|
           aside.update
             dl
