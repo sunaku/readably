@@ -6,8 +6,13 @@ $target_color: Crimson
 $a_link_color: RoyalBlue
 $a_seen_color: MediumOrchid
 
+$column_count: auto
+$column_width: 66ch
+$column_space: 1em
+$column_ruler: thin dashed $border_color
+
 =navigation_icon
-  float: left
+  float: right
   font-size: xx-large
   text-decoration: none
 
@@ -42,9 +47,27 @@ body
   color: $all_fg_color
   background-color: $all_bg_color
 
+  column:
+    count: $column_count
+    width: $column_width
+    gap:   $column_space
+    rule:  $column_ruler
+
+  -moz-column:
+    count: $column_count
+    width: $column_width
+    gap:   $column_space
+    rule:  $column_ruler
+
+  -webkit-column:
+    count: $column_count
+    width: $column_width
+    gap:   $column_space
+    rule:  $column_ruler
+
 article
   margin: auto
-  max-width: 66ch
+  max-width: $column_width
   text-align: justify
   line-height: 150%
 
@@ -118,6 +141,7 @@ article
   pre
     line-height: 100%
     padding-left: 1.5em
+    white-space: pre-wrap
 
     &.highlight
       font-weight: lighter
@@ -188,11 +212,9 @@ article
         +opacity_show
 
     &.uplink
-      margin-left: -1.75em
       +opacity_fade
 
     &.permalink
-      margin-left: -1em
       +opacity_hint
 
       &:before
@@ -211,6 +233,10 @@ article
 
     &.permalink
       +you_are_here
+
+  // increase permalink visibility on heading hover
+  *:hover > a.permalink:before
+    +icon_star_filled
 
 // http://support.intensedebate.com/css-documentation/
 #idc-container-parent #idc-container
