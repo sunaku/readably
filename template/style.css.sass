@@ -43,6 +43,12 @@ $column_ruler: thin dashed $border_color
     +navigation_icon
     +icon_star_filled
 
+    // animate current location for wayfinding in wide, multi-column layout
+    $golden_ratio: 1.618
+    $magnification: 10 * $golden_ratio
+    transform: scale($magnification) rotate(360deg) scale(1/$magnification)
+    transition: transform 1s * $golden_ratio
+
 body
   color: $all_fg_color
   background-color: $all_bg_color
