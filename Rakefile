@@ -1,7 +1,7 @@
 task :default => :build
 
 desc 'Build entire blog.'
-multitask :build => [:entry, :index, :style]
+task :build => [:entry, :index, :style]
 
 desc 'Build entry pages.'
 task :entry
@@ -232,7 +232,7 @@ def render_template_task task_name, src, *deps
   end
   CLEAN.include dst
 
-  multitask task_name => dst
+  task task_name => dst
 end
 
 def render_slim_template_task *args
@@ -401,7 +401,7 @@ end
 
 directory @output_dir
 
-multitask :entry => @entry_output_files
+task :entry => @entry_output_files
 
 render_slim_template_task :index, 'template/index.js.slim'
 
