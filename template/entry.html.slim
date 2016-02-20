@@ -24,6 +24,9 @@ html
                 = update_count
 
       hr
+      .description
+        == render_slim_file("'description' in #{entry[:source_file]}", entry['description'].to_s, :entry => entry, :config => config)
+
       .content
         == render_slim_file("'content' in #{entry[:source_file]}", entry['content'].to_s, :entry => entry, :config => config)
 

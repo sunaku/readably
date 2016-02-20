@@ -121,6 +121,27 @@ your_own_parameter1: hello world
 your_own_parameter2: ruby rocks!
 
 ##
+# (Optional) (Slim)
+#
+# Description of this blog entry.
+# Slim syntax must be used here.
+#
+# Examples:
+#
+#   description: This is my cool blog entry.
+#
+#   description: |
+#     | Hey, you know what?
+#
+#     markdown:
+#       This is my *cool* blog entry.
+#
+#     textile:
+#       I _certainly_ think so!
+#
+description: This is my cool blog entry.
+
+##
 # (Required) (Slim)
 #
 # The content of this blog entry.
