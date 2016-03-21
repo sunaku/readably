@@ -1,20 +1,20 @@
-$all_fg_color: DarkSlateGray
-$all_bg_color: WhiteSmoke
-$border_color: Gainsboro
-$subtle_color: RosyBrown
-$target_color: Crimson
-$a_link_color: RoyalBlue
-$a_seen_color: MediumOrchid
+$golden_ratio: 1.6180339887
 
-$column_count: auto
-$column_width: 66ch
-$column_space: 1em
-$column_ruler: thin dashed $border_color
+// taken from the Gruvbox colorscheme palette
+// https://github.com/morhetz/gruvbox#palette
+$all_bg_color: #32302f // dark0_soft
+$border_color: #504945 // dark2
+$all_fg_color: #d5c4a1 // light2
+$header_color: #fabd2f // bright_yellow
+$subtle_color: #83a598 // bright_blue
+$a_link_color: #8ec07c // bright_aqua
+$a_seen_color: #d3869b // bright_purple
+$target_color: #fabd2f // bright_yellow
+$emboss_color: #b8bb26 // bright_green
+$pretty_color: #fe8019 // bright_orange
 
-=navigation_icon
-  float: right
-  font-size: xx-large
-  text-decoration: none
+$base_font_size: 1vmax * $golden_ratio
+$base_anim_time: 1s * $golden_ratio
 
 =icon_wave
   content: '\224B' // &apid;
@@ -25,140 +25,140 @@ $column_ruler: thin dashed $border_color
 =icon_star_filled
   content: '\2605' // &starf;
 
-=opacity_hint
-  opacity: 0.25
-
-=opacity_fade
-  opacity: 0.5
-
-=opacity_show
-  opacity: inherit
+=navigation_icon
+  float: right
+  font-size: 4 * $base_font_size
+  text-decoration: none
 
 =you_are_here
   color: $target_color
   font-weight: bolder
-  +opacity_show
 
   &:before
     +navigation_icon
     +icon_star_filled
+    // animate the icon for wayfinding
+    transform: rotateY(360deg)
+    transition: transform $base_anim_time
 
-    // animate current location for wayfinding in wide, multi-column layout
-    $golden_ratio: 1.618
-    $magnification: 10 * $golden_ratio
-    transform: scale($magnification) rotate(360deg) scale(1/$magnification)
-    transition: transform 1s * $golden_ratio
+@media screen
 
-body
-  color: $all_fg_color
-  background-color: $all_bg_color
+  body
+    color: $all_fg_color
+    background-color: $all_bg_color
+    text-shadow: 0 0 (1em * $golden_ratio)
+    line-height: 150%
+    font-family: monospace
+    font-size: $base_font_size
 
-  column:
-    count: $column_count
-    width: $column_width
-    gap:   $column_space
-    rule:  $column_ruler
+  article#body
+    margin: auto
+    max-width: 80ch
+    text-align: justify
 
-  -moz-column:
-    count: $column_count
-    width: $column_width
-    gap:   $column_space
-    rule:  $column_ruler
+    > hr
+      visibility: hidden
 
-  -webkit-column:
-    count: $column_count
-    width: $column_width
-    gap:   $column_space
-    rule:  $column_ruler
+    > header, > footer
+      text-align: center
 
-article
-  margin: auto
-  max-width: $column_width
-  text-align: justify
-  line-height: 150%
+    > header
+      margin-bottom: 2em
 
-  header, footer
-    text-align: center
+      > .title
 
-  header
-    margin-bottom: 2em
+        a.feed > img
+          display: inline
 
-    .navigation
-      margin-bottom: 0.5em
+        .navigation
+          margin-bottom: 0.5em
 
-      a
-        margin: 0.25em
-        text-decoration: none
-        +opacity_fade
+          a
+            margin: 0.25em
+            text-decoration: none
 
-        &:hover
-          +opacity_show
+            &:not([href])
+              visibility: hidden
 
-        &:not([href])
-          visibility: hidden
+            &.rootlink:before
+              +icon_wave
 
-        &.rootlink:before
-          +icon_wave
+    .category, .credits
+      color: $subtle_color
 
-    .title
-      font-size: xx-large
-      line-height: 1.5em
+    > .content
 
-    .update_count a
-      font-size: larger
-      font-weight: bolder
-      text-decoration: none
+      .table-of-contents
+        border: thick dashed $border_color
+        padding: 1.5em
+        padding-left: 3em
+        padding-right: 0
+        margin-bottom: 2em
 
-  .category, .credits
-    color: $subtle_color
-
-  .content
-    .table-of-contents
-      border: thick dotted $border_color
-      padding-top: 1em
-      padding-bottom: 1em
-
-      & + p
+      h1, h2, h3, h4, h5, h6
         margin-top: 2em
 
-    img, video, audio, embed, iframe
-      margin: auto
-      display: block
-      // fit media elements within their parent container
-      // http://unstoppablerobotninja.com/entry/fluid-images
-      max-width: 100%
-      max-height: 100%
+      p + p
+        text-indent: 2em
 
-    h1, h2, h3, h4, h5, h6
-      margin-top: 2em
+    > nav.entries > ul > li
+      margin-top: 1em
+      // when user follows link to index page from an entry
+      // they are placed at its location in the entry list
+      &:target > .title > a
+        +you_are_here
 
-    p + p
-      text-indent: 2em
+  h1, h2, h3, h4, h5, h6, th
+    color: $header_color
+    line-height: 150%
 
-  hr
-    visibility: hidden
+  h1
+    font-size: 2.0 * $base_font_size
+
+  h2
+    font-size: 1.8 * $base_font_size
+
+  h3
+    font-size: 1.6 * $base_font_size
+
+  h4
+    font-size: 1.4 * $base_font_size
+
+  h5
+    font-size: 1.2 * $base_font_size
+
+  h6
+    font-size: 1.0 * $base_font_size
+
+  img, video, audio, embed, iframe
+    margin: auto
+    display: block
+    // fit media elements within their parent container
+    // http://unstoppablerobotninja.com/entry/fluid-images
+    max-width: 100%
+    max-height: 100%
 
   blockquote
     color: $subtle_color
-    font-size: larger
+    font-size: 1.25 * $base_font_size
     font-style: italic
-    line-height: 1.5em
-    font-family: serif
+    text-align: center
+    line-height: 150%
+
+  dt, strong, em, b, i, u
+    color: $emboss_color
+
+  code
+    color: $pretty_color
+    font-weight: bolder
 
   pre
     padding: 1em
     line-height: 100%
-    white-space: pre-wrap
 
-    &.highlight
-      font-weight: lighter
-
-      .c, .cm, .c1, .cs, .cd
-        // turn off italics on comments
-        font-style: normal
-
-  dt, em, code:not(.highlight)
-    font-weight: bolder
+    code
+      color: inherit
+      font-weight: inherit
 
   ol > li
     list-style-type: decimal
@@ -190,14 +190,6 @@ article
         padding: 0.5em
         text-align: center
 
-  nav.entries > ul > li
-    margin-top: 1em
-
-    // when user follows link to index page from an entry
-    // they are placed at its location in the entry list
-    &:target > .title > a
-      +you_are_here
-
   a
     img
       border: none
@@ -214,17 +206,8 @@ article
     &.uplink, &.permalink
       +navigation_icon
 
-      &:hover
-        +opacity_show
-
-    &.uplink
-      +opacity_fade
-
-    &.permalink
-      +opacity_hint
-
-      &:before
-        +icon_star_outline
+    &.permalink:before
+      +icon_star_outline
 
     &.downlink:target
       +you_are_here
@@ -237,21 +220,23 @@ article
     &.permalink
       +you_are_here
 
-// http://support.intensedebate.com/css-documentation/
-#idc-container-parent #idc-container
-  &, & div
-    // use same font size as the rest of the web page
-    font-size: inherit
+  // http://support.intensedebate.com/css-documentation/
+  #idc-container-parent #idc-container
+    &, & div
+      // use same font size as the rest of the web page
+      font-size: inherit
 
 @media print
-  article
+
+  article#body
+    header
+      text-align: center
     hr, .navigation, a.uplink, a.permalink, .comments, footer
-      display: none !important
+      display: none
 
   a
     text-decoration: none
-
-  // show destination URL for external hyperlinks
-  a[href]:not([href^='#']):after
-    content: ' ' attr(href) ' '
-    font-family: monospace
+    // show destination URL for external hyperlinks
+    &[href]:not([href^='#']):after
+      content: ' ' attr(href) ' '
+      font-family: monospace
