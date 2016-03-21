@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
 # required
-gem 'rake', '~> 10.0'
-gem 'slim', '~> 2.0'
+gem 'rake', '~> 11.1'
+gem 'slim', '~> 3.0'
 gem 'sass', '~> 3.1'
 
 # optional

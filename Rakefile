@@ -143,11 +143,7 @@ begin
     :renderer                     => renderer_class.new(renderer_options)
   }
 
-  # https://github.com/slim-template/slim/issues/245#issuecomment-8833818
-  require 'tilt/redcarpet'
-  Slim::Embedded.set_default_options :markdown => markdown_extensions
-  Tilt.register Tilt::RedcarpetTemplate, 'markdown', 'mkd', 'md'
-  Tilt.prefer Tilt::RedcarpetTemplate, 'markdown'
+  Slim::Embedded.options[:markdown] = markdown_extensions
 
 rescue LoadError => error
   warn error

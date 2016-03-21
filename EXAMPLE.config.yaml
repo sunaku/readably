@@ -40,7 +40,8 @@ author: Foo Bar
 #     textile:
 #       I _certainly_ think so!
 #
-description: This is my cool blog.
+description: |
+  | This is my cool blog.
 
 ##
 # URL where your blog is published.

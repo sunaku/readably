@@ -139,7 +139,8 @@ your_own_parameter2: ruby rocks!
 #     textile:
 #       I _certainly_ think so!
 #
-description: This is my cool blog entry.
+description: |
+  | This is my cool blog entry.
 
 ##
 # (Required) (Slim)
@@ -161,7 +162,7 @@ description: This is my cool blog entry.
 content: |
   p
     ' This is an example blog entry located at
-    tt =' entry[:source_file]
+    tt => entry[:source_file]
     | inside your blog source directory.
 
   p
