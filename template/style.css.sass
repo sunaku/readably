@@ -65,24 +65,25 @@ $base_anim_time: 1s * $golden_ratio
     > header
       margin-bottom: 2em
 
-      > .title
+      > .navigation
+        margin-top: 1em
+        font-size: 2.5 * $base_font_size
 
-        a.feed > img
-          display: inline
+        > a
+          margin: 0.25em
+          text-decoration: none
 
-        span.navigation
-          display: block
-          margin-bottom: 0.5em
+          &:not([href])
+            visibility: hidden
 
-          a
-            margin: 0.25em
-            text-decoration: none
-
-            &:not([href])
-              visibility: hidden
-
-            &.rootlink:before
+          &.rootlink
+            &:before
               +icon_wave
+            > span
+              display: none
+
+      > .title > a.feed > img
+        display: inline
 
     .category, .credits
       color: $subtle_color

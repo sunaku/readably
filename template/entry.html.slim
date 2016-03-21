@@ -6,9 +6,11 @@ html
     article#body data-entry-id=entry[:id]
 
       header
+        .navigation
+          a.rootlink href=entry[:index_url] title=config['title']
+            span= config['title']
+
         h1.title
-          span.navigation
-            a.rootlink href=entry[:index_url] title=config['title']
           = entry['title']
 
         .author
