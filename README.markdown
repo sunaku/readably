@@ -46,14 +46,15 @@ Prerequisites
 Installing
 ------------------------------------------------------------------------------
 
-    # install
-    git clone git://github.com/sunaku/readably.git
-    cd readably
-    bundle install # OR: bundle install --without markdown
+Setup:
 
-    # bootstrap
-    cp -vb EXAMPLE.entry.readably content/
-    cp -vb EXAMPLE.config.yaml config.yaml
+    git clone https://github.com/sunaku/readably.git
+    cd readably
+    bundle install # with markdown OR
+    bundle install --without markdown
+
+Demo:
+
     bundle exec rake
     firefox content/index.html
 
@@ -90,12 +91,12 @@ Blogging
 
 To create a new blog entry (`*.readably` file) from the template:
 
-    cp EXAMPLE.entry.readably content/your-entry-file-name.readably
+    cp content/entry.readably content/your-entry-file-name.readably
     edit content/your-entry-file-name.readably
 
 To create a new blog entry (`*.readably` file) in a nested directory:
 
-    cp EXAMPLE.entry.readably content/your/path/your-entry-file-name.readably
+    cp content/entry.readably content/your/path/your-entry-file-name.readably
     edit content/your/path/your-entry-file-name.readably
 
 ------------------------------------------------------------------------------
