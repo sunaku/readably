@@ -162,9 +162,10 @@ $base_anim_time: 1s * $golden_ratio
       color: inherit
       font-weight: inherit
 
-      // disable italics for header comment
-      > span.c:first-child, span.c + span.c
-        font-style: inherit
+      // comments
+      span.c, span.c1, span.cm
+        font-style: inherit !important
+        color: $emboss_color !important
 
   ol > li
     list-style-type: decimal
