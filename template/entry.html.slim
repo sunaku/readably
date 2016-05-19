@@ -51,13 +51,15 @@ html
           - case service
             - when 'IntenseDebate'
               javascript:
-                var idcomments_acct = #{{account.inspect}};
                 var idcomments_div = 'comments';
-                var idcomments_post_title = #{{entry['title'].inspect}};
-                var idcomments_post_url = #{{entry[:published_url].inspect}};
-                var idcomments_post_id = #{{entry[:id].inspect}};
 
-              script src='https://www.intensedebate.com/js/genericCommentWrapperV2.js' async=true
+              - require 'uri'
+              script src="https://intensedebate.com/js/genericCommentWrapper2.php#{{ \
+                "?acct=#{URI.encode account}" \
+                "&postid=#{URI.encode entry[:id]}" \
+                "&title=#{URI.encode entry['title']}" \
+                "&url=#{URI.encode entry[:published_url]}" \
+              }}" async=true
 
             - when 'Disqus'
               javascript:
