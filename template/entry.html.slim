@@ -50,17 +50,14 @@ html
         .comments#comments
           - case service
             - when 'IntenseDebate'
-              - require 'uri'
-              - wrapper_url = \
-                'https://intensedebate.com/js/genericCommentWrapper2.php' \
-                "?acct=#{URI.encode account}" \
-                "&postid=#{URI.encode entry[:id]}" \
-                "&title=#{URI.encode entry['title']}" \
-                "&url=#{URI.encode entry[:published_url]}"
-              - require 'open-uri'
-              - wrapper_js = open(wrapper_url).read.gsub(/\bhttp:/, 'https:')
               javascript:
-                var idcomments_div = 'comments'; #{{wrapper_js}}
+                var idcomments_acct = #{{account.inspect}};
+                var idcomments_div = 'comments';
+                var idcomments_post_title = #{{entry['title'].inspect}};
+                var idcomments_post_url = #{{entry[:published_url].inspect}};
+                var idcomments_post_id = #{{entry[:id].inspect}};
+
+              script src='http://www.intensedebate.com/js/genericCommentWrapperV2.js' async=true
 
             - when 'Disqus'
               javascript:
