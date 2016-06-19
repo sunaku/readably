@@ -1,4 +1,4 @@
-$golden_ratio: 1.6180339887
+$golden_ratio: 1.618
 
 // taken from the Gruvbox colorscheme palette
 // https://github.com/morhetz/gruvbox#palette
@@ -13,9 +13,6 @@ $target_color: #fabd2f // bright_yellow
 $emboss_color: #b8bb26 // bright_green
 $pretty_color: #fe8019 // bright_orange
 
-$base_font_size: 1vmax * $golden_ratio
-$base_anim_time: 1s * $golden_ratio
-
 =icon_wave
   content: '\224B' // &apid;
 
@@ -25,31 +22,31 @@ $base_anim_time: 1s * $golden_ratio
 =icon_star_filled
   content: '\2605' // &starf;
 
-=navigation_icon
+=navigation_icon($icon_size)
   float: right
-  font-size: 4 * $base_font_size
+  font-size: $icon_size
   text-decoration: none
 
-=you_are_here
+=you_are_here($icon_size, $anim_time: $golden_ratio * 1s)
   color: $target_color
   font-weight: bolder
 
   &:before
-    +navigation_icon
+    +navigation_icon($icon_size)
     +icon_star_filled
     // animate the icon for wayfinding
     transform: rotateY(360deg)
-    transition: transform $base_anim_time
+    transition: transform $anim_time
 
-@media screen
+=media_screen($text_size, $icon_size, $glow_size: $golden_ratio * 1em)
 
   body
     color: $all_fg_color
     background-color: $all_bg_color
-    text-shadow: 0 0 (1em * $golden_ratio)
-    line-height: 150%
+    text-shadow: 0 0 $glow_size
+    line-height: $glow_size
     font-family: monospace
-    font-size: $base_font_size
+    font-size: $text_size
 
   article#body
     margin: auto
@@ -67,7 +64,7 @@ $base_anim_time: 1s * $golden_ratio
 
       > .navigation
         margin-top: 1em
-        font-size: 2.5 * $base_font_size
+        font-size: $text_size * 2.5
 
         > a
           margin: 0.25em
@@ -108,29 +105,29 @@ $base_anim_time: 1s * $golden_ratio
       // when user follows link to index page from an entry
       // they are placed at its location in the entry list
       &:target > .title > a
-        +you_are_here
+        +you_are_here($icon_size)
 
   h1, h2, h3, h4, h5, h6, th
     color: $header_color
-    line-height: 150%
+    line-height: $glow_size
 
   h1
-    font-size: 2.0 * $base_font_size
+    font-size: $text_size * 2.0
 
   h2
-    font-size: 1.8 * $base_font_size
+    font-size: $text_size * 1.8
 
   h3
-    font-size: 1.6 * $base_font_size
+    font-size: $text_size * 1.6
 
   h4
-    font-size: 1.4 * $base_font_size
+    font-size: $text_size * 1.4
 
   h5
-    font-size: 1.2 * $base_font_size
+    font-size: $text_size * 1.2
 
   h6
-    font-size: 1.0 * $base_font_size
+    font-size: $text_size * 1.0
 
   img, video, audio, embed, iframe
     margin: auto
@@ -142,10 +139,9 @@ $base_anim_time: 1s * $golden_ratio
 
   blockquote
     color: $subtle_color
-    font-size: 1.25 * $base_font_size
+    font-size: $text_size * 1.25
     font-style: italic
     text-align: center
-    line-height: 150%
 
   dt, strong, em, b, i, u
     color: $emboss_color
@@ -211,13 +207,13 @@ $base_anim_time: 1s * $golden_ratio
       color: $target_color
 
     &.uplink, &.permalink
-      +navigation_icon
+      +navigation_icon($icon_size)
 
     &.permalink:before
       +icon_star_outline
 
     &.downlink:target
-      +you_are_here
+      +you_are_here($icon_size)
 
   // reveal uplink and embellish permalink on target
   *:target > a
@@ -225,7 +221,19 @@ $base_anim_time: 1s * $golden_ratio
       +icon_wave
 
     &.permalink
-      +you_are_here
+      +you_are_here($icon_size)
+
+@media screen
+  +media_screen($golden_ratio * 1.75vmax, $golden_ratio * 5.75vmax)
+
+@media screen and (min-width: 640px), (min-height: 640px)
+  +media_screen($golden_ratio * 1.25vmax, $golden_ratio * 5.25vmax)
+
+@media screen and (min-width: 1024px), (min-height: 1024px)
+  +media_screen($golden_ratio * 1.125vmin, $golden_ratio * 4vmin)
+
+@media screen and (min-width: 1440px), (min-height: 1440px)
+  +media_screen($golden_ratio * 1vmin, $golden_ratio * 4vmin)
 
 @media print
 
