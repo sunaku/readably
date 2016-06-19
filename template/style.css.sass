@@ -1,6 +1,5 @@
 $golden_ratio: 1.618
-$size_of_text: $golden_ratio * 1vmax
-$size_of_icon: $golden_ratio * 3vmax
+$size_of_text: $golden_ratio * 1em
 $size_of_glow: $golden_ratio * 1em
 $animate_time: $golden_ratio * 1s
 
@@ -28,7 +27,7 @@ $pretty_color: #fe8019 // bright_orange
 
 =navigation_icon
   float: right
-  font-size: $size_of_icon
+  font-size: larger
   text-decoration: none
 
 =you_are_here
@@ -42,13 +41,17 @@ $pretty_color: #fe8019 // bright_orange
     transform: rotateY(360deg)
     transition: transform $animate_time
 
+=diminish
+  font-size: smaller
+  line-height: initial
+
 @media screen
 
   body
     color: $all_fg_color
     background-color: $all_bg_color
     text-shadow: 0 0 $size_of_glow
-    line-height: $size_of_glow
+    line-height: $size_of_text
     font-family: monospace
     font-size: $size_of_text
 
@@ -68,7 +71,7 @@ $pretty_color: #fe8019 // bright_orange
 
       > .navigation
         margin-top: 1em
-        font-size: $size_of_text * 2.5
+        font-size: $size_of_text
 
         > a
           margin: 0.25em
@@ -85,6 +88,12 @@ $pretty_color: #fe8019 // bright_orange
 
       > .title > a.feed > img
         display: inline
+
+      > .author, .date
+        +diminish
+
+    > footer
+      +diminish
 
     .category, .credits
       color: $subtle_color
@@ -113,25 +122,7 @@ $pretty_color: #fe8019 // bright_orange
 
   h1, h2, h3, h4, h5, h6, th
     color: $header_color
-    line-height: $size_of_glow
-
-  h1
-    font-size: $size_of_text * 2.0
-
-  h2
-    font-size: $size_of_text * 1.8
-
-  h3
-    font-size: $size_of_text * 1.6
-
-  h4
-    font-size: $size_of_text * 1.4
-
-  h5
-    font-size: $size_of_text * 1.2
-
-  h6
-    font-size: $size_of_text * 1.0
+    line-height: $size_of_text
 
   img, video, audio, embed, iframe
     margin: auto
@@ -143,7 +134,6 @@ $pretty_color: #fe8019 // bright_orange
 
   blockquote
     color: $subtle_color
-    font-size: $size_of_text * 1.25
     font-style: italic
     text-align: center
 
@@ -156,7 +146,7 @@ $pretty_color: #fe8019 // bright_orange
 
   pre
     padding: 1em
-    line-height: 100%
+    line-height: initial
 
     code
       color: inherit
