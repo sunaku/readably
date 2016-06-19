@@ -1,4 +1,8 @@
 $golden_ratio: 1.618
+$size_of_text: $golden_ratio * 1vmax
+$size_of_icon: $golden_ratio * 3vmax
+$size_of_glow: $golden_ratio * 1em
+$animate_time: $golden_ratio * 1s
 
 // taken from the Gruvbox colorscheme palette
 // https://github.com/morhetz/gruvbox#palette
@@ -22,31 +26,31 @@ $pretty_color: #fe8019 // bright_orange
 =icon_star_filled
   content: '\2605' // &starf;
 
-=navigation_icon($icon_size)
+=navigation_icon
   float: right
-  font-size: $icon_size
+  font-size: $size_of_icon
   text-decoration: none
 
-=you_are_here($icon_size, $anim_time: $golden_ratio * 1s)
+=you_are_here
   color: $target_color
   font-weight: bolder
 
   &:before
-    +navigation_icon($icon_size)
+    +navigation_icon
     +icon_star_filled
     // animate the icon for wayfinding
     transform: rotateY(360deg)
-    transition: transform $anim_time
+    transition: transform $animate_time
 
-=media_screen($text_size, $icon_size, $glow_size: $golden_ratio * 1em)
+@media screen
 
   body
     color: $all_fg_color
     background-color: $all_bg_color
-    text-shadow: 0 0 $glow_size
-    line-height: $glow_size
+    text-shadow: 0 0 $size_of_glow
+    line-height: $size_of_glow
     font-family: monospace
-    font-size: $text_size
+    font-size: $size_of_text
 
   article#body
     margin: auto
@@ -64,7 +68,7 @@ $pretty_color: #fe8019 // bright_orange
 
       > .navigation
         margin-top: 1em
-        font-size: $text_size * 2.5
+        font-size: $size_of_text * 2.5
 
         > a
           margin: 0.25em
@@ -105,29 +109,29 @@ $pretty_color: #fe8019 // bright_orange
       // when user follows link to index page from an entry
       // they are placed at its location in the entry list
       &:target > .title > a
-        +you_are_here($icon_size)
+        +you_are_here
 
   h1, h2, h3, h4, h5, h6, th
     color: $header_color
-    line-height: $glow_size
+    line-height: $size_of_glow
 
   h1
-    font-size: $text_size * 2.0
+    font-size: $size_of_text * 2.0
 
   h2
-    font-size: $text_size * 1.8
+    font-size: $size_of_text * 1.8
 
   h3
-    font-size: $text_size * 1.6
+    font-size: $size_of_text * 1.6
 
   h4
-    font-size: $text_size * 1.4
+    font-size: $size_of_text * 1.4
 
   h5
-    font-size: $text_size * 1.2
+    font-size: $size_of_text * 1.2
 
   h6
-    font-size: $text_size * 1.0
+    font-size: $size_of_text * 1.0
 
   img, video, audio, embed, iframe
     margin: auto
@@ -139,7 +143,7 @@ $pretty_color: #fe8019 // bright_orange
 
   blockquote
     color: $subtle_color
-    font-size: $text_size * 1.25
+    font-size: $size_of_text * 1.25
     font-style: italic
     text-align: center
 
@@ -207,13 +211,13 @@ $pretty_color: #fe8019 // bright_orange
       color: $target_color
 
     &.uplink, &.permalink
-      +navigation_icon($icon_size)
+      +navigation_icon
 
     &.permalink:before
       +icon_star_outline
 
     &.downlink:target
-      +you_are_here($icon_size)
+      +you_are_here
 
   // reveal uplink and embellish permalink on target
   *:target > a
@@ -221,19 +225,7 @@ $pretty_color: #fe8019 // bright_orange
       +icon_wave
 
     &.permalink
-      +you_are_here($icon_size)
-
-@media screen
-  +media_screen($golden_ratio * 1.75vmax, $golden_ratio * 5.75vmax)
-
-@media screen and (min-width: 640px), (min-height: 640px)
-  +media_screen($golden_ratio * 1.25vmax, $golden_ratio * 5.25vmax)
-
-@media screen and (min-width: 1024px), (min-height: 1024px)
-  +media_screen($golden_ratio * 1.125vmin, $golden_ratio * 4vmin)
-
-@media screen and (min-width: 1440px), (min-height: 1440px)
-  +media_screen($golden_ratio * 1vmin, $golden_ratio * 4vmin)
+      +you_are_here
 
 @media print
 
