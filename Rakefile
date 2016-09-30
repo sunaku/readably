@@ -40,7 +40,9 @@ begin
     end
 
     def postprocess document
-      table_of_contents.to_s + super
+      doc = super.to_s
+      toc = table_of_contents.to_s
+      doc.sub!(/<readably_table_of_contents>/, toc) or toc + doc
     end
 
     # add permalink anchors to all headings
