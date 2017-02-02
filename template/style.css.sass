@@ -78,6 +78,7 @@ $pretty_color: #fe8019 // bright_orange
         > a
           margin: 0.25em
           text-decoration: none
+          border-bottom: none
 
           &:not([href])
             visibility: hidden
@@ -195,6 +196,14 @@ $pretty_color: #fe8019 // bright_orange
   a
     img
       border: none
+
+    // dashed-underline for links within this website
+    &[href]:not([href^='#'])
+      border-bottom: thin dashed
+
+    // double-underline for links leaving this website
+    &[href][href*='://']
+      border-bottom: thin solid
 
     &:link
       color: $a_link_color
