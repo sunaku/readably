@@ -49,7 +49,8 @@ begin
     # https://gist.github.com/sunaku/6913731
     def header text, level, _=nil
       # strip all HTML tags, squeeze all non-word characters, and lowercase it
-      id = text.gsub(/<.+?>/, '-').gsub(/\W+/, '-').gsub(/^-|-$/, '').downcase
+      id = text.gsub(/&#(\d+);/){ $1.to_i.chr }. # expand numeric XML entities
+                gsub(/<.+?>/, '-').gsub(/\W+/, '-').gsub(/^-|-$/, '').downcase
 
       # make duplicate anchors unique by appending numerical suffixes to them
       count = @seen_count_by_id[id] += 1
