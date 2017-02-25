@@ -65,4 +65,17 @@ erb:
         }
       }
     );
+
+    // replace embedded YouTube video thumbnail links with <iframe>s on click
+    $('a.embed_youtube_video').on('click', function() {
+      var hyperlink = $(this);
+      var thumbnail = $('img', hyperlink);
+      var iframe = $('<iframe allowfullscreen></iframe>');
+      iframe.attr('src', hyperlink.attr('href'));
+      iframe.attr('width', thumbnail.width());
+      iframe.attr('height', thumbnail.height());
+      iframe.attr('frameborder', 0);
+      hyperlink.replaceWith(iframe);
+      return false;
+    });
   });

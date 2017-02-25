@@ -233,6 +233,29 @@ $pretty_color: #fe8019 // bright_orange
     &.permalink
       +you_are_here
 
+  // embedded YouTube video, linked by its thumbnail
+  $play_button_size: 180px
+  $thumbnail_width: 560px
+  $thumbnail_height: 315px
+
+  a.embed_youtube_video
+    border-bottom: none
+    text-decoration: none
+
+    > img
+      width: $thumbnail_width
+      height: $thumbnail_height
+
+    &:before
+      content: '\25B6' // black right-pointing triangle
+      font-size: $play_button_size
+      font-style: normal
+      text-shadow: 0 0 30px black
+      position: absolute
+      margin-top: ($thumbnail_height + $play_button_size)/4
+      margin-left: -$play_button_size/4
+      text-indent: 0 // override p+p style
+
 @media print
 
   article#body

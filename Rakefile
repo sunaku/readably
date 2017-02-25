@@ -157,6 +157,18 @@ end
 # helper logic
 #-----------------------------------------------------------------------------
 
+##
+# Embeds a YouTube video by generating a thumbnailed link that dynamically
+# expands into an embedded Youtube video player when the link is clicked.
+#
+def embed_youtube_video(id, *params)
+  thumb_url = "https://i.ytimg.com/vi/#{id}/hqdefault.jpg"
+  params = ['autoplay=1', 'cc_load_policy=1', *params]
+  video_url = "https://www.youtube.com/embed/#{id}?#{params.join('&')}"
+  thumbnail = %{<img src="#{thumb_url}" alt="Watch video on YouTube">}
+  %{<a class="embed_youtube_video" href="#{video_url}">#{thumbnail}</a>}
+end
+
 unless File.respond_to? :write
   ##
   # Writes the given content to the given file.
