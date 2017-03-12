@@ -20,10 +20,10 @@ html
         time.date datetime=(date.iso8601)
           = format_date(date, config['date_format'], config['locale'])
           - unless entry[:updates].empty?
-            sup.update_count
+            span.update_count
               - update_count = entry[:updates].length
               a href="#updates" title="#{update_count} update#{'s' if update_count > 1}"
-                = update_count
+                = "+#{update_count}"
 
       hr
       .description
