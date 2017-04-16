@@ -37,7 +37,7 @@ html
         h1#updates
           | Updates
           a href='#updates' class='permalink' title='Permalink'
-        - entry[:updates].reverse_each do |date, content|
+        - entry[:updates].each do |date, content|
           aside.update
             dl
               dt.title
