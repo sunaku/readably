@@ -202,14 +202,14 @@ $pretty_color: #fe8019 // bright_orange
     img
       border: none
 
-    // dotted-underline for links staying on this page
-    &[href^='#']
+    // dashed-underline for links within this website
+    &:not([href*='://'])
       text-decoration: none
-      border-bottom: thin dotted
+      border-bottom: thin dashed
 
-    // double-underline for links leaving this website
-    &[href*='://']
-      border-bottom: thin double
+    // dotted-underline for links within this webpage
+    &[href^='#']
+      border-bottom-style: dotted
 
     &:link
       color: $a_link_color
