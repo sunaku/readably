@@ -161,11 +161,16 @@ end
 # Embeds a YouTube video by generating a thumbnailed link that dynamically
 # expands into an embedded Youtube video player when the link is clicked.
 #
+# The last argument passed to this method can be a Hash containing options:
+#
+#   :thumbnail => false   # does not emit any thumbnail image for the video
+#
 def embed_youtube_video(id, *params)
-  thumb_url = "https://i.ytimg.com/vi/#{id}/hqdefault.jpg"
+  options = if params.last.kind_of? Hash then params.pop else {} end
   params = ['autoplay=1', 'cc_load_policy=1', *params]
   video_url = "https://www.youtube.com/embed/#{id}?#{params.join('&')}"
-  thumbnail = %{<img src="#{thumb_url}" alt="Watch video on YouTube">}
+  thumb_url = "https://i.ytimg.com/vi/#{id}/hqdefault.jpg" if options[:thumbnail] != false
+  thumbnail = %{<img src="#{thumb_url}" alt="Watch video on YouTube" width="480" height="360">}
   %{<a class="embed_youtube_video" href="#{video_url}">#{thumbnail}</a>}
 end
 
