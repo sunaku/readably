@@ -238,9 +238,9 @@ $pretty_color: #fe8019 // bright_orange
       +you_are_here
 
   // embedded YouTube video, linked by its thumbnail
-  $play_button_size: 180px
   $thumbnail_width: 560px
   $thumbnail_height: 315px
+  $play_button_size: $thumbnail_width/5
 
   a.embed_youtube_video
     border-bottom: none
@@ -256,8 +256,8 @@ $pretty_color: #fe8019 // bright_orange
       font-style: normal
       text-shadow: 0 0 30px black
       position: absolute
-      margin-top: ($thumbnail_height + $play_button_size)/4
-      margin-left: -$play_button_size/4
+      margin-top: ($thumbnail_height + $play_button_size)/3
+      margin-left: -$play_button_size/3
       text-indent: 0 // override p+p style
 
 @media print
