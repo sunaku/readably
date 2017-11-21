@@ -27,7 +27,6 @@ $pretty_color: #fe8019 // bright_orange
 
 =navigation_icon
   float: left
-  margin-right: 1ex
   text-decoration: none
   border-bottom: none !important
 
@@ -225,6 +224,12 @@ $pretty_color: #fe8019 // bright_orange
 
     &.uplink, &.permalink
       +navigation_icon
+      margin-right: 1ex
+
+    &.uplink
+      clear: left
+      margin-top: -$size_of_text
+      margin-left: -1em
 
     &.permalink:before
       +icon_star_outline
@@ -239,9 +244,6 @@ $pretty_color: #fe8019 // bright_orange
 
     &.permalink
       +you_are_here
-      clear: left
-      margin-top: -1em
-      font-size: smaller
 
   // embedded YouTube video, linked by its thumbnail
   $thumbnail_width: 560px

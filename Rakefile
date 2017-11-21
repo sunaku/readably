@@ -69,8 +69,8 @@ begin
       [?\n,
         %{<h#{level} id="#{id}">},
           text,
-          %{<a href="##{uplink_id id}" class="uplink" title="Contents"></a>},
           %{<a href="##{id}" class="permalink" title="Permalink"></a>},
+          %{<a href="##{uplink_id id}" class="uplink" title="Contents"></a>},
         "</h#{level}>",
       ?\n].join
     end
