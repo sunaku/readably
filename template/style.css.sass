@@ -3,18 +3,19 @@ $size_of_text: $golden_ratio * 1em
 $size_of_glow: $golden_ratio * 2em
 $animate_time: $golden_ratio * 1s
 
-// taken from the Gruvbox colorscheme palette
-// https://github.com/morhetz/gruvbox#palette
-$all_bg_color: #32302f // dark0_soft
-$border_color: #504945 // dark2
-$all_fg_color: #d5c4a1 // light2
-$header_color: #fabd2f // bright_yellow
-$subtle_color: #83a598 // bright_blue
-$a_link_color: #8ec07c // bright_aqua
-$a_seen_color: #d3869b // bright_purple
-$target_color: #fabd2f // bright_yellow
-$emboss_color: #b8bb26 // bright_green
-$pretty_color: #fe8019 // bright_orange
+// taken from the PaperColor colorscheme palette
+// https://github.com/NLKNguyen/papercolor-theme
+$all_bg_color: #eeeeee
+$border_color: #e4e4e4
+$all_fg_color: #444444
+$header_color: #1c1c1c
+$subtle_color: #878787
+$quotes_color: #af0000
+$a_link_color: #0087af
+$a_seen_color: #8700af
+$target_color: #d70087
+$emboss_color: #008700
+$source_color: #5f8700
 
 =icon_wave
   content: '\224B' // &apid;
@@ -50,12 +51,8 @@ $pretty_color: #fe8019 // bright_orange
   body
     color: $all_fg_color
     background-color: $all_bg_color
-    text-shadow: 0 0 $size_of_glow
     line-height: $size_of_text
     font-family: 'Ubuntu Mono', Monaco, Consolas, Terminal, monospace
-
-  ::selection
-    background-color: $pretty_color
 
   article#body
     margin: auto
@@ -125,6 +122,8 @@ $pretty_color: #fe8019 // bright_orange
 
       img, video, audio, embed, iframe
         box-shadow: 0 0 $size_of_glow $subtle_color
+        margin-top: $size_of_text
+        margin-bottom: $size_of_text
 
     > nav.entries > ul > li
       margin-top: 1em
@@ -146,7 +145,7 @@ $pretty_color: #fe8019 // bright_orange
     max-height: 100%
 
   blockquote
-    color: $subtle_color
+    color: $quotes_color
     font-style: italic
     text-align: center
 
@@ -154,11 +153,13 @@ $pretty_color: #fe8019 // bright_orange
     color: $emboss_color
 
   code
-    color: $pretty_color
+    color: $source_color
+    font-size: larger
     font-weight: bolder
 
   pre
-    padding: 1em
+    box-shadow: inset 0 0 $size_of_text $border_color
+    padding: $size_of_text
     line-height: initial
 
     code
