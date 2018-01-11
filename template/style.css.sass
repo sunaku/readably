@@ -1,7 +1,7 @@
 $golden_ratio: 1.618
 $size_of_text: $golden_ratio * 1em
 $size_of_glow: $golden_ratio * 2em
-$animate_time: $golden_ratio * 1s
+$icon_spacing: 0.5ex
 
 // taken from the PaperColor colorscheme palette
 // https://github.com/NLKNguyen/papercolor-theme
@@ -27,7 +27,6 @@ $source_color: #5f8700
   content: '\2605' // &starf;
 
 =navigation_icon
-  float: left
   text-decoration: none
   border-bottom: none !important
 
@@ -38,9 +37,6 @@ $source_color: #5f8700
   &:before
     +navigation_icon
     +icon_star_filled
-    // animate the icon for wayfinding
-    transform: rotateY(360deg)
-    transition: transform $animate_time
 
 =diminish
   font-size: smaller
@@ -223,28 +219,28 @@ $source_color: #5f8700
     &:hover
       color: $target_color
 
-    &.uplink, &.permalink
+    &.permalink, &.uplink
       +navigation_icon
-      margin-right: 1ex
+      margin-left: $icon_spacing
 
-    &.uplink
-      clear: left
-      margin-top: -$size_of_text
-      margin-left: -1em
-
-    &.permalink:before
-      +icon_star_outline
+    &.downlink:before
+      margin-right: $icon_spacing
 
     &.downlink:target
       +you_are_here
 
-  // reveal uplink and embellish permalink on target
-  *:target > a
-    &.uplink:before
-      +icon_wave
+  // temporarily reveal permalink on heading hover
+  *:hover > a
+    &.permalink:before
+      +icon_star_outline
 
+  // reveal permalink and uplink on target heading
+  *:target > a
     &.permalink
       +you_are_here
+
+    &.uplink:before
+      +icon_wave
 
   // embedded YouTube video, linked by its thumbnail
   $thumbnail_width: 560px

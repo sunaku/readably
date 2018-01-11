@@ -32,7 +32,7 @@ html
               - entries.each do |entry|
                 li id=entry[:id]
                   .title
-                    a href=entry[:url]
+                    a.downlink href=entry[:url]
                       = entry['title']
                   - unless entry[:categories].empty?
                     .category
