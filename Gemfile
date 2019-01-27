@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # required
 gem 'rake', '~> 12'
-gem 'slim', '~> 3'
+gem 'slim', '~> 4'
 gem 'sass', '~> 3'
 
 # optional

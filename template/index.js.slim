@@ -10,10 +10,10 @@ ruby:
     chain_by_entry_id[following[:id]][:preceding] = relation[preceding, keys]
   end
 
-erb:
+  javascript = <<END_OF_JAVASCRIPT
   $(function() {
     // create links to preceding and following entries in navigation chain
-    var chain_by_entry_id = <%== chain_by_entry_id.to_json %>;
+    var chain_by_entry_id = #{chain_by_entry_id.to_json};
     var entry_id = $('#body').data('entry-id');
     if (entry_id) {
       var chain = chain_by_entry_id[entry_id];
@@ -44,8 +44,8 @@ erb:
     $('article > header > form.search > input[type=search]').on(
       'keyup change focus blur search', function(event) {
         var input = event.target.value;
-        if (input.match(/\S/)) {
-          var words = input.replace(/^\s+|\s+$/g, '').split(/\s+/g);
+        if (input.match(/\\S/)) {
+          var words = input.replace(/^\\s+|\\s+$/g, '').split(/\\s+/g);
           var regexp = new RegExp(words.join('|'), 'ig');
           $headings.hide();
           $entries.each(function() {
@@ -79,3 +79,6 @@ erb:
       return false;
     });
   });
+  END_OF_JAVASCRIPT
+
+== javascript
