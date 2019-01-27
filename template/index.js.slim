@@ -22,12 +22,14 @@ ruby:
         var $target = $('article > header .navigation > a.rootlink');
 
         var preceding = chain.preceding;
-        $target.before($('<a>').html('&prec;').
+        $target.before($('<a>').
+          attr('class', 'prevlink').
           attr('href', preceding && preceding.url).
           attr('title', preceding && preceding.title));
 
         var following = chain.following;
-        $target.after($('<a>').html('&succ;').
+        $target.after($('<a>').
+          attr('class', 'nextlink').
           attr('href', following && following.url).
           attr('title', following && following.title));
       }

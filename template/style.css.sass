@@ -1,6 +1,7 @@
 $golden_ratio: 1.618
 $size_of_text: $golden_ratio * 1em
 $size_of_glow: $golden_ratio * 2em
+$size_of_icon: $golden_ratio * $size_of_text
 $icon_spacing: 0.5ex
 
 // taken from the PaperColor colorscheme palette
@@ -17,14 +18,23 @@ $target_color: #d70087
 $emboss_color: #008700
 $source_color: #5f8700
 
-=icon_wave
-  content: '\224B' // &apid;
+=icon_here
+  content: '\1F481' // Person Tipping Hand, Unicode 6.0, 2010
 
-=icon_star_outline
-  content: '\2606' // &star;
+=icon_there
+  content: '\1F64B' // Person Raising Hand, Unicode 6.0, 2010
 
-=icon_star_filled
-  content: '\2605' // &starf;
+=icon_where
+  content: '\1F5FA' // World Map, Unicode 7.0, 2014
+
+=icon_left
+  content: '\1F448' // Backhand Index Pointing Left, Unicode 6.0, 2010
+
+=icon_right
+  content: '\1F449' // Backhand Index Pointing Right, Unicode 6.0, 2010
+
+=icon_play
+  content: '\25B6' // Play Button, Unicode 1.1, 1993
 
 =navigation_icon
   text-decoration: none
@@ -33,10 +43,10 @@ $source_color: #5f8700
 =you_are_here
   color: $target_color
   font-weight: bolder
+  +navigation_icon
 
   &:before
-    +navigation_icon
-    +icon_star_filled
+    +icon_here
 
 =diminish
   font-size: smaller
@@ -66,7 +76,7 @@ $source_color: #5f8700
 
       > .navigation
         margin-top: 1em
-        font-size: $size_of_text
+        font-size: $size_of_icon
 
         > a
           margin: 0.25em
@@ -76,11 +86,8 @@ $source_color: #5f8700
           &:not([href])
             visibility: hidden
 
-          &.rootlink
-            &:before
-              +icon_wave
-            > span
-              display: none
+          &.rootlink > span
+            display: none
 
       > .title > a.feed > img
         display: inline
@@ -219,9 +226,17 @@ $source_color: #5f8700
     &:hover
       color: $target_color
 
-    &.permalink, &.uplink
+    &.rootlink, &.prevlink, &.nextlink, &.downlink, &.permalink, &.uplink
       +navigation_icon
-      margin-left: $icon_spacing
+
+    &.rootlink:before
+      +icon_where
+
+    &.prevlink:before
+      +icon_left
+
+    &.nextlink:after
+      +icon_right
 
     &.downlink:before
       margin-right: $icon_spacing
@@ -229,10 +244,13 @@ $source_color: #5f8700
     &.downlink:target
       +you_are_here
 
+    &.permalink
+      margin-left: $icon_spacing
+
   // temporarily reveal permalink on heading hover
   *:hover > a
     &.permalink:before
-      +icon_star_outline
+      +icon_there
 
   // reveal permalink and uplink on target heading
   *:target > a
@@ -240,7 +258,8 @@ $source_color: #5f8700
       +you_are_here
 
     &.uplink:before
-      +icon_wave
+      +icon_where
+      float: right
 
   // embedded YouTube video, linked by its thumbnail
   $thumbnail_width: 560px
@@ -256,7 +275,7 @@ $source_color: #5f8700
       height: $thumbnail_height
 
     &:before
-      content: '\25B6' // black right-pointing triangle
+      +icon_play
       font-size: $play_button_size
       font-style: normal
       text-shadow: 0 0 30px black
