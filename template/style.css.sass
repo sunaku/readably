@@ -114,8 +114,16 @@ $source_color: #5f8700
         padding-right: 0
         margin-bottom: 2em
 
-      h1, h2, h3, h4, h5, h6
-        margin-top: 2em
+      .section
+        margin-top: $size_of_icon
+
+      .heading
+        position: sticky
+        top: 0
+        margin-top: 0
+        background-color: $all_bg_color
+        font-size: x-large // occlude earlier stacked headings
+        z-index: 1 // occlude .embed_youtube_video play button
 
       p + p
         text-indent: 2em
@@ -229,6 +237,7 @@ $source_color: #5f8700
 
     &.rootlink, &.prevlink, &.nextlink, &.downlink, &.permalink, &.uplink
       +navigation_icon
+      margin-left: $icon_spacing
 
     &.rootlink:before
       +icon_where
@@ -245,22 +254,16 @@ $source_color: #5f8700
     &.downlink:target
       +you_are_here
 
-    &.permalink
-      margin-left: $icon_spacing
-
-  // temporarily reveal permalink on heading hover
-  *:hover > a
     &.permalink:before
       +icon_there
 
   // reveal permalink and uplink on target heading
-  *:target > a
+  div.section:target + .heading > a
     &.permalink
       +you_are_here
 
     &.uplink:before
       +icon_where
-      float: right
 
   // embedded YouTube video, linked by its thumbnail
   $thumbnail_width: 560px

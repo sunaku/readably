@@ -67,7 +67,8 @@ begin
       @headings << heading
 
       [?\n,
-        %{<h#{level} id="#{id}">},
+        %{<div id="#{id}" class="section"></div>},
+        %{<h#{level} class="heading">},
           text,
           %{<a href="##{id}" class="permalink" title="Permalink"></a>},
           %{<a href="##{uplink_id id}" class="uplink" title="Contents"></a>},
