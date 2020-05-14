@@ -125,12 +125,6 @@ $source_color: #5f8700
         font-size: x-large // occlude earlier stacked headings
         z-index: 1 // occlude .embed_youtube_video play button
 
-      p + p
-        text-indent: 4ch
-
-      hr
-        border-color: $border_color
-
       img, video, audio, embed, iframe
         box-shadow: 0 0 $size_of_glow $subtle_color
         margin-top: $size_of_text
@@ -146,6 +140,12 @@ $source_color: #5f8700
   h1, h2, h3, h4, h5, h6, th
     color: $header_color
     line-height: $size_of_text
+
+  hr
+    border-color: $border_color
+
+  p + p
+    text-indent: 4ch
 
   img, video, audio, embed, iframe
     margin: auto
