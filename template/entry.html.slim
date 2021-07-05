@@ -24,7 +24,7 @@ html
             span.update_count
               - update_count = entry[:updates].length
               a href="#updates" title="#{update_count} update#{'s' if update_count > 1}"
-                == '&rarr;' * update_count
+                == ('&middot;' * update_count) + '&rarr;'
             | &nbsp;
             = format_date(entry[:updated_at], config['date_format'], config['locale'])
 
