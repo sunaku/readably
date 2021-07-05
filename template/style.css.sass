@@ -1,7 +1,8 @@
 $golden_ratio: 1.618
-$size_of_text: $golden_ratio * 1em
-$size_of_glow: $golden_ratio * 2em
-$size_of_icon: $golden_ratio * $size_of_text
+$size_of_char: $golden_ratio * 1ch
+$size_of_line: $golden_ratio * 1em
+$size_of_glow: $golden_ratio * 1ex
+$size_of_icon: $golden_ratio * $size_of_line
 $icon_spacing: 0.5ex
 
 // taken from the PaperColor colorscheme palette
@@ -48,17 +49,14 @@ $source_color: #5f8700
   &:before
     +icon_here
 
-=diminish
-  font-size: smaller
-  line-height: initial
-
 @media screen
 
   body
+    font-family: monospace
+    font-size: $size_of_char
+    line-height: $size_of_line
     color: $all_fg_color
     background-color: $all_bg_color
-    line-height: $size_of_text
-    font-family: monospace
 
   article#body
     margin: auto
@@ -93,17 +91,20 @@ $source_color: #5f8700
         display: inline
 
       > .author, .date
-        +diminish
+        font-size: smaller
 
       > .date > .update_count
         font-size: larger
         font-weight: bolder
 
     > footer
-      +diminish
+      font-size: smaller
 
     .category, .credits
       color: $subtle_color
+
+    .category
+      padding-left: 1em
 
     > .content
 
@@ -127,8 +128,8 @@ $source_color: #5f8700
 
       img, video, audio, embed, iframe
         box-shadow: 0 0 $size_of_glow $subtle_color
-        margin-top: $size_of_text
-        margin-bottom: $size_of_text
+        margin-top: $size_of_glow
+        margin-bottom: $size_of_glow
 
     > nav.entries > ul > li
       margin-top: 1em
@@ -142,7 +143,7 @@ $source_color: #5f8700
 
   h1, h2, h3, h4, h5, h6, th
     color: $header_color
-    line-height: $size_of_text
+    line-height: $size_of_line
 
   hr
     border-color: $border_color
@@ -168,8 +169,8 @@ $source_color: #5f8700
     font-weight: bolder
 
   pre
-    box-shadow: inset 0 0 $size_of_text $border_color
-    padding: $size_of_text
+    box-shadow: inset 0 0 $size_of_glow $border_color
+    padding: $size_of_glow
     line-height: initial
     font-size: smaller
 
