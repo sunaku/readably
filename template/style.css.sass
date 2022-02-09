@@ -48,10 +48,14 @@ $pretty_color: #fe8019 // bright_orange
   &:before
     +icon_here
 
+@import url('https://fonts.googleapis.com/css2?family=Recursive:CASL,MONO@1,1&display=swap')
+
+body, pre, code
+  font-family: 'Recursive', monospace
+
 @media screen
 
   body
-    font-family: monospace
     font-size: $size_of_char
     line-height: $size_of_line
     color: $all_fg_color
