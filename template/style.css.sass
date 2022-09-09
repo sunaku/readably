@@ -110,9 +110,6 @@ body, pre, code
     .category, .credits
       color: $subtle_color
 
-    .category
-      padding-left: 1em
-
     > .content
 
       .table-of-contents
@@ -144,6 +141,9 @@ body, pre, code
       // they are placed at its location in the entry list
       &:target > .title > a
         +you_are_here
+      // left-align the blog entry link with its categories
+      > .title > a
+        margin-left: 0px
 
     p + p
       text-indent: 4ch
