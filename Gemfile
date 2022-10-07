@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rake', '~> 13'
 gem 'slim', '~> 4'
 gem 'sass', '~> 3'
+gem 'psych', '~> 2'
 
 # optional
 group :markdown do

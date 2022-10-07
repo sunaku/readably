@@ -16,7 +16,7 @@ task :style
 # helper libraries
 #-----------------------------------------------------------------------------
 
-require 'yaml'
+require 'psych'
 require 'time'
 require 'uri'
 
@@ -294,7 +294,7 @@ end
 notify :load, @config_file
 
 begin
-  @config = YAML.load_file(@config_file).to_hash
+  @config = Psych.load_file(@config_file).to_hash
 rescue => error
   error.message.insert 0,
     "Could not load blog configuration file #{@config_file.inspect}\n"
@@ -317,7 +317,7 @@ notify :load, @entry_source_files_glob
 entry_sources_by_output = Hash.new {|h,k| h[k] = [] }
 @entries = Dir[@entry_source_files_glob].map do |source_file|
   begin
-    entry = YAML.load_file(source_file)
+    entry = Psych.load_file(source_file)
     entry[:source_file] = source_file
 
     sanitized_file = sanitize_filename(source_file)
