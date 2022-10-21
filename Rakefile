@@ -76,6 +76,15 @@ begin
       ?\n].join
     end
 
+    # don't wrap standalone <img> tags in <p>
+    def paragraph text
+      if text =~ /\A<img[^>]*>\Z/
+        text
+      else
+        "<p>#{text.lstrip}</p>\n"
+      end
+    end
+
     private
 
     def table_of_contents
