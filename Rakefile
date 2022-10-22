@@ -50,6 +50,7 @@ begin
     def header text, level, _=nil
       # strip all HTML tags, squeeze all non-word characters, and lowercase it
       id = text.gsub(/&#(\d+);/){ $1.to_i.chr }. # expand numeric XML entities
+                gsub(/&[A-Z]+;/i, ''). # strip non-numeric XML entities: &amp;
                 gsub(/(?<=\S)'(?=\S)/, ''). # drop apostrophes in contractions
                 gsub(/<.+?>/, '-').gsub(/\W+/, '-').gsub(/^-|-$/, '').downcase
 
