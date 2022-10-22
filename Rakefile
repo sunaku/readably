@@ -79,7 +79,11 @@ begin
 
     # don't wrap standalone <img> tags in <p>
     def paragraph text
-      if text =~ /\A<img[^>]*>\Z/
+      image = /<img[^>]*>/
+      linked_image = %r{<a[^>]*>#{image}</a>}
+      dont_wrap_image = /\A(#{image}|#{linked_image})\Z/
+
+      if text =~ dont_wrap_image
         text
       else
         "<p>#{text.lstrip}</p>\n"
