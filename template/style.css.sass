@@ -180,6 +180,12 @@ body, pre, code
     div.highlight
       background-color: inherit
 
+    .heading
+      // accommodate blockquote's indentation to
+      // occlude earlier stacked sticky headings
+      margin-left: -2em
+      padding-left: 2em
+
   dt, strong, em, b, i, u
     color: $emboss_color
 
