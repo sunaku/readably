@@ -13,6 +13,27 @@ desc 'Build stylesheet.'
 task :style
 
 #-----------------------------------------------------------------------------
+# live preview
+#-----------------------------------------------------------------------------
+
+livereloadx = 'node_modules/livereloadx/bin/livereloadx.js'
+
+file livereloadx do
+  sh 'npm', 'install', 'livereloadx'
+end
+
+desc 'Preview your blog.'
+task :preview => livereloadx do
+  IO.popen([livereloadx, '--static', @output_dir]) do |io|
+    notify :preview, 'http://localhost:35729/'
+    while line = io.gets
+      warn line # pass the output through to user's terminal
+      system 'rake', 'build' if line =~ /\sskip:.+readably$/
+    end
+  end
+end
+
+#-----------------------------------------------------------------------------
 # helper libraries
 #-----------------------------------------------------------------------------
 

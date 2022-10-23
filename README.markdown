@@ -41,6 +41,7 @@ Prerequisites
 
   * Ruby 1.8.7 or newer:  <http://www.ruby-lang.org>
   * Bundler 1.3 or newer: <http://gembundler.com>
+  * NodeJS 4.0 or newer:  <https://nodejs.org>
 
 ------------------------------------------------------------------------------
 Installing
@@ -75,6 +76,8 @@ NOTE: If you are using Ruby 1.8.7, add `-rubygems` to the following commands.
 
 Run `bundle exec rake --tasks` to see available commands:
 
+    bundle exec rake preview  # Live blog preview at http://localhost:35729/.
+
     bundle exec rake build    # Build entire blog.
     bundle exec rake entry    # Build entry pages.
     bundle exec rake index    # Build index pages.
@@ -103,9 +106,12 @@ To create a new blog entry (`*.readably` file) in a nested directory:
 Previewing
 ------------------------------------------------------------------------------
 
-Simply open the `content/index.html` file in your favorite web browser.  After
-making changes to a blog entry, run `bundle exec rake`, and then reload the
-corresponding web page in your web browser.
+Run `bundle exec rake preview` to launch a *local* live preview of your blog at
+http://localhost:35729/ which auto-updates when you modify your blog entries.
+
+Alternatively, you can manually preview your blog entries as follows.  First,
+open the `content/index.html` file in your Web browser.  Then, whenever you
+modify your blog sources, run `bundle exec rake` and refresh your Web browser.
 
 ------------------------------------------------------------------------------
 Publishing
