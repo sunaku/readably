@@ -199,13 +199,14 @@ end
 #
 # The last argument passed to this method can be a Hash containing options:
 #
-#   :thumbnail => false   # does not emit any thumbnail image for the video
+#   :thumbnail => nil   # does not emit any thumbnail image for the video
+#   :thumbnail => "..." # uses a custom URL "..." for the thumbnail image
 #
 def embed_youtube_video(id, *params)
   options = if params.last.kind_of? Hash then params.pop else {} end
   params = ['autoplay=1', 'cc_load_policy=1', *params]
   video_url = "https://www.youtube.com/embed/#{id}?#{params.join('&')}"
-  thumb_url = "https://i.ytimg.com/vi/#{id}/hqdefault.jpg" if options[:thumbnail] != false
+  thumb_url = options.fetch(:thumbnail, "https://i.ytimg.com/vi/#{id}/hqdefault.jpg")
   thumbnail = %{<img src="#{thumb_url}" alt="Watch video on YouTube" width="480" height="360">}
   %{<a class="embed_youtube_video" href="#{video_url}">#{thumbnail}</a>}
 end
