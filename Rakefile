@@ -201,13 +201,15 @@ end
 #
 #   :thumbnail => nil   # does not emit any thumbnail image for the video
 #   :thumbnail => "..." # uses a custom URL "..." for the thumbnail image
+#   :caption   => "..." # use a custom <img alt="..."> text for thumbnail
 #
 def embed_youtube_video(id, *params)
   options = if params.last.kind_of? Hash then params.pop else {} end
   params = ['autoplay=1', 'cc_load_policy=1', *params]
   video_url = "https://www.youtube.com/embed/#{id}?#{params.join('&')}"
   thumb_url = options.fetch(:thumbnail, "https://i.ytimg.com/vi/#{id}/hqdefault.jpg")
-  thumbnail = %{<img src="#{thumb_url}" alt="Watch video on YouTube" width="480" height="360">}
+  thumb_alt = options.fetch(:caption, 'Watch video on YouTube').to_s.inspect
+  thumbnail = %{<img src="#{thumb_url}" alt=#{thumb_alt} width="480" height="360">}
   %{<a class="embed_youtube_video" href="#{video_url}">#{thumbnail}</a>}
 end
 
