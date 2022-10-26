@@ -205,10 +205,11 @@ end
 #
 def embed_youtube_video(id, *params)
   options = if params.last.kind_of? Hash then params.pop else {} end
-  params = ['autoplay=1', 'cc_load_policy=1', *params]
+  # https://developers.google.com/youtube/player_parameters
+  params = ['autoplay=1', 'cc_load_policy=1', 'modestbranding=1', *params]
   video_url = "https://www.youtube.com/embed/#{id}?#{params.join('&')}"
   thumb_url = options.fetch(:thumbnail, "https://i.ytimg.com/vi/#{id}/hqdefault.jpg")
-  thumb_alt = options.fetch(:caption, 'Watch video on YouTube').to_s.inspect
+  thumb_alt = options.fetch(:caption, 'Click to watch video').to_s.inspect
   thumbnail = %{<img src="#{thumb_url}" alt=#{thumb_alt} width="480" height="360">}
   %{<a class="embed_youtube_video" href="#{video_url}">#{thumbnail}</a>}
 end
