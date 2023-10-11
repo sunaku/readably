@@ -39,8 +39,8 @@ Features
 Prerequisites
 ------------------------------------------------------------------------------
 
-  * Ruby 1.8.7 or newer:  <http://www.ruby-lang.org>
-  * Bundler 1.3 or newer: <http://gembundler.com>
+  * Ruby 3.1 or newer:  <http://www.ruby-lang.org>
+  * Bundler 2.3 or newer: <http://gembundler.com>
   * NodeJS 4.0 or newer:  <https://nodejs.org>
 
 ------------------------------------------------------------------------------
