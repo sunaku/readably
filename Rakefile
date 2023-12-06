@@ -100,7 +100,7 @@ begin
     end
 
     def image url, _, title
-      img_html = %{<img src="#{url}" alt="#{CGI.escape_html(title.to_s)}">}
+      img_html = %{<img src="#{url}">}
 
       # populate <img> width and height from image file
       url_file = "content/#{url}"
@@ -109,6 +109,12 @@ begin
         if url_file_info =~ / image data, .*\b(\d+)\s?x\s?(\d+)\b/
           img_html.sub! /(?=>$)/, %{ width="#{$1}" height="#{$2}"}
         end
+      end
+
+      # populate <img> title from alt, and alt if given
+      if title
+        title_html = CGI.escape_html(title)
+        img_html.sub! /(?=>$)/, %{ alt="#{title_html}" title="#{title_html}"}
       end
 
       img_html
