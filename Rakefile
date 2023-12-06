@@ -40,6 +40,7 @@ end
 require 'yaml'
 require 'time'
 require 'uri'
+require 'cgi'
 
 require 'rake/clean'
 require 'slim'
@@ -96,6 +97,21 @@ begin
           %{<a href="##{uplink_id id}" class="uplink" title="Contents"></a>},
         "</h#{level}>",
       ?\n].join
+    end
+
+    def image url, _, title
+      img_html = %{<img src="#{url}" alt="#{CGI.escape_html(title.to_s)}">}
+
+      # populate <img> width and height from image file
+      url_file = "content/#{url}"
+      if File.exist? url_file
+        url_file_info = `file #{url_file.inspect}`
+        if url_file_info =~ / image data, .*\b(\d+)\s?x\s?(\d+)\b/
+          img_html.sub! /(?=>$)/, %{ width="#{$1}" height="#{$2}"}
+        end
+      end
+
+      img_html
     end
 
     # don't wrap standalone <img> tags in <p>
