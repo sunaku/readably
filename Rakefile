@@ -117,6 +117,18 @@ begin
         img_html.sub! /(?=>$)/, %{ alt="#{title_html}" title="#{title_html}"}
       end
 
+      # offer modern WebP format to speed up page loads
+      webp_url = url.ext('webp')
+      webp_file = url_file.ext('webp')
+      if File.exist? webp_file
+        img_html = [?\n,
+          %{<picture>},
+            %{<source type="image/webp" srcset="#{webp_url}">},
+            img_html,
+          "</picture>",
+        ?\n].join
+      end
+
       img_html
     end
 
