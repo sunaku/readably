@@ -100,6 +100,17 @@ body, pre, code
       > .author, .date
         font-size: smaller
 
+      > .date:not(:last-child)
+        text-decoration: line-through
+
+        + br
+          display: none
+
+          + .date
+            display: block
+            position: relative
+            top: -1ch
+
       > .date > .update_count
         font-size: larger
         font-weight: bolder
