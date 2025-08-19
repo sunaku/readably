@@ -47,6 +47,9 @@ html
                 == render_slim_file("#{entry[:source_file]}:update:#{date.iso8601}", content, :entry => entry, :config => config)
 
       - if service = config['comments_service'] and account = config['comments_account']
+        h1
+          | Comments
+          a href='#comments' class='permalink' title='Permalink'
         .comments#comments
           - case service
             - when 'Giscus'
