@@ -49,6 +49,9 @@ html
       - if service = config['comments_service'] and account = config['comments_account']
         .comments#comments
           - case service
+            - when 'Giscus'
+              script src="https://giscus.app/client.js" async=true *account
+
             - when 'IntenseDebate'
               javascript:
                 var idcomments_acct = #{{account.inspect}};

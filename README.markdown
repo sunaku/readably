@@ -28,8 +28,10 @@ Features
   * It has simple navigation that works well in both text-mode Web browsers
     (such as Lynx, elinks, and w3m) and modern Web browsers (like Firefox).
 
-  * It supports the two most popular JavaScript-based blog comment services:
-    [Disqus](http://disqus.com) and [IntenseDebate](http://intensedebate.com).
+  * It supports several popular JavaScript-based blog commenting services:
+    - [Giscus](https://giscus.app)
+    - [Disqus](http://disqus.com)
+    - [IntenseDebate](http://intensedebate.com)
 
   * It supports automatic syntax highlighting of code blocks in Markdown.
 
