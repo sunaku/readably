@@ -141,6 +141,11 @@ body, pre, code
         font-size: x-large // occlude earlier stacked headings
         z-index: 1 // occlude .embed_youtube_video play button
 
+      img
+        max-width: 100vw
+        margin-left: 50%
+        transform: translateX(-50%)
+
       img, video, audio, embed, iframe
         box-shadow: 0 0 $size_of_glow $subtle_color
         margin-top: $size_of_glow
@@ -327,6 +332,7 @@ body, pre, code
       position: absolute
       margin-top: ($thumbnail_height + $play_button_size)/3
       margin-left: -$play_button_size/3
+      z-index: 1 // stacked atop thumbnail
       text-indent: 0 // override p+p style
 
 @media print
